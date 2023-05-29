@@ -1,0 +1,75 @@
+#autoGathererCounter, #optimizationsCounter {
+    padding-top: 0.5em;
+}
+
+#game-container {
+    width: 800px;
+    margin: 0 auto;
+}
+
+#gameTitle {
+    font-size: 3em;
+}
+
+#resourceCounter, #resPerSec {
+    font-size: 1.5em;
+}  
+
+.stage {
+    display: none;
+}
+
+.stage.active {
+    display: block;
+}
+
+.button-gather-res {
+    background-color: #fff;
+    border: 2px solid #000;
+    border-radius: 30px;
+    box-shadow: #000 4px 4px 0 0;
+    color: #000;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 600;
+    font-size: 18px;
+    margin-right: 20px;
+    padding: 0 18px;
+    line-height: 30px;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-upgrades {
+    background-color: #00ff00;
+    border: 2px solid #000;
+    border-radius: 30px;
+    box-shadow: #000 4px 4px 0 0;
+    color: #000;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 0 18px;
+    line-height: 30px;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-gather-res:active, .button-upgrades:active {
+    box-shadow: #000 2px 2px 0 0;
+    transform: translate(2px, 2px);
+}
+
+@media (min-width: 768px) {
+    .button-gather-res, .button-upgrades {
+        min-width: 120px;
+        padding: 0 15px;
+    }
+}
