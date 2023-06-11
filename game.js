@@ -37,7 +37,7 @@ function addResource() {
     if(resources >= optimizationsPrice && firstOptimization) {
         blipInOptimizeButton();
     }
-    if(resources >= resIncreasePrice) {
+    if(resources >= resIncreasePrice && resModifier < 16) {
         showResModButton();
     }
 }
@@ -65,7 +65,7 @@ function autoGather() {
     resources += autoGatherers;
     resources += unseenGatherers;
     setButtonColors();
-    if(resources >= resIncreasePrice) {
+    if(resources >= resIncreasePrice && resModifier < 16) {
         showResModButton();
     }
     document.getElementById("resourceCounter").innerHTML = resources.toLocaleString() + " Resources";
@@ -212,6 +212,18 @@ function startGame() {
     stage3Btn.addEventListener("click", () => {
         // End the game
         alert("Game Over");
+    });
+
+    document.getElementById("devRes").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            var value = parseInt(this.innerText);
+            if (!isNaN(value)) {
+                resources += value;
+                console.log("New resources value: " + resources);
+                this.innerText = ""; // Clear the label's content
+            }
+            event.preventDefault();
+        }
     });
 }
 

@@ -1,3 +1,25 @@
+/********** DEV STUFF **********/
+div {
+    border: 1px solid red;
+}
+
+#devRes {
+    background-color: white;
+    display: inline-block;
+    width: 140px;
+    height: 20px;
+    border: 1px solid black;
+    padding: 5px;
+    color: gray;
+    text-align: center;
+}
+
+#devRes:empty:before {
+    content: attr(data-placeholder);
+    color: gray;
+}
+/********** DEV STUFF **********/
+
 #autoGathererCounter, #optimizationsCounter {
     padding-top: 0.5em;
 }
