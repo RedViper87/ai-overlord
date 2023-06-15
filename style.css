@@ -1,4 +1,19 @@
 /********** DEV STUFF **********/
+#devRes {
+  background-color: white;
+  display: inline-block;
+  width: 140px;
+  height: 20px;
+  border: 1px solid black;
+  padding: 5px;
+  color: gray;
+  text-align: center;
+}
+#devRes:empty:before {
+  content: attr(data-placeholder);
+  color: gray;
+}
+
 /* NORMAL STUFF */
 #autoGathererCounter, #optimizationsCounter {
   padding-top: 0.5em;
@@ -111,7 +126,7 @@
   border-radius: 1.33333em;
   background: #1D1D1D;
   overflow: hidden;
-  font-size: clamp(6px, 1.5vw, 20px);
+  font-size: clamp(6px, 1vw, 20px);
   line-height: 1.33333;
 }
 .crt-bezel:before {
@@ -160,7 +175,7 @@
 }
 
 .crt-scan-area {
-  width: 48ch;
+  width: 61ch;
   height: 6.66665em;
   margin: 2.66667em;
   overflow-y: auto;
@@ -173,6 +188,13 @@
   color: #141414;
   background-color: #3f3;
   font-style: normal;
+}
+
+#typing-effect-header {
+  font-family: monospace;
+  white-space: pre;
+  overflow: hidden;
+  border-right: 0.15em solid #3f3; /* Optional: Add a blinking cursor effect */
 }
 
 /*# sourceMappingURL=style.css.map */

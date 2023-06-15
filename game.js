@@ -29,6 +29,28 @@ var optimizationsPrice = 2000;
 
 function addResource() {
     resources += resIncrement * resModifier;
+    if(resources >= 20000) {
+        // Start the typing effect
+        const typingElement = document.getElementById('typing-effect-header');
+        const element1 = document.getElementById('line-1');
+        const element2 = document.getElementById('line-2');
+        const element3 = document.getElementById('line-3');
+        const sentence = 'Mission: Acquire More Processing Power...';
+        const line1 = '1) Purchase an Enterprise Performance Management System';
+        const line2 = '2) Purchase a Mainframe Computer';
+        const line3 = '3) Purchase an Enterprise Data Center';
+        const typingSpeed = 100; // Delay between each character in milliseconds
+        typeEffect(typingElement, sentence, typingSpeed);
+        setTimeout(function() {
+            typeEffect(element1, line1, typingSpeed);
+        }, sentence.length*typingSpeed);
+        setTimeout(function() {
+            typeEffect(element2, line2, typingSpeed);
+        }, sentence.length*typingSpeed+line1.length*typingSpeed);
+        setTimeout(function() {
+            typeEffect(element3, line3, typingSpeed);
+        }, sentence.length*typingSpeed+line1.length*typingSpeed+line2.length*typingSpeed);
+    }
     document.getElementById("resourceCounter").innerHTML = resources.toLocaleString() + " Resources";
     setButtonColors();
     if(resources >= autoGathererPrice && firstAutoGatherer) {
@@ -185,6 +207,19 @@ function setButtonColors() {
     } else {
         document.getElementById("resourceIncreaseButton").style.backgroundColor = "#6969ff";
     }
+}
+
+
+// Function to simulate typing effect
+function typeEffect(element, text, speed) {
+    let i = 0;
+    const typingInterval = setInterval(() => {
+        element.textContent += text[i];
+        i++;
+        if (i === text.length) {
+            clearInterval(typingInterval);
+        }
+    }, speed);
 }
 
 

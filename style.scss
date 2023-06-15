@@ -3,22 +3,22 @@
 //     border: 1px solid red;
 // }
 
-// #devRes {
-// 	background-color: white;
-// 	display: inline-block;
-// 	width: 140px;
-// 	height: 20px;
-// 	border: 1px solid black;
-// 	padding: 5px;
-// 	color: gray;
-// 	text-align: center;
-// 	&:empty {
-// 		&:before {
-// 			content: attr(data-placeholder);
-// 			color: gray;
-// 		}
-// 	}
-// }
+#devRes {
+	background-color: white;
+	display: inline-block;
+	width: 140px;
+	height: 20px;
+	border: 1px solid black;
+	padding: 5px;
+	color: gray;
+	text-align: center;
+	&:empty {
+		&:before {
+			content: attr(data-placeholder);
+			color: gray;
+		}
+	}
+}
 /* NORMAL STUFF */
 #autoGathererCounter, #optimizationsCounter {
 	padding-top: 0.5em;
@@ -125,10 +125,10 @@ $purple-phosphor: #8c42d1;
 $phosphor-color: $green-phosphor;
 $crt-bg-color: #141414;
 $crt-margin: 1em;
-$crt-font-size: clamp(6px, 1.5vw, 20px); // these values need to be hand-tuned
+$crt-font-size: clamp(6px, 1vw, 20px); // these values need to be hand-tuned
 $crt-line-height: 1.33333;
 $crt-border-radius: 1.33333em;
-$crt-char-width: 48; // add 1 if using vertical scroll bars
+$crt-char-width: 61; // add 1 if using vertical scroll bars
 $crt-lines: 5; // number of lines or auto for full height
 $crt-overflow-y: auto; // auto or hidden (scroll bars or no)
 $crt-bezel-width: 1.66667em;
@@ -213,4 +213,11 @@ $crt-overscan-width: 2.66667em;
 		background-color: $phosphor-color;
 		font-style: normal;
 	}
+}
+
+#typing-effect-header {
+	font-family: monospace;
+	white-space: pre;
+	overflow: hidden;
+	border-right: .15em solid $phosphor-color; /* Optional: Add a blinking cursor effect */
 }
