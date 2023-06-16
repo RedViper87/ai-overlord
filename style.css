@@ -190,7 +190,7 @@
   font-style: normal;
 }
 
-#typing-effect-header {
+.blinking-border {
   font-family: monospace;
   white-space: pre;
   overflow: hidden;

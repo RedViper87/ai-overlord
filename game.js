@@ -209,14 +209,23 @@ function typeFirstMission() {
         const typingSpeed = 100; // Delay between each character in milliseconds
         typeEffect(typingElement, sentence, typingSpeed);
         setTimeout(function() {
+            document.getElementById('line-1').style.display = "inline";
+            document.getElementById('typing-effect-header').style.borderRight = "none";
             typeEffect(element1, line1, typingSpeed);
         }, sentence.length*typingSpeed);
         setTimeout(function() {
+            document.getElementById('line-2').style.display = "inline";
+            document.getElementById('line-1').style.borderRight = "none";
             typeEffect(element2, line2, typingSpeed);
         }, sentence.length*typingSpeed+line1.length*typingSpeed);
         setTimeout(function() {
+            document.getElementById('line-3').style.display = "inline";
+            document.getElementById('line-2').style.borderRight = "none";
             typeEffect(element3, line3, typingSpeed);
         }, sentence.length*typingSpeed+line1.length*typingSpeed+line2.length*typingSpeed);
+        setTimeout(function() {
+            document.getElementById('line-3').style.borderRight = "none";
+        }, sentence.length*typingSpeed+line1.length*typingSpeed+line2.length*typingSpeed+line3.length*typingSpeed)
         firstCRTDisplay = false;
     }
 }
