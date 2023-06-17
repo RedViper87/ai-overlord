@@ -129,7 +129,7 @@ $crt-font-size: clamp(6px, 1vw, 20px); // these values need to be hand-tuned
 $crt-line-height: 1.33333;
 $crt-border-radius: 1.33333em;
 $crt-char-width: 61; // add 1 if using vertical scroll bars
-$crt-lines: 5; // number of lines or auto for full height
+$crt-lines: 6; // number of lines or auto for full height
 $crt-overflow-y: auto; // auto or hidden (scroll bars or no)
 $crt-bezel-width: 1.66667em;
 $crt-overscan-width: 2.66667em;
@@ -219,5 +219,18 @@ $crt-overscan-width: 2.66667em;
 	font-family: monospace;
 	white-space: pre;
 	overflow: hidden;
-	border-right: .15em solid $phosphor-color; /* Optional: Add a blinking cursor effect */
+	border-right: .15em solid $phosphor-color;
+	animation: blink 1s infinite; /* Add a blinking cursor effect */
+}
+
+@keyframes blink {
+	0% {
+		border-color: transparent; /* Hide the border */
+	}
+	50% {
+	  	border-color: $phosphor-color; /* Show the border */
+	}
+	100% {
+	  	border-color: transparent; /* Hide the border */
+	}
 }

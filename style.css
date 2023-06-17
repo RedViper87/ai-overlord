@@ -176,7 +176,7 @@
 
 .crt-scan-area {
   width: 61ch;
-  height: 6.66665em;
+  height: 7.99998em;
   margin: 2.66667em;
   overflow-y: auto;
   white-space: nowrap;
@@ -194,7 +194,20 @@
   font-family: monospace;
   white-space: pre;
   overflow: hidden;
-  border-right: 0.15em solid #3f3; /* Optional: Add a blinking cursor effect */
+  border-right: 0.15em solid #3f3;
+  animation: blink 1s infinite; /* Add a blinking cursor effect */
+}
+
+@keyframes blink {
+  0% {
+    border-color: transparent; /* Hide the border */
+  }
+  50% {
+    border-color: #3f3; /* Show the border */
+  }
+  100% {
+    border-color: transparent; /* Hide the border */
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

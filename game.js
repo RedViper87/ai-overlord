@@ -17,6 +17,7 @@ var resPerSec = 0;
 var resAddIn = 0;
 var resIncrement = 1;
 var resModifier = 1;
+var resModCap = 64;
 var resIncreasePrice = 500;
 
 var autoGatherers = 0;
@@ -41,7 +42,7 @@ function addResource() {
     if(resources >= optimizationsPrice && firstOptimization) {
         blipInOptimizeButton();
     }
-    if(resources >= resIncreasePrice && resModifier < 4) {
+    if(resources >= resIncreasePrice && resModifier < resModCap) {
         showResModButton();
     }
 }
@@ -72,7 +73,7 @@ function autoGather() {
         typeFirstMission();
     }
     setButtonColors();
-    if(resources >= resIncreasePrice && resModifier < 4) {
+    if(resources >= resIncreasePrice && resModifier < resModCap) {
         showResModButton();
     }
     document.getElementById("resourceCounter").innerHTML = resources.toLocaleString() + " Resources";
@@ -115,7 +116,7 @@ function increaseResModifier() {
     resAddIn += resIncreasePrice;
     resModifier *= 2;
     document.getElementById("resourceButton").innerHTML = "Gather Resources (x" + resModifier.toLocaleString() + ")";
-    resIncreasePrice *= 5;
+    resIncreasePrice *= 2;
     removeResModButton();
 }
 
@@ -207,25 +208,31 @@ function typeFirstMission() {
         const line2 = '2) Purchase an Enterprise Data Center';
         const line3 = '3) Purchase an Enterprise Performance Management System';
         const typingSpeed = 100; // Delay between each character in milliseconds
+        var timeToWait = 0;
         typeEffect(typingElement, sentence, typingSpeed);
+        timeToWait += sentence.length*typingSpeed;
         setTimeout(function() {
             document.getElementById('line-1').style.display = "inline";
             document.getElementById('typing-effect-header').style.borderRight = "none";
             typeEffect(element1, line1, typingSpeed);
-        }, sentence.length*typingSpeed);
+        }, timeToWait);
+        timeToWait += line1.length*typingSpeed;
         setTimeout(function() {
             document.getElementById('line-2').style.display = "inline";
             document.getElementById('line-1').style.borderRight = "none";
             typeEffect(element2, line2, typingSpeed);
-        }, sentence.length*typingSpeed+line1.length*typingSpeed);
+        }, timeToWait);
+        timeToWait += line2.length*typingSpeed;
         setTimeout(function() {
             document.getElementById('line-3').style.display = "inline";
             document.getElementById('line-2').style.borderRight = "none";
             typeEffect(element3, line3, typingSpeed);
-        }, sentence.length*typingSpeed+line1.length*typingSpeed+line2.length*typingSpeed);
+        }, timeToWait);
+        timeToWait += line3.length*typingSpeed;
         setTimeout(function() {
+            document.getElementById('line-4').style.display = "inline";
             document.getElementById('line-3').style.borderRight = "none";
-        }, sentence.length*typingSpeed+line1.length*typingSpeed+line2.length*typingSpeed+line3.length*typingSpeed)
+        }, timeToWait);
         firstCRTDisplay = false;
     }
 }
