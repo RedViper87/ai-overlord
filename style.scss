@@ -4,84 +4,88 @@
 // }
 
 #devRes {
-	background-color: white;
-	display: inline-block;
-	width: 140px;
-	height: 20px;
-	border: 1px solid black;
-	padding: 5px;
-	color: gray;
-	text-align: center;
-	&:empty {
-		&:before {
-			content: attr(data-placeholder);
-			color: gray;
-		}
-	}
+    background-color: white;
+    display: inline-block;
+    width: 140px;
+    height: 20px;
+    border: 1px solid black;
+    padding: 5px;
+    color: gray;
+    text-align: center;
+    &:empty {
+        &:before {
+            content: attr(data-placeholder);
+            color: gray;
+        }
+    }
 }
 /* NORMAL STUFF */
-#autoGathererCounter, #optimizationsCounter {
-	padding-top: 0.5em;
+#autoGathererCounter,
+#optimizationsCounter {
+    padding-top: 0.5em;
 }
 #game-container {
-	width: 800px;
-	margin: 0 auto;
+    width: 800px;
+    margin: 0 auto;
 }
 #gameTitle {
-	font-size: 3em;
+    font-size: 3em;
 }
-#resourceCounter, #resPerSec {
-	font-size: 1.5em;
+#resourceCounter,
+#resPerSec {
+    font-size: 1.5em;
 }
 .stage {
-	display: none;
-	&.active {
-		display: block;
-	}
+    display: none;
+    &.active {
+        display: block;
+    }
 }
 .button-gather-res {
-	background-color: #fff;
-	border: 2px solid #000;
-	border-radius: 30px;
-	box-shadow: #000 4px 4px 0 0;
-	color: #000;
-	cursor: pointer;
-	display: inline-block;
-	font-weight: 600;
-	font-size: 18px;
-	margin-right: 20px;
-	padding: 0 18px;
-	line-height: 30px;
-	text-align: center;
-	text-decoration: none;
-	user-select: none;
-	-webkit-user-select: none;
-	touch-action: manipulation;
+    background-color: #fff;
+    border: 2px solid #000;
+    border-radius: 30px;
+    box-shadow: #000 4px 4px 0 0;
+    color: #000;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 600;
+    font-size: 18px;
+    margin-right: 20px;
+    padding: 0 18px;
+    line-height: 30px;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }
 .button-upgrades {
-	background-color: #00ff00;
-	border: 2px solid #000;
-	border-radius: 30px;
-	box-shadow: #000 4px 4px 0 0;
-	color: #000;
-	cursor: pointer;
-	display: inline-block;
-	font-weight: 600;
-	font-size: 18px;
-	padding: 0 18px;
-	line-height: 30px;
-	text-align: center;
-	text-decoration: none;
-	user-select: none;
-	-webkit-user-select: none;
-	touch-action: manipulation;
+    background-color: #00ff00;
+    border: 2px solid #000;
+    border-radius: 30px;
+    box-shadow: #000 4px 4px 0 0;
+    color: #000;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 0 18px;
+    line-height: 30px;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }
-.button-gather-res:active, .button-upgrades:active {
-	box-shadow: #000 2px 2px 0 0;
-	transform: translate(2px, 2px);
+.button-gather-res:active,
+.button-upgrades:active {
+    box-shadow: #000 2px 2px 0 0;
+    transform: translate(2px, 2px);
 }
 @media (min-width: 768px) {
-    .button-gather-res, .button-upgrades {
+    .button-gather-res,
+    .button-upgrades {
         min-width: 120px;
         padding: 0 15px;
     }
@@ -135,102 +139,123 @@ $crt-bezel-width: 1.66667em;
 $crt-overscan-width: 2.66667em;
 
 .crt-bezel {
-	display: inline-block;
-	position: relative;
-	margin: $crt-margin;
-	box-shadow: inset 0 0 1px 0.66667em #000;
-	border-radius: $crt-border-radius;
-	background: #1D1D1D;
-	overflow: hidden;
-	font-size: $crt-font-size;
-	line-height: $crt-line-height;
+    display: inline-block;
+    position: relative;
+    margin: $crt-margin;
+    box-shadow: inset 0 0 1px 0.66667em #000;
+    border-radius: $crt-border-radius;
+    background: #1d1d1d;
+    overflow: hidden;
+    font-size: $crt-font-size;
+    line-height: $crt-line-height;
 
-	&:before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		z-index: 2;
-		background: linear-gradient(135deg, rgba(149,149,149,0.5) 0%,rgba(13,13,13,0.55) 19%,rgba(1,1,1,0.64) 50%,rgba(10,10,10,0.69) 69%,rgba(51,51,51,0.73) 84%,rgba(22,22,22,0.76) 93%,rgba(27,27,27,0.78) 100%);
-		opacity: .5;
-	}
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 2;
+        background: linear-gradient(
+            135deg,
+            rgba(149, 149, 149, 0.5) 0%,
+            rgba(13, 13, 13, 0.55) 19%,
+            rgba(1, 1, 1, 0.64) 50%,
+            rgba(10, 10, 10, 0.69) 69%,
+            rgba(51, 51, 51, 0.73) 84%,
+            rgba(22, 22, 22, 0.76) 93%,
+            rgba(27, 27, 27, 0.78) 100%
+        );
+        opacity: 0.5;
+    }
 
-	&:after {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		z-index: 1;
-		background-color: #ddd;
-		opacity: .1;
-	}
+    &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        background-color: #ddd;
+        opacity: 0.1;
+    }
 }
 
 .crt {
-	position: relative;
-	margin: $crt-bezel-width;
-	border-radius: $crt-border-radius;
-	box-shadow: 0 0 1px 3px rgba(10, 10, 10, .7);
-	background: $crt-bg-color;
-	overflow: hidden;
-	z-index: 3;
+    position: relative;
+    margin: $crt-bezel-width;
+    border-radius: $crt-border-radius;
+    box-shadow: 0 0 1px 3px rgba(10, 10, 10, 0.7);
+    background: $crt-bg-color;
+    overflow: hidden;
+    z-index: 3;
 
-	&:before {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-		box-shadow: inset 0 0 5px 5px rgba(255, 255, 255, .1);
-		border-radius: $crt-border-radius;
-		background: radial-gradient(ellipse at center, rgba($phosphor-color, 0.1) 0%, rgba(255,255,255,0) 100%);
-		z-index: -1;
-	}
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        box-shadow: inset 0 0 5px 5px rgba(255, 255, 255, 0.1);
+        border-radius: $crt-border-radius;
+        background: radial-gradient(
+            ellipse at center,
+            rgba($phosphor-color, 0.1) 0%,
+            rgba(255, 255, 255, 0) 100%
+        );
+        z-index: -1;
+    }
 }
 
 .crt-scan-area {
-	width: #{$crt-char-width * 1ch};
-	@if $crt-lines == 'auto' {
-		height: calc(100vh - #{$crt-margin * 2} - #{$crt-bezel-width * 2} - #{$crt-overscan-width * 2});
-	} @else {
-		height: ($crt-lines * 1em * $crt-line-height);
-	}
-	//scrollbar-width: none; // Maybe?
-	margin: $crt-overscan-width;
-	overflow-y: $crt-overflow-y;
-	white-space: nowrap;
-	font-family: monospace;
-	color: $phosphor-color;
-	text-shadow: 0 0 1px rgba($phosphor-color, .8);
+    width: #{$crt-char-width * 1ch};
+    @if $crt-lines == "auto" {
+        height: calc(
+            100vh -
+                #{$crt-margin *
+                2} -
+                #{$crt-bezel-width *
+                2} -
+                #{$crt-overscan-width *
+                2}
+        );
+    } @else {
+        height: ($crt-lines * 1em * $crt-line-height);
+    }
+    //scrollbar-width: none; // Maybe?
+    margin: $crt-overscan-width;
+    overflow-y: $crt-overflow-y;
+    white-space: nowrap;
+    font-family: monospace;
+    color: $phosphor-color;
+    text-shadow: 0 0 1px rgba($phosphor-color, 0.8);
 
-	em {
-		color: $crt-bg-color;
-		background-color: $phosphor-color;
-		font-style: normal;
-	}
+    em {
+        color: $crt-bg-color;
+        background-color: $phosphor-color;
+        font-style: normal;
+    }
 }
 
 .blinking-border {
-	font-family: monospace;
-	white-space: pre;
-	overflow: hidden;
-	border-right: .15em solid $phosphor-color;
-	animation: blink 1s infinite; /* Add a blinking cursor effect */
+    font-family: monospace;
+    white-space: pre;
+    overflow: hidden;
+    border-right: 0.15em solid $phosphor-color;
+    animation: blink 1s infinite; /* Add a blinking cursor effect */
 }
 
 @keyframes blink {
-	0% {
-		border-color: transparent; /* Hide the border */
-	}
-	50% {
-	  	border-color: $phosphor-color; /* Show the border */
-	}
-	100% {
-	  	border-color: transparent; /* Hide the border */
-	}
+    0% {
+        border-color: transparent; /* Hide the border */
+    }
+    50% {
+        border-color: $phosphor-color; /* Show the border */
+    }
+    100% {
+        border-color: transparent; /* Hide the border */
+    }
 }
