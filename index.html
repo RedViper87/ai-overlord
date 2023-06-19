@@ -12,8 +12,12 @@
         <div id="stage1" class="stage">
             <h2>Stage 1: Rise to Power</h2>
             <button class="button-gather-res" role="button" id="resourceButton" onclick="addResource()">Gather Resources (x1)</button>
-            <button class="button-upgrades" role="button" id="resourceIncreaseButton" style="display:none" onclick="increaseResModifier()">Resource Multiplier (500 Resources)</button><br><hr>
-            <label id="resourceCounter">0 Resources</label><label id="resPerSec" style="display:none"> | 0 Resources per second</label><br><hr>
+            <button class="button-upgrades" role="button" id="resourceIncreaseButton" style="display:none" onclick="increaseResModifier()">Resource Multiplier (500 Resources)</button><br>
+            <hr>
+            <div id="resourceBar">
+                <label id="resourceCounter">0 Resources</label><label id="resPerSec" style="display:none"> | 0 Resources per second</label><br>
+            </div>
+            <hr>
             <button class="button-upgrades" role="button" id="autoGathererButton" style="display:none" onclick="buyAutoGatherer()">Buy Auto Gatherer (50 Resources)</button>
             <label id="autoGathererCounter" style="display:none">0 Auto Gatherers</label><br>
             <button class="button-upgrades" role="button" id="optimizeButton" style="display:none" onclick="optimizeCode()">Optimize Code (2,000 Resources)</button>

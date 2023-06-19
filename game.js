@@ -105,7 +105,7 @@ function optimizeCode() {
 function updateResPerSec() {
     currentRes = resources;
     resPerSec = currentRes - previousRes + resAddIn;
-    document.getElementById("resPerSec").innerHTML = " | " + resPerSec.toLocaleString() + " Resources/sec";
+    document.getElementById("resPerSec").innerHTML = resPerSec.toLocaleString() + " Resources/sec";
     previousRes = currentRes;
     resAddIn = 0;
 }
@@ -130,7 +130,7 @@ function blipInAutoGatherer() {
         if(count % 2 === 0) {
             button.style.display = "block";
             label.style.display = "block";
-            rps.style.display = "inline";
+            rps.style.display = "block";
         } else {
             button.style.display = "none";
             label.style.display = "none";
