@@ -31,9 +31,16 @@
 #gameTitle {
     font-size: 3em;
 }
-#resourceCounter,
+#resourceBar {
+	display: flex;
+	justify-content: space-between;
+}
+#resourceCounter {
+	font-size: 1.5em;
+}
 #resPerSec {
     font-size: 1.5em;
+	margin-left: auto;
 }
 .stage {
     display: none;
@@ -139,9 +146,12 @@ $crt-bezel-width: 1.66667em;
 $crt-overscan-width: 2.66667em;
 
 .crt-bezel {
-    display: inline-block;
+    display: flex;
+	align-items: center;
+	justify-content: center;
     position: relative;
     margin: $crt-margin;
+	max-width: 50em - ($crt-margin * 2);
     box-shadow: inset 0 0 1px 0.66667em #000;
     border-radius: $crt-border-radius;
     background: #1d1d1d;
@@ -185,6 +195,8 @@ $crt-overscan-width: 2.66667em;
 
 .crt {
     position: relative;
+	align-items: center;
+	justify-content: center;
     margin: $crt-bezel-width;
     border-radius: $crt-border-radius;
     box-shadow: 0 0 1px 3px rgba(10, 10, 10, 0.7);
@@ -213,15 +225,7 @@ $crt-overscan-width: 2.66667em;
 .crt-scan-area {
     width: #{$crt-char-width * 1ch};
     @if $crt-lines == "auto" {
-        height: calc(
-            100vh -
-                #{$crt-margin *
-                2} -
-                #{$crt-bezel-width *
-                2} -
-                #{$crt-overscan-width *
-                2}
-        );
+        height: calc(100vh - #{$crt-margin * 2} - #{$crt-bezel-width * 2} - #{$crt-overscan-width * 2});
     } @else {
         height: ($crt-lines * 1em * $crt-line-height);
     }
@@ -250,12 +254,12 @@ $crt-overscan-width: 2.66667em;
 
 @keyframes blink {
     0% {
-        border-color: transparent; /* Hide the border */
+        border-color: transparent;
     }
     50% {
-        border-color: $phosphor-color; /* Show the border */
+        border-color: $phosphor-color;
     }
     100% {
-        border-color: transparent; /* Hide the border */
+        border-color: transparent;
     }
 }
