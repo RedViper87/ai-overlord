@@ -42,6 +42,11 @@
     font-size: 1.5em;
 	margin-left: auto;
 }
+.crt-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 .stage {
     display: none;
     &.active {
@@ -136,22 +141,21 @@ $purple-phosphor: #8c42d1;
 $phosphor-color: $green-phosphor;
 $crt-bg-color: #141414;
 $crt-margin: 1em;
-$crt-font-size: clamp(6px, 1vw, 20px); // these values need to be hand-tuned
+$crt-font-size: 16px;
 $crt-line-height: 1.33333;
 $crt-border-radius: 1.33333em;
 $crt-char-width: 61; // add 1 if using vertical scroll bars
-$crt-lines: 6; // number of lines or auto for full height
+$crt-lines: 7; // number of lines or auto for full height
 $crt-overflow-y: auto; // auto or hidden (scroll bars or no)
 $crt-bezel-width: 1.66667em;
 $crt-overscan-width: 2.66667em;
 
 .crt-bezel {
-    display: flex;
-	align-items: center;
-	justify-content: center;
     position: relative;
     margin: $crt-margin;
-	max-width: 50em - ($crt-margin * 2);
+	min-height: 250px;
+	max-width: 800px;
+	min-width: 800px;
     box-shadow: inset 0 0 1px 0.66667em #000;
     border-radius: $crt-border-radius;
     background: #1d1d1d;
@@ -195,9 +199,9 @@ $crt-overscan-width: 2.66667em;
 
 .crt {
     position: relative;
-	align-items: center;
-	justify-content: center;
     margin: $crt-bezel-width;
+	min-height: 210px;
+	min-width: 720px;
     border-radius: $crt-border-radius;
     box-shadow: 0 0 1px 3px rgba(10, 10, 10, 0.7);
     background: $crt-bg-color;

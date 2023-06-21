@@ -43,6 +43,12 @@
   margin-left: auto;
 }
 
+.crt-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .stage {
   display: none;
 }
@@ -132,17 +138,16 @@
 */
 /* With simplifications and modifications by Robert Bottomley. */
 .crt-bezel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: relative;
   margin: 1em;
-  max-width: 48em;
+  min-height: 250px;
+  max-width: 800px;
+  min-width: 800px;
   box-shadow: inset 0 0 1px 0.66667em #000;
   border-radius: 1.33333em;
   background: #1d1d1d;
   overflow: hidden;
-  font-size: clamp(6px, 1vw, 20px);
+  font-size: 16px;
   line-height: 1.33333;
 }
 .crt-bezel:before {
@@ -170,9 +175,9 @@
 
 .crt {
   position: relative;
-  align-items: center;
-  justify-content: center;
   margin: 1.66667em;
+  min-height: 210px;
+  min-width: 720px;
   border-radius: 1.33333em;
   box-shadow: 0 0 1px 3px rgba(10, 10, 10, 0.7);
   background: #141414;
@@ -194,7 +199,7 @@
 
 .crt-scan-area {
   width: 61ch;
-  height: 7.99998em;
+  height: 9.33331em;
   margin: 2.66667em;
   overflow-y: auto;
   white-space: nowrap;
