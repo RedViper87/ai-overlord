@@ -209,6 +209,8 @@ function typeFirstMission() {
         const line3 = '3) Purchase an Enterprise Performance Management System';
         const typingSpeed = 100; // Delay between each character in milliseconds
         var timeToWait = 0;
+        typingElement.style.display = "inline";
+        document.getElementById('blank-line').style.borderRight = "none"
         typeEffect(typingElement, sentence, typingSpeed);
         timeToWait += sentence.length*typingSpeed;
         setTimeout(function() {
