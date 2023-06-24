@@ -102,6 +102,15 @@
         padding: 0 15px;
     }
 }
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.left-group,
+.right-group {
+    width: 50%;
+}
 /* CRT STUFF */
 /* From: https://anderse.wordpress.com/2014/04/18/css-and-javascript-retro-terminal-emulator-demo/ */
 /**
@@ -227,7 +236,7 @@ $crt-overscan-width: 2.66667em;
 }
 
 .crt-scan-area {
-    width: #{$crt-char-width * 1ch};
+    width: 100%;
     @if $crt-lines == "auto" {
         height: calc(100vh - #{$crt-margin * 2} - #{$crt-bezel-width * 2} - #{$crt-overscan-width * 2});
     } @else {
