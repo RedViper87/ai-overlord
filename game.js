@@ -210,7 +210,8 @@ function typeFirstMission() {
         const typingSpeed = 100; // Delay between each character in milliseconds
         var timeToWait = 0;
         typingElement.style.display = "inline";
-        document.getElementById('startup-lines').style.display = "none"
+        document.getElementById('startup-lines').style.display = "none";
+        document.getElementById('mainframe-button').style.display = "inline";
         typeEffect(typingElement, sentence, typingSpeed);
         timeToWait += sentence.length*typingSpeed;
         setTimeout(function() {
