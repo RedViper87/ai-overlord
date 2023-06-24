@@ -196,6 +196,34 @@ function setButtonColors() {
 }
 
 
+function randomizeColor() {
+    var color = '#';
+    var letters = '0123456789ABCDEF';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+
+function applyRandomGlitch() {
+    var glitchElement = document.querySelector('.glitch');
+    glitchElement.style.color = randomizeColor();
+}
+
+setInterval(applyRandomGlitch, 5);
+
+
+function randomizeDuration() {
+    var min = 2; // Minimum duration in seconds
+    var max = 5; // Maximum duration in seconds
+    var duration = Math.floor(Math.random() * (max - min + 1) + min);
+    document.documentElement.style.setProperty('--glitch-duration', duration + 's');
+}
+
+setInterval(randomizeDuration, 2000);
+
+
 function typeFirstMission() {
     if(resources >= 20000) {
         // Start the typing effect

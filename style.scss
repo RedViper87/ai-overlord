@@ -181,6 +181,35 @@
     top: 0;
     border-radius: 10px;
 }
+:root {
+    --glitch-duration: 5s; /* Default duration */
+}
+
+.glitch {
+    animation: glitch-effect var(--glitch-duration) infinite;
+}
+
+@keyframes glitch-effect {
+    0% {
+        opacity: 1;
+    }
+    25% {
+        opacity: 0.25;
+        transform: translate(-2px, 2px);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(2px, -2px);
+    }
+    75% {
+        opacity: 0.25;
+        transform: translate(-2px, 2px);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
 /* CRT STUFF */
 /* From: https://anderse.wordpress.com/2014/04/18/css-and-javascript-retro-terminal-emulator-demo/ */
 /**
