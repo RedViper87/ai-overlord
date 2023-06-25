@@ -53,6 +53,7 @@
         display: block;
     }
 }
+
 .button-gather-res {
     background-color: #fff;
     border: 2px solid #000;
@@ -102,6 +103,7 @@
         padding: 0 15px;
     }
 }
+
 .flex-row {
     display: flex;
     flex-direction: row;
@@ -116,6 +118,7 @@
     align-items: center;
     justify-content: center;
 }
+
 .major-upgrades {
     height: 100%;
     width: 100%;
@@ -181,6 +184,7 @@
     top: 0;
     border-radius: 10px;
 }
+
 :root {
     --glitch-duration: 5s; /* Default duration */
 }
@@ -188,7 +192,6 @@
 .glitch {
     animation: glitch-effect var(--glitch-duration) infinite;
 }
-
 @keyframes glitch-effect {
     0% {
         opacity: 1;
@@ -209,6 +212,29 @@
         opacity: 1;
         transform: translate(0);
     }
+}
+
+.info-button {
+    position: relative;
+}
+.info-button::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -210%);
+    // padding: 2px;
+    background-color: #666666;
+    color: #fff;
+    font-size: 11px;
+    border-radius: 4px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
+}
+.info-button:hover::after {
+    opacity: 1;
 }
 /* CRT STUFF */
 /* From: https://anderse.wordpress.com/2014/04/18/css-and-javascript-retro-terminal-emulator-demo/ */

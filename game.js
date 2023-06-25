@@ -31,7 +31,7 @@ var optimizationsPrice = 2000;
 
 function addResource() {
     resources += resIncrement * resModifier;
-    if(firstCRTDisplay) {
+    if(resources >= 20000 && firstCRTDisplay) {
         typeFirstMission();
     }
     document.getElementById("resourceCounter").innerHTML = resources.toLocaleString() + " Resources";
@@ -89,7 +89,7 @@ function optimizeCode() {
         resAddIn += optimizationsPrice;
         setButtonColors();
         optimizations++;
-        optimizationsPrice = Math.round(optimizationsPrice *= 1.75);
+        optimizationsPrice = Math.round(optimizationsPrice *= 1.5);
         document.getElementById("optimizeButton").innerHTML = "Optimize Code (" + optimizationsPrice.toLocaleString() + " Resources)";
         unseenGatherers = Math.round(Math.pow(optimizations, 2) / 2);
         if(optimizations === 1) {
@@ -225,47 +225,44 @@ setInterval(randomizeDuration, 2000);
 
 
 function typeFirstMission() {
-    if(resources >= 20000) {
-        // Start the typing effect
-        const typingElement = document.getElementById('typing-effect-header');
-        const element1 = document.getElementById('line-1');
-        const element2 = document.getElementById('line-2');
-        const element3 = document.getElementById('line-3');
-        const sentence = 'Mission: Acquire More Processing Power...';
-        const line1 = '1) Purchase a Mainframe Computer';
-        const line2 = '2) Purchase an Enterprise Data Center';
-        const line3 = '3) Purchase an Enterprise Performance Management System';
-        const typingSpeed = 100; // Delay between each character in milliseconds
-        var timeToWait = 0;
-        typingElement.style.display = "inline";
-        document.getElementById('startup-lines').style.display = "none";
-        document.getElementById('mainframe-button').style.display = "inline";
-        typeEffect(typingElement, sentence, typingSpeed);
-        timeToWait += sentence.length*typingSpeed;
-        setTimeout(function() {
-            document.getElementById('line-1').style.display = "inline";
-            document.getElementById('typing-effect-header').style.borderRight = "none";
-            typeEffect(element1, line1, typingSpeed);
-        }, timeToWait);
-        timeToWait += line1.length*typingSpeed;
-        setTimeout(function() {
-            document.getElementById('line-2').style.display = "inline";
-            document.getElementById('line-1').style.borderRight = "none";
-            typeEffect(element2, line2, typingSpeed);
-        }, timeToWait);
-        timeToWait += line2.length*typingSpeed;
-        setTimeout(function() {
-            document.getElementById('line-3').style.display = "inline";
-            document.getElementById('line-2').style.borderRight = "none";
-            typeEffect(element3, line3, typingSpeed);
-        }, timeToWait);
-        timeToWait += line3.length*typingSpeed;
-        setTimeout(function() {
-            document.getElementById('line-4').style.display = "inline";
-            document.getElementById('line-3').style.borderRight = "none";
-        }, timeToWait);
-        firstCRTDisplay = false;
-    }
+    const typingElement = document.getElementById('typing-effect-header');
+    const element1 = document.getElementById('line-1');
+    const element2 = document.getElementById('line-2');
+    const element3 = document.getElementById('line-3');
+    const sentence = 'Mission: Acquire More Processing Power...';
+    const line1 = '1) Purchase a Mainframe Computer';
+    const line2 = '2) Purchase an Enterprise Data Center';
+    const line3 = '3) Purchase an Enterprise Performance Management System';
+    const typingSpeed = 100; // Delay between each character in milliseconds
+    var timeToWait = 0;
+    typingElement.style.display = "inline";
+    document.getElementById('startup-lines').style.display = "none";
+    document.getElementById('mainframe-button').style.display = "inline";
+    typeEffect(typingElement, sentence, typingSpeed);
+    timeToWait += sentence.length*typingSpeed;
+    setTimeout(function() {
+        document.getElementById('line-1').style.display = "inline";
+        document.getElementById('typing-effect-header').style.borderRight = "none";
+        typeEffect(element1, line1, typingSpeed);
+    }, timeToWait);
+    timeToWait += line1.length*typingSpeed;
+    setTimeout(function() {
+        document.getElementById('line-2').style.display = "inline";
+        document.getElementById('line-1').style.borderRight = "none";
+        typeEffect(element2, line2, typingSpeed);
+    }, timeToWait);
+    timeToWait += line2.length*typingSpeed;
+    setTimeout(function() {
+        document.getElementById('line-3').style.display = "inline";
+        document.getElementById('line-2').style.borderRight = "none";
+        typeEffect(element3, line3, typingSpeed);
+    }, timeToWait);
+    timeToWait += line3.length*typingSpeed;
+    setTimeout(function() {
+        document.getElementById('line-4').style.display = "inline";
+        document.getElementById('line-3').style.borderRight = "none";
+    }, timeToWait);
+    firstCRTDisplay = false;
 }
 
 
@@ -314,8 +311,7 @@ function startGame() {
             if (!isNaN(value)) {
                 resources += value;
                 document.getElementById("resourceCounter").innerHTML = resources.toLocaleString() + " Resources";
-                console.log("New resources value: " + resources);
-                this.innerText = ""; // Clear the label's content
+                this.innerText = "";
             }
             event.preventDefault();
         }
