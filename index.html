@@ -9,8 +9,21 @@
 
 <body style="background-color:#333333; color: #FFFFFF;">
     <div id="game-container">
-        <h1 id="gameTitle">AI Overlord</h1>
-        <label id="devRes" contenteditable data-placeholder="Add Dev Resources"></label>
+        <div class="flex-row">
+            <div class="left-group">
+                <h1 id="gameTitle">AI Overlord</h1>
+                <label id="devRes" contenteditable data-placeholder="Add Dev Resources"></label>
+            </div>
+            <div class="right-group">
+                <div id="myNav" class="overlay">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <div class="overlay-content">
+                        <span>Toggle Tooltips</span><label class="switch"><input type="checkbox" checked onclick="toggleTooltips()"><span class="slider round"></span></label>
+                    </div>
+                </div>
+                <span class="hamburger" onclick="openNav()"><span></span></span>
+            </div>
+        </div>
         <div id="stage1" class="stage">
             <h2>Stage 1: Rise to Power</h2>
             <button class="button-gather-res"

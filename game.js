@@ -279,6 +279,25 @@ function typeEffect(element, text, speed) {
 }
 
 
+function openNav() {
+    document.getElementById("myNav").style.width = "100%";
+}
+
+
+function closeNav() {
+    document.getElementById("myNav").style.width = "0%";
+}
+
+
+function toggleTooltips() {
+    const elements = document.querySelectorAll('.info-button');
+
+    elements.forEach((element) => {
+    element.classList.toggle('tooltip-visible');
+    });
+}
+
+
 function startGame() {
     // Display Stage 1 and hide other stages
     stage1.classList.add("active");
