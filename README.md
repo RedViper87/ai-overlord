@@ -13,4 +13,4 @@ The game consists of three distinct stages of gameplay, each with its own set of
 ### 2. Run Setup
 >Navigate into the project directory with: `cd ai-overlord`  
 Run the setup script which will install your virtual environment and any necessary dependencies.  
-This script can be run with: `./setup.sh`
+This script can be run with: `./setup`
