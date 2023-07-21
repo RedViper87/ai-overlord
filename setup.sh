@@ -26,6 +26,7 @@ pip install Flask || display_error "Failed to install Flask."
 # Add any additional dependencies you may need for your specific web game here.
 
 # Deactivate the virtual environment
+echo "Deactivating the virtual environment..."
 deactivate
 echo "Setup complete!"
 
