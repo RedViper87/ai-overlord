@@ -13,6 +13,7 @@
             <div class="left-group">
                 <h1 id="gameTitle">AI Overlord</h1>
                 <label id="devRes" contenteditable data-placeholder="Add Dev Resources"></label>
+                <label id="devPow" contenteditable data-placeholder="Add Dev Power"></label>
             </div>
             <div class="right-group">
                 <div id="myNav" class="overlay">
@@ -48,11 +49,15 @@
                 <label id="resourceCounter">0 Resources</label>
                 <label id="resPerSec" style="display: none">0 Resources per second</label><br />
             </div>
+            <div id="processingPowerBar">
+                <label id="processingPowerCounter" style="display: none">0 Processing Power</label>
+                <label id="processingPowerPerSec" style="display: none">0 Processing Power/sec</label><br />
+            </div>
             <hr />
             <div class="flex-row">
                 <div class="left-group">
                     <button class="button-upgrades info-button" role="button" id="autoGathererButton"
-                        style="display: none" data-tooltip="Gathers resources equal to # of Auto Gatherers squared"
+                        style="display: none" data-tooltip="Gathers resources automatically"
                         onclick="buyAutoGatherer()">
                         Buy Auto Gatherer (50 Resources)
                     </button>
@@ -64,10 +69,35 @@
                     <label id="optimizationsCounter" style="display: none">0 Optimizations</label>
                 </div>
                 <div class="right-group">
-                    <button class="major-upgrades" role="button" id="mainframe-button" style="display: none">
+                    <button class="major-upgrades" role="button" id="mainframe-button" style="display: none" onclick="purchaseMainframe()">
                         Purchase Mainframe<br />500,000 Resources
                     </button>
                 </div>
+            </div>
+            <!-- Research Lab -->
+            <div id="researchLab" style="display: none">
+                <h3>Research Lab</h3>
+                <button class="button-upgrades info-button" id="researchAIButton" onclick="researchAI()" data-tooltip="Improves processing power generation">
+                    Research Neural Network Optimization (1,000 Processing Power)
+                </button>
+                <!-- Additional research options can be added here -->
+                <button class="button-upgrades info-button" id="quantumComputingButton" onclick="researchQuantumComputing()" data-tooltip="Doubles processing power generation rate">
+                    Research Quantum Computing (5,000 Processing Power)
+                </button>
+            
+                <button class="button-upgrades info-button" id="advancedAlgorithmsButton" onclick="researchAdvancedAlgorithms()" data-tooltip="Doubles manual resource gathering efficiency">
+                    Research Advanced Algorithms (8,000 Processing Power)
+                </button>
+            
+                <button class="button-upgrades info-button" id="globalNetworkButton" onclick="researchGlobalNetwork()" data-tooltip="Unlocks missions and challenges">
+                    Research Global Network Integration (12,000 Processing Power)
+                </button>
+            </div>
+            <!-- Missions Section -->
+            <div id="missions" style="display: none">
+                <h3>Missions</h3>
+                <!-- Missions will be added here in future steps -->
+                <p>Send the AI on missions to gather resources or influence the world.</p>
             </div>
             <div class="crt-container">
                 <div class="crt-bezel">

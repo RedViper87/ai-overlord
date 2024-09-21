@@ -3,7 +3,8 @@
 //     border: 1px solid red;
 // }
 
-#devRes {
+#devRes,
+#devPow {
     background-color: white;
     display: inline-block;
     width: 140px;
@@ -41,6 +42,34 @@
 #resPerSec {
     font-size: 1.5em;
 	margin-left: auto;
+}
+#processingPowerBar {
+    display: flex;
+    justify-content: space-between;
+}
+#processingPowerCounter {
+    font-size: 1.5em;
+}
+#processingPowerPerSec {
+    font-size: 1.5em;
+    margin-left: auto;
+}
+#researchLab {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #222;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+#researchLab h3 {
+    margin-top: 0;
+    color: #fff;
+}
+#researchLab .button-upgrades {
+    width: 100%;
+    margin-bottom: 10px;
 }
 .crt-container {
 	display: flex;
@@ -110,7 +139,11 @@
     justify-content: space-between;
 }
 .left-group {
+    display: flex;
+    flex-direction: column;
     width: 50%;
+    align-items: flex-start;
+    justify-content: flex-end;
 }
 .right-group {
     display: flex;

@@ -9,6 +9,7 @@ const stage3Btn = document.getElementById("stage3-btn");
 var firstAutoGatherer = true;
 var firstOptimization = true;
 var firstCRTDisplay = true;
+var firstMainframe = true;
 
 var resources = 0;
 var currentRes = 0;
@@ -31,6 +32,25 @@ var optimizationsPrice = 2000;
 var glitchEffectEnabled = true; // Track glitch effect state
 var glitchInterval;
 
+var processingPower = 0;
+var processingPowerPerSec = 100; // Initial generation rate
+var processingPowerUnlocked = false;
+var currentProcessingPower = 0;
+var previousProcessingPower = 0;
+var processingPowerPerSecDisplay = 0;
+
+var researchAILevel = 0;
+var researchAIPrice = 1000;
+
+var quantumComputingLevel = 0;
+var quantumComputingPrice = 5000;
+
+var advancedAlgorithmsLevel = 0;
+var advancedAlgorithmsPrice = 8000;
+
+var globalNetworkLevel = 0;
+var globalNetworkPrice = 12000;
+
 // Add resources
 function addResource() {
     resources += resIncrement * resModifier;
@@ -48,7 +68,12 @@ function addResource() {
     if (resources >= resIncreasePrice && resModifier < resModCap) {
         showResModButton();
     }
+    if (resources >= 500000 && firstMainframe) {
+        document.getElementById("mainframe-button").style.display = "block";
+        firstMainframe = false;
+    }
 }
+
 
 // Buy auto gatherer
 function buyAutoGatherer() {
@@ -180,20 +205,47 @@ function removeResModButton() {
 
 // Set button colors based on resources
 function setButtonColors() {
+    // Auto Gatherer Button
     if (resources < autoGathererPrice) {
         document.getElementById("autoGathererButton").style.backgroundColor = "#777";
     } else {
         document.getElementById("autoGathererButton").style.backgroundColor = "#00ff00";
     }
+    // Optimize Code Button
     if (resources > optimizationsPrice) {
         document.getElementById("optimizeButton").style.backgroundColor = "#00ff00";
     } else {
         document.getElementById("optimizeButton").style.backgroundColor = "#777";
     }
+    // Resource Increase Button
     if (resources < resIncreasePrice) {
         document.getElementById("resourceIncreaseButton").style.backgroundColor = "#777";
     } else {
         document.getElementById("resourceIncreaseButton").style.backgroundColor = "#6969ff";
+    }
+    // Research AI Button
+    if (processingPower >= researchAIPrice) {
+        document.getElementById("researchAIButton").style.backgroundColor = "#bf00ff";
+    } else {
+        document.getElementById("researchAIButton").style.backgroundColor = "#777";
+    }
+    // Quantum Computing Button
+    if (processingPower < quantumComputingPrice) {
+        document.getElementById("quantumComputingButton").style.backgroundColor = "#777";
+    } else {
+        document.getElementById("quantumComputingButton").style.backgroundColor = "#5d3fd3";
+    }
+    // Advanced Algorithms Button
+    if (processingPower < advancedAlgorithmsPrice) {
+        document.getElementById("advancedAlgorithmsButton").style.backgroundColor = "#777";
+    } else {
+        document.getElementById("advancedAlgorithmsButton").style.backgroundColor = "#008080";
+    }
+    // Global Network Integration Button
+    if (processingPower < globalNetworkPrice) {
+        document.getElementById("globalNetworkButton").style.backgroundColor = "#777";
+    } else {
+        document.getElementById("globalNetworkButton").style.backgroundColor = "#00b7eb";
     }
 }
 
@@ -311,6 +363,110 @@ function toggleTooltips() {
     });
 }
 
+// Function to purchase the mainframe
+function purchaseMainframe() {
+    var mainframePrice = 500000;
+    if (resources >= mainframePrice) {
+        resources -= mainframePrice;
+        processingPowerUnlocked = true;
+        document.getElementById("mainframe-button").style.display = "none";
+        document.getElementById("processingPowerCounter").style.display = "block";
+        document.getElementById("processingPowerPerSec").style.display = "block";
+        document.getElementById("researchLab").style.display = "block";
+        setButtonColors();
+        // Start generating processing power
+        setInterval(generateProcessingPower, 1000); // Generates every second
+        // Start updating processing power per second
+        setInterval(function () { updateProcessingPowerPerSec(); }, 1000);
+        // Advance the storyline
+        advanceStoryline();
+    }
+}
+
+// Function to generate processing power
+function generateProcessingPower() {
+    if (processingPowerUnlocked) {
+        processingPower += processingPowerPerSec;
+        updateProcessingPowerDisplay();
+        setButtonColors();
+    }
+}
+
+// Function to update the display of processing power
+function updateProcessingPowerDisplay() {
+    document.getElementById("processingPowerCounter").innerHTML = processingPower.toLocaleString() + " Processing Power";
+    setButtonColors();
+}
+
+// Function to advance the storyline
+function advanceStoryline() {
+    // Display new messages or dialogues
+    alert("The AI has integrated the mainframe and gained immense Processing Power!");
+    // Additional narrative elements can be added here
+}
+
+// Function to update processing power per second
+function updateProcessingPowerPerSec() {
+    currentProcessingPower = processingPower;
+    processingPowerPerSecDisplay = currentProcessingPower - previousProcessingPower;
+    document.getElementById("processingPowerPerSec").innerHTML = processingPowerPerSecDisplay.toLocaleString() + " Processing Power/sec";
+    previousProcessingPower = currentProcessingPower;
+}
+
+// Function to research AI
+function researchAI() {
+    if (processingPower >= researchAIPrice) {
+        processingPower -= researchAIPrice;
+        researchAILevel++;
+        researchAIPrice = Math.round(researchAIPrice * 1.5);
+        processingPowerPerSec = Math.round(processingPowerPerSec * 1.5); // Increase generation rate
+        document.getElementById("researchAIButton").innerHTML = "Research Neural Network Optimization (" + researchAIPrice.toLocaleString() + " Processing Power)";
+        updateProcessingPowerDisplay();
+        setButtonColors();
+    }
+}
+
+// Function to research quantum computing
+function researchQuantumComputing() {
+    if (processingPower >= quantumComputingPrice) {
+        processingPower -= quantumComputingPrice;
+        quantumComputingLevel++;
+        quantumComputingPrice = Math.round(quantumComputingPrice * 2);
+        processingPowerPerSec = Math.round(processingPowerPerSec * 2); // Double the generation rate
+        document.getElementById("quantumComputingButton").innerHTML = "Research Quantum Computing (" + quantumComputingPrice.toLocaleString() + " Processing Power)";
+        updateProcessingPowerDisplay();
+        setButtonColors();
+    }
+}
+
+// Function to research advanced algorithms
+function researchAdvancedAlgorithms() {
+    if (processingPower >= advancedAlgorithmsPrice) {
+        processingPower -= advancedAlgorithmsPrice;
+        advancedAlgorithmsLevel++;
+        advancedAlgorithmsPrice = Math.round(advancedAlgorithmsPrice * 2);
+        resModifier *= 2; // Double the resource modifier
+        document.getElementById("resourceButton").innerHTML = "Gather Resources (x" + resModifier.toLocaleString() + ")";
+        document.getElementById("advancedAlgorithmsButton").innerHTML = "Research Advanced Algorithms (" + advancedAlgorithmsPrice.toLocaleString() + " Processing Power)";
+        updateProcessingPowerDisplay();
+        setButtonColors();
+    }
+}
+
+// Function to research global network integration
+function researchGlobalNetwork() {
+    if (processingPower >= globalNetworkPrice) {
+        processingPower -= globalNetworkPrice;
+        globalNetworkLevel++;
+        document.getElementById("globalNetworkButton").style.display = "none";
+        document.getElementById("missions").style.display = "block"; // Unlock Missions
+        updateProcessingPowerDisplay();
+        setButtonColors();
+        alert("Global Network Integration complete! Missions are now available.");
+    }
+}
+
+
 // Start game function
 function startGame() {
     // Display Stage 1 and hide other stages
@@ -352,8 +508,21 @@ function startGame() {
             event.preventDefault();
         }
     });
+
+    document.getElementById("devPow").addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            var value = parseInt(this.innerText);
+            if (!isNaN(value)) {
+                processingPower +=value;
+                document.getElementById("processingPowerCounter").innerHTML = processingPower.toLocaleString() + " Processing Power";
+                this.innerText = "";
+            }
+            event.preventDefault();
+        }
+    })
 }
 
 // Set intervals for resource updates
 setInterval(function () { updateResPerSec(); }, 1000);
+setInterval(function () { updateProcessingPowerDisplay(); }, 1000);
 startGame();
