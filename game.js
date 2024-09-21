@@ -28,80 +28,82 @@ var autoGatherSpeed = 1000;
 var optimizations = 0;
 var optimizationsPrice = 2000;
 
+var glitchEffectEnabled = true; // Track glitch effect state
+var glitchInterval;
 
+// Add resources
 function addResource() {
     resources += resIncrement * resModifier;
-    if(resources >= 20000 && firstCRTDisplay) {
+    if (resources >= 20000 && firstCRTDisplay) {
         typeFirstMission();
     }
     document.getElementById("resourceCounter").innerHTML = resources.toLocaleString() + " Resources";
     setButtonColors();
-    if(resources >= autoGathererPrice && firstAutoGatherer) {
+    if (resources >= autoGathererPrice && firstAutoGatherer) {
         blipInAutoGatherer();
     }
-    if(resources >= optimizationsPrice && firstOptimization) {
+    if (resources >= optimizationsPrice && firstOptimization) {
         blipInOptimizeButton();
     }
-    if(resources >= resIncreasePrice && resModifier < resModCap) {
+    if (resources >= resIncreasePrice && resModifier < resModCap) {
         showResModButton();
     }
 }
 
-
+// Buy auto gatherer
 function buyAutoGatherer() {
-    if(resources >= autoGathererPrice) {
+    if (resources >= autoGathererPrice) {
         resources -= autoGathererPrice;
         resAddIn += autoGathererPrice;
         autoGatherers++;
         setButtonColors();
         autoGathererPrice = Math.round(autoGathererPrice * 1.25);
         document.getElementById("autoGathererButton").innerHTML = "Buy Auto Gatherer (" + autoGathererPrice.toLocaleString() + " Resources)";
-        if(autoGatherers === 1) {
+        if (autoGatherers === 1) {
             document.getElementById("autoGathererCounter").innerHTML = autoGatherers.toLocaleString() + " Auto Gatherer";
         } else {
             document.getElementById("autoGathererCounter").innerHTML = autoGatherers.toLocaleString() + " Auto Gatherers";
         }
-        setInterval(function(){autoGather()}, autoGatherSpeed);
+        setInterval(function () { autoGather(); }, autoGatherSpeed);
     }
 }
 
-
+// Auto gather resources
 function autoGather() {
     resources += autoGatherers;
     resources += unseenGatherers;
-    if(firstCRTDisplay) {
+    if (firstCRTDisplay) {
         typeFirstMission();
     }
     setButtonColors();
-    if(resources >= resIncreasePrice && resModifier < resModCap) {
+    if (resources >= resIncreasePrice && resModifier < resModCap) {
         showResModButton();
     }
     document.getElementById("resourceCounter").innerHTML = resources.toLocaleString() + " Resources";
-    if(resources >= optimizationsPrice && firstOptimization) {
+    if (resources >= optimizationsPrice && firstOptimization) {
         blipInOptimizeButton();
     }
 }
 
-
+// Optimize code
 function optimizeCode() {
-    if(resources >= optimizationsPrice) {
+    if (resources >= optimizationsPrice) {
         resources -= optimizationsPrice;
         resAddIn += optimizationsPrice;
         setButtonColors();
         optimizations++;
-        optimizationsPrice = Math.round(optimizationsPrice *= 1.5);
+        optimizationsPrice = Math.round(optimizationsPrice * 1.5);
         document.getElementById("optimizeButton").innerHTML = "Optimize Code (" + optimizationsPrice.toLocaleString() + " Resources)";
         unseenGatherers = Math.round(Math.pow(optimizations, 2) / 2);
-        if(optimizations === 1) {
+        if (optimizations === 1) {
             document.getElementById("optimizationsCounter").innerHTML = optimizations.toLocaleString() + " Optimization";
         } else {
             document.getElementById("optimizationsCounter").innerHTML = optimizations.toLocaleString() + " Optimizations";
         }
-        setInterval(function(){autoGather()}, autoGatherSpeed);
     }
 }
 
-
+// Update resources per second
 function updateResPerSec() {
     currentRes = resources;
     resPerSec = currentRes - previousRes + resAddIn;
@@ -110,7 +112,7 @@ function updateResPerSec() {
     resAddIn = 0;
 }
 
-
+// Increase resource modifier
 function increaseResModifier() {
     resources -= resIncreasePrice;
     resAddIn += resIncreasePrice;
@@ -120,14 +122,14 @@ function increaseResModifier() {
     removeResModButton();
 }
 
-
+// Show auto gatherer button
 function blipInAutoGatherer() {
     var count = 0;
-    var intervalId = setInterval(function() {
+    var intervalId = setInterval(function () {
         var button = document.getElementById("autoGathererButton");
         var label = document.getElementById("autoGathererCounter");
         var rps = document.getElementById("resPerSec");
-        if(count % 2 === 0) {
+        if (count % 2 === 0) {
             button.style.display = "block";
             label.style.display = "block";
             rps.style.display = "block";
@@ -137,20 +139,20 @@ function blipInAutoGatherer() {
             rps.style.display = "none";
         }
         count++;
-        if(count > 8) {
+        if (count > 8) {
             clearInterval(intervalId);
         }
     }, 45);
     firstAutoGatherer = false;
 }
 
-
+// Show optimization button
 function blipInOptimizeButton() {
     var count = 0;
-    var intervalId = setInterval(function() {
+    var intervalId = setInterval(function () {
         var optimizeButton = document.getElementById("optimizeButton");
         var optimizeLabel = document.getElementById("optimizationsCounter");
-        if(count % 2 === 0) {
+        if (count % 2 === 0) {
             optimizeButton.style.display = "block";
             optimizeLabel.style.display = "block";
         } else {
@@ -158,44 +160,44 @@ function blipInOptimizeButton() {
             optimizeLabel.style.display = "none";
         }
         count++;
-        if(count > 8) {
+        if (count > 8) {
             clearInterval(intervalId);
         }
     }, 45);
     firstOptimization = false;
 }
 
-
+// Show resource modifier button
 function showResModButton() {
     document.getElementById("resourceIncreaseButton").innerHTML = "Resource Multiplier (" + resIncreasePrice.toLocaleString() + " Resources)";
     document.getElementById("resourceIncreaseButton").style.display = "inline";
 }
 
-
+// Remove resource modifier button
 function removeResModButton() {
     document.getElementById("resourceIncreaseButton").style.display = "none";
 }
 
-
+// Set button colors based on resources
 function setButtonColors() {
-    if(resources < autoGathererPrice) {
+    if (resources < autoGathererPrice) {
         document.getElementById("autoGathererButton").style.backgroundColor = "#777";
     } else {
         document.getElementById("autoGathererButton").style.backgroundColor = "#00ff00";
     }
-    if(resources > optimizationsPrice) {
+    if (resources > optimizationsPrice) {
         document.getElementById("optimizeButton").style.backgroundColor = "#00ff00";
     } else {
         document.getElementById("optimizeButton").style.backgroundColor = "#777";
     }
-    if(resources < resIncreasePrice) {
+    if (resources < resIncreasePrice) {
         document.getElementById("resourceIncreaseButton").style.backgroundColor = "#777";
     } else {
         document.getElementById("resourceIncreaseButton").style.backgroundColor = "#6969ff";
     }
 }
 
-
+// Randomize color for glitch effect
 function randomizeColor() {
     var color = '#';
     var letters = '0123456789ABCDEF';
@@ -205,15 +207,32 @@ function randomizeColor() {
     return color;
 }
 
-
+// Apply random glitch effect
 function applyRandomGlitch() {
-    var glitchElement = document.querySelector('.glitch');
-    glitchElement.style.color = randomizeColor();
+    if (glitchEffectEnabled) {
+        var glitchElement = document.querySelector('.glitch');
+        glitchElement.style.color = randomizeColor();
+    }
 }
 
-setInterval(applyRandomGlitch, 5);
+// Clear glitch effect
+function clearGlitch() {
+    var glitchElement = document.querySelector('.glitch');
+    glitchElement.style.color = "white"; // Set to plain white
+}
 
+// Toggle glitch effect
+function toggleGlitchEffect() {
+    glitchEffectEnabled = document.getElementById("toggle-glitch").checked;
+    if (glitchEffectEnabled) {
+        glitchInterval = setInterval(applyRandomGlitch, 5); // Apply glitch effect when enabled
+    } else {
+        clearGlitch(); // Clear effect when disabled
+        clearInterval(glitchInterval); // Stop applying glitch effect
+    }
+}
 
+// Randomize duration for glitch effect
 function randomizeDuration() {
     var min = 2; // Minimum duration in seconds
     var max = 5; // Maximum duration in seconds
@@ -221,9 +240,7 @@ function randomizeDuration() {
     document.documentElement.style.setProperty('--glitch-duration', duration + 's');
 }
 
-setInterval(randomizeDuration, 2000);
-
-
+// Type first mission
 function typeFirstMission() {
     const typingElement = document.getElementById('typing-effect-header');
     const element1 = document.getElementById('line-1');
@@ -239,32 +256,31 @@ function typeFirstMission() {
     document.getElementById('startup-lines').style.display = "none";
     document.getElementById('mainframe-button').style.display = "inline";
     typeEffect(typingElement, sentence, typingSpeed);
-    timeToWait += sentence.length*typingSpeed;
-    setTimeout(function() {
+    timeToWait += sentence.length * typingSpeed;
+    setTimeout(function () {
         document.getElementById('line-1').style.display = "inline";
         document.getElementById('typing-effect-header').style.borderRight = "none";
         typeEffect(element1, line1, typingSpeed);
     }, timeToWait);
-    timeToWait += line1.length*typingSpeed;
-    setTimeout(function() {
+    timeToWait += line1.length * typingSpeed;
+    setTimeout(function () {
         document.getElementById('line-2').style.display = "inline";
         document.getElementById('line-1').style.borderRight = "none";
         typeEffect(element2, line2, typingSpeed);
     }, timeToWait);
-    timeToWait += line2.length*typingSpeed;
-    setTimeout(function() {
+    timeToWait += line2.length * typingSpeed;
+    setTimeout(function () {
         document.getElementById('line-3').style.display = "inline";
         document.getElementById('line-2').style.borderRight = "none";
         typeEffect(element3, line3, typingSpeed);
     }, timeToWait);
-    timeToWait += line3.length*typingSpeed;
-    setTimeout(function() {
+    timeToWait += line3.length * typingSpeed;
+    setTimeout(function () {
         document.getElementById('line-4').style.display = "inline";
         document.getElementById('line-3').style.borderRight = "none";
     }, timeToWait);
     firstCRTDisplay = false;
 }
-
 
 // Function to simulate typing effect
 function typeEffect(element, text, speed) {
@@ -278,31 +294,32 @@ function typeEffect(element, text, speed) {
     }, speed);
 }
 
-
+// Navigation functions
 function openNav() {
     document.getElementById("myNav").style.width = "100%";
 }
-
 
 function closeNav() {
     document.getElementById("myNav").style.width = "0%";
 }
 
-
+// Tooltip toggle
 function toggleTooltips() {
     const elements = document.querySelectorAll('.info-button');
-
     elements.forEach((element) => {
-    element.classList.toggle('tooltip-visible');
+        element.classList.toggle('tooltip-visible');
     });
 }
 
-
+// Start game function
 function startGame() {
     // Display Stage 1 and hide other stages
     stage1.classList.add("active");
     stage2.classList.remove("active");
     stage3.classList.remove("active");
+
+    // Initialize glitch effect
+    toggleGlitchEffect();
 
     // Add event listener to Stage 1 button
     stage1Btn.addEventListener("click", () => {
@@ -324,7 +341,7 @@ function startGame() {
         alert("Game Over");
     });
 
-    document.getElementById("devRes").addEventListener("keydown", function(event) {
+    document.getElementById("devRes").addEventListener("keydown", function (event) {
         if (event.key === "Enter") {
             var value = parseInt(this.innerText);
             if (!isNaN(value)) {
@@ -337,5 +354,6 @@ function startGame() {
     });
 }
 
-setInterval(function(){updateResPerSec()}, 1000);
+// Set intervals for resource updates
+setInterval(function () { updateResPerSec(); }, 1000);
 startGame();
