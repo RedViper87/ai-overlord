@@ -48,8 +48,7 @@ var quantumComputingPrice = 5000;
 var advancedAlgorithmsLevel = 0;
 var advancedAlgorithmsPrice = 8000;
 
-var globalNetworkLevel = 0;
-var globalNetworkPrice = 12000;
+var globalNetworkPrice = 1200000;
 
 // High-Efficiency Auto-Gatherers
 var highEfficiencyGatherers = 0;
@@ -57,6 +56,49 @@ var highEfficiencyGathererPriceRes = 10000; // Resource cost
 var highEfficiencyGathererPricePP = 5000;   // Processing Power cost
 var highEfficiencyGathererSpeed = 10;     // Gathering interval in ms
 var firstHighEfficiencyGatherer = true;
+
+var quantumComputingCenterPrice = 2000000; // Set the price for the Quantum Computing Center
+var quantumComputingCenterBuilt = false; // Track whether it has been built
+var processingPowerBoost = 100; // Amount to increase processing power per second after building
+
+
+function constructQuantumComputingCenter() {
+    if (resources >= quantumComputingCenterPrice && !quantumComputingCenterBuilt) {
+        resources -= quantumComputingCenterPrice;
+        quantumComputingCenterBuilt = true;
+
+        // Increase processing power per second as an effect
+        processingPowerPerSec += processingPowerBoost;
+
+        // Hide the Quantum Computing Center button after construction
+        document.getElementById("quantum-computing-center-button").style.display = "none";
+
+        // Update the display of processing power per second
+        updateProcessingPowerDisplay();
+
+        alert("Quantum Computing Center constructed! Processing power increased.");
+    }
+}
+
+
+function updateQuantumComputingProgress() {
+    const progressFill = document.getElementById("quantum-computing-progress-fill");
+    const percentage = Math.min((resources / quantumComputingCenterPrice) * 100, 100);
+
+    // Set the width of the progress bar fill based on the percentage
+    progressFill.style.width = `${percentage}%`;
+}
+
+
+// Update the progress bar for the Purchase Research Lab button
+function updateResearchLabProgress() {
+    const researchLabPrice = 500000; // Price of the Research Lab
+    const progressFill = document.getElementById("research-lab-progress-fill");
+    const percentage = Math.min((resources / researchLabPrice) * 100, 100); // Calculate percentage, capped at 100%
+
+    // Update the width of the progress bar fill
+    progressFill.style.width = `${percentage}%`;
+}
 
 
 // Add resources
@@ -66,6 +108,8 @@ function addResource() {
         typeFirstMission();
     }
     document.getElementById("resourceCounter").innerHTML = formatNumber(resources) + " Resources";
+    updateResearchLabProgress();
+    updateQuantumComputingProgress();
     setButtonColors();
     if (resources >= autoGathererPrice && firstAutoGatherer) {
         blipInAutoGatherer();
@@ -116,6 +160,8 @@ function autoGather() {
     if (resources >= optimizationsPrice && firstOptimization) {
         blipInOptimizeButton();
     }
+    updateResearchLabProgress();
+    updateQuantumComputingProgress();
 }
 
 // Optimize code
@@ -234,7 +280,7 @@ function setButtonColors() {
         document.getElementById("autoGathererButton").style.backgroundColor = "#00ff00";
     }
     // Optimize Code Button
-    if (resources > optimizationsPrice) {
+    if (resources >= optimizationsPrice) {
         document.getElementById("optimizeButton").style.backgroundColor = "#00ff00";
     } else {
         document.getElementById("optimizeButton").style.backgroundColor = "#777";
@@ -252,22 +298,22 @@ function setButtonColors() {
         document.getElementById("researchAIButton").style.backgroundColor = "#777";
     }
     // Quantum Computing Button
-    if (processingPower < quantumComputingPrice) {
-        document.getElementById("quantumComputingButton").style.backgroundColor = "#777";
-    } else {
+    if (processingPower >= quantumComputingPrice) {
         document.getElementById("quantumComputingButton").style.backgroundColor = "#5d3fd3";
+    } else {
+        document.getElementById("quantumComputingButton").style.backgroundColor = "#777";
     }
     // Advanced Algorithms Button
-    if (processingPower < advancedAlgorithmsPrice) {
-        document.getElementById("advancedAlgorithmsButton").style.backgroundColor = "#777";
-    } else {
+    if (processingPower >= advancedAlgorithmsPrice) {
         document.getElementById("advancedAlgorithmsButton").style.backgroundColor = "#008080";
-    }
-    // Global Network Integration Button
-    if (processingPower < globalNetworkPrice) {
-        document.getElementById("globalNetworkButton").style.backgroundColor = "#777";
     } else {
+        document.getElementById("advancedAlgorithmsButton").style.backgroundColor = "#777";
+    }
+    // Global Network Integration Button - Corrected Condition
+    if (processingPower >= globalNetworkPrice) {
         document.getElementById("globalNetworkButton").style.backgroundColor = "#00b7eb";
+    } else {
+        document.getElementById("globalNetworkButton").style.backgroundColor = "#777";
     }
     // High-Efficiency Auto-Gatherer Button
     if (resources >= highEfficiencyGathererPriceRes && processingPower >= highEfficiencyGathererPricePP) {
@@ -328,8 +374,8 @@ function typeFirstMission() {
     const element3 = document.getElementById('line-3');
     const sentence = 'Mission: Acquire More Processing Power...';
     const line1 = '1) Purchase a Research Lab';
-    const line2 = '2) Purchase an Enterprise Data Center';
-    const line3 = '3) Purchase an Enterprise Performance Management System';
+    const line2 = '2) Construct a Quantum Computing Center';
+    const line3 = '3) Deploy a Global AI Network';
     const typingSpeed = 100; // Delay between each character in milliseconds
     var timeToWait = 0;
     typingElement.style.display = "inline";
@@ -402,6 +448,9 @@ function purchaseResearchLab() {
         document.getElementById("processingPowerPerSec").style.display = "block";
         document.getElementById("researchLab").style.display = "block";
         setButtonColors();
+        document.getElementById("quantum-computing-center-button").style.display = "block";
+        updateResearchLabProgress();
+        updateQuantumComputingProgress();
         // Start generating processing power
         setInterval(generateProcessingPower, 1000); // Generates every second
         // Start updating processing power per second
@@ -442,63 +491,99 @@ function updateProcessingPowerPerSec() {
     previousProcessingPower = currentProcessingPower;
 }
 
-// Function to research AI
 function researchAI() {
-    if (processingPower >= researchAIPrice) {
+    const maxLevel = 10; // Set the cap here
+    if (processingPower >= researchAIPrice && researchAILevel < maxLevel) {
         processingPower -= researchAIPrice;
         researchAILevel++;
         researchAIPrice = Math.round(researchAIPrice * 1.5);
         processingPowerPerSec = Math.round(processingPowerPerSec * 1.5); // Increase generation rate
-        document.getElementById("researchAIButton").innerHTML = "Research Neural Network Optimization (" + formatNumber(researchAIPrice) + " Processing Power)";
+        
+        // Update button text and display level
+        document.getElementById("researchAIButton").innerHTML = 
+            `Research Neural Network Optimization <br />(${formatNumber(researchAIPrice)} Processing Power)`;
         updateProcessingPowerDisplay();
         setButtonColors();
+        updateResearchAILevelDisplay();
+    } else if (researchAILevel >= maxLevel) {
+        // Disable the button or provide feedback that the cap is reached
+        document.getElementById("researchAIButton").disabled = true;
+        document.getElementById("researchAIButton").innerHTML = 
+            `Max Neural Network Optimization Level Reached`;
     }
 }
 
-// Function to research quantum computing
+// Update the level display for Research AI
+function updateResearchAILevelDisplay() {
+    document.getElementById("researchAILevelDisplay").innerText = `Level ${researchAILevel}`;
+}
+
 function researchQuantumComputing() {
-    if (processingPower >= quantumComputingPrice) {
+    const maxLevel = 5; // Set the cap here
+    if (processingPower >= quantumComputingPrice && quantumComputingLevel < maxLevel) {
         processingPower -= quantumComputingPrice;
         quantumComputingLevel++;
         quantumComputingPrice = Math.round(quantumComputingPrice * 3);
         processingPowerPerSec = Math.round(processingPowerPerSec * 2); // Double the generation rate
-
-        document.getElementById("quantumComputingButton").innerHTML =
-            "Research Quantum Computing (" + formatNumber(quantumComputingPrice) + " Processing Power)";
+        
+        // Update button text and display level
+        document.getElementById("quantumComputingButton").innerHTML = 
+            `Research Quantum Computing <br />(${formatNumber(quantumComputingPrice)} Processing Power)`;
         updateProcessingPowerDisplay();
         setButtonColors();
+        updateQuantumComputingLevelDisplay();
+    } else if (quantumComputingLevel >= maxLevel) {
+        // Disable the button or provide feedback that the cap is reached
+        document.getElementById("quantumComputingButton").disabled = true;
+        document.getElementById("quantumComputingButton").innerHTML = 
+            `Max Quantum Computing Level Reached`;
     }
 }
 
+// Update the level display for Quantum Computing
+function updateQuantumComputingLevelDisplay() {
+    document.getElementById("quantumComputingLevelDisplay").innerText = `Level ${quantumComputingLevel}`;
+}
 
 // Function to research advanced algorithms
 function researchAdvancedAlgorithms() {
-    if (processingPower >= advancedAlgorithmsPrice) {
+    const maxLevel = 5;
+    if (processingPower >= advancedAlgorithmsPrice && advancedAlgorithmsLevel < maxLevel) {
         processingPower -= advancedAlgorithmsPrice;
         advancedAlgorithmsLevel++;
         advancedAlgorithmsPrice = Math.round(advancedAlgorithmsPrice * 2.1);
         resModifier *= 2; // Double the resource modifier
         document.getElementById("resourceButton").innerHTML = "Gather Resources (x" + formatNumber(resModifier) + ")";
-        document.getElementById("advancedAlgorithmsButton").innerHTML = "Research Advanced Algorithms (" + formatNumber(advancedAlgorithmsPrice) + " Processing Power)";
+        document.getElementById("advancedAlgorithmsButton").innerHTML = "Research Advanced Algorithms <br />(" + formatNumber(advancedAlgorithmsPrice) + " Processing Power)";
         updateProcessingPowerDisplay();
         setButtonColors();
+        updateAdvancedAlgorithmsLevelDisplay();
+    } else if (advancedAlgorithmsLevel >= maxLevel) {
+        // Disable the button or provide feedback that the cap is reached
+        document.getElementById("advancedAlgorithmsButton").disabled = true;
+        document.getElementById("advancedAlgorithmsButton").innerHTML = 
+            `Max Advanced Algorithms Level Reached`;
     }
     if (advancedAlgorithmsLevel === 1 && firstHighEfficiencyGatherer) {
         document.getElementById("highEfficiencyGathererButton").style.display = "block";
         document.getElementById("highEfficiencyGathererCounter").style.display = "block";
         firstHighEfficiencyGatherer = false;
-    }
-    
+    } 
+}
+
+// Function to update the level display for Advanced Algorithms
+function updateAdvancedAlgorithmsLevelDisplay() {
+    document.getElementById("advancedAlgorithmsLevelDisplay").innerText = `Level ${advancedAlgorithmsLevel}`;
 }
 
 // Function to research global network integration
 function researchGlobalNetwork() {
     if (processingPower >= globalNetworkPrice) {
         processingPower -= globalNetworkPrice;
-        globalNetworkLevel++;
         document.getElementById("globalNetworkButton").style.display = "none";
         document.getElementById("missions").style.display = "block"; // Unlock Missions
         updateProcessingPowerDisplay();
+        updateQuantumComputingLevelDisplay();
         setButtonColors();
         alert("Global Network Integration complete! Missions are now available.");
     }
@@ -522,12 +607,7 @@ function buyHighEfficiencyGatherer() {
         document.getElementById("highEfficiencyGathererCounter").innerHTML =
             formatNumber(highEfficiencyGatherers) + " High-Efficiency Auto-Gatherers";
 
-        // Start the interval only once
-        if (highEfficiencyGatherers === 1) {
-            setInterval(function () {
-                highEfficiencyAutoGather();
-            }, highEfficiencyGathererSpeed);
-        }
+        setInterval(function () { highEfficiencyAutoGather(); }, highEfficiencyGathererSpeed);
     }
 }
 
@@ -551,7 +631,7 @@ function formatNumber(num) {
     var exponent = Math.floor(Math.log10(absNum));
     var mantissa = absNum / Math.pow(10, exponent);
 
-    if (exponent < 4) {
+    if (exponent < 3) {
         return num.toString();
     }
 
@@ -587,6 +667,11 @@ function formatNumber(num) {
 
 // Start game function
 function startGame() {
+    // Initialize level displays
+    updateResearchAILevelDisplay();
+    updateQuantumComputingLevelDisplay();
+    updateAdvancedAlgorithmsLevelDisplay();
+
     // Display Stage 1 and hide other stages
     stage1.classList.add("active");
     stage2.classList.remove("active");

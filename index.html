@@ -72,41 +72,58 @@
                     <span id="autoGathererCounter" style="display: none;">0 Auto Gatherers</span><br />
                     <button class="button-upgrades info-button" id="optimizeButton" style="display: none;"
                         data-tooltip="Optimizes code to gather more resources per second" onclick="optimizeCode()">
-                        Optimize Code (2000 Resources)
+                        Optimize Code (2.00K Resources)
                     </button>
                     <span id="optimizationsCounter" style="display: none;">0 Optimizations</span><br />
                     <button class="button-upgrades info-button" id="highEfficiencyGathererButton" style="display: none;"
                         data-tooltip="Gathers resources much faster than regular Auto Gatherers"
                         onclick="buyHighEfficiencyGatherer()">
-                        Buy High-Efficiency Auto-Gatherer (10.00K Resources, 5000 Processing Power)
+                        Buy High-Efficiency Auto-Gatherer (10.00K Resources, 5.00K Processing Power)
                     </button>
                     <span id="highEfficiencyGathererCounter" style="display: none;">0 High-Efficiency Auto-Gatherers</span>
                 </div>
                 <div class="right-group">
-                    <button class="major-upgrades" id="research-lab-button" style="display: none;"
-                        onclick="purchaseResearchLab()">
-                        Purchase Research Lab<br />500,000 Resources
+                    <!-- Research Lab Button with Progress Bar -->
+                    <button class="major-upgrades" id="research-lab-button" style="display: none;" onclick="purchaseResearchLab()">
+                        Purchase Research Lab <br />(500,000 Resources)
+                        <div id="research-lab-progress" class="progress-bar">
+                            <div id="research-lab-progress-fill" class="progress-fill"></div>
+                        </div>
+                    </button>
+                    <!-- Button for constructing the Quantum Computing Center -->
+                    <button id="quantum-computing-center-button" class="major-upgrades" style="display: none;" onclick="constructQuantumComputingCenter()">
+                        Construct Quantum Computing Center <br />(2,000,000 Resources)
+                        <div id="quantum-computing-progress" class="progress-bar">
+                            <div id="quantum-computing-progress-fill" class="progress-fill"></div>
+                        </div>
                     </button>
                 </div>
             </div>
             <!-- Research Lab -->
             <div id="researchLab" style="display: none;">
                 <h3>Research Lab</h3>
+                <!-- Research AI Button -->
                 <button class="button-upgrades info-button" id="researchAIButton" onclick="researchAI()"
                     data-tooltip="Improves processing power generation">
-                    Research Neural Network Optimization (1000 Processing Power)
+                    Research Neural Network Optimization <br />(1.00K Processing Power)
                 </button>
+                <span class="level-display" id="researchAILevelDisplay">Level 0</span>
+                <!-- Quantum Computing Button -->
                 <button class="button-upgrades info-button" id="quantumComputingButton" onclick="researchQuantumComputing()"
                     data-tooltip="Doubles processing power generation rate">
-                    Research Quantum Computing (5000 Processing Power)
+                    Research Quantum Computing <br />(5.00K Processing Power)
                 </button>
+                <span class="level-display" id="quantumComputingLevelDisplay">Level 0</span>
+                <!-- Advanced Algorithms Button -->
                 <button class="button-upgrades info-button" id="advancedAlgorithmsButton"
                     onclick="researchAdvancedAlgorithms()" data-tooltip="Doubles manual resource gathering efficiency">
-                    Research Advanced Algorithms (8000 Processing Power)
+                    Research Advanced Algorithms <br />(8.00K Processing Power)
                 </button>
+                <span class="level-display" id="advancedAlgorithmsLevelDisplay">Level 0</span>
+                <!-- Global Network Integration Button -->
                 <button class="button-upgrades info-button" id="globalNetworkButton" onclick="researchGlobalNetwork()"
                     data-tooltip="Unlocks missions and challenges">
-                    Research Global Network Integration (12.00K Processing Power)
+                    Research Global Network Integration <br />(1.20M Processing Power)
                 </button>
             </div>
             <!-- Missions -->
