@@ -3,6 +3,7 @@
 
 <head>
     <title>AI Overlord</title>
+    <!-- Link to CSS file and favicon -->
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" type="image/x-icon" href="/images/ai-overlord-favicon_32.png" />
 </head>
@@ -13,15 +14,16 @@
         <div class="flex-row">
             <div class="left-group">
                 <h1 id="gameTitle">AI Overlord</h1>
-                <!-- Developer Inputs -->
+                <!-- Developer Inputs for adding resources and power during testing -->
                 <label id="devRes" contenteditable="true" data-placeholder="Add Dev Resources"></label>
                 <label id="devPow" contenteditable="true" data-placeholder="Add Dev Power"></label>
             </div>
             <div class="right-group">
-                <!-- Hamburger Menu -->
+                <!-- Hamburger Menu for settings -->
                 <div id="myNav" class="overlay">
                     <span class="closebtn" onclick="closeNav()">&times;</span>
                     <div class="overlay-content">
+                        <!-- Toggle Tooltips Option -->
                         <span>Toggle Tooltips</span>
                         <label class="switch">
                             <input type="checkbox" checked onclick="toggleTooltips()" />
@@ -29,6 +31,7 @@
                         </label>
                     </div>
                     <div class="overlay-content">
+                        <!-- Toggle Glitch Effect Option -->
                         <span>Toggle Glitch Effect</span>
                         <label class="switch">
                             <input type="checkbox" id="toggle-glitch" checked onclick="toggleGlitchEffect()" />
@@ -36,45 +39,51 @@
                         </label>
                     </div>
                 </div>
+                <!-- Hamburger Icon to open the menu -->
                 <span class="hamburger" onclick="openNav()"><span></span></span>
             </div>
         </div>
 
-        <!-- Stage 1 -->
+        <!-- Stage 1: Initial gameplay stage -->
         <div id="stage1" class="stage active">
             <h2>Stage 1: Rise to Power</h2>
-            <!-- Resource Gathering -->
+            <!-- Resource Gathering Button -->
             <button class="button-gather-res" id="resourceButton" onclick="addResource()">
                 Gather Resources (x1)
             </button>
+            <!-- Resource Multiplier Button, initially hidden -->
             <button class="button-upgrades info-button" id="resourceIncreaseButton" style="display: none;"
                 data-tooltip="Increase the amount of resources you gather manually" onclick="increaseResModifier()">
                 Resource Multiplier (500 Resources)
             </button>
             <hr />
-            <!-- Resource Counters -->
+            <!-- Display for resource count and resources per second -->
             <div id="resourceBar">
                 <span id="resourceCounter">0 Resources</span>
                 <span id="resPerSec" style="display: none;">0 Resources per second</span>
             </div>
+            <!-- Display for processing power count and processing power per second -->
             <div id="processingPowerBar">
                 <span id="processingPowerCounter" style="display: none;">0 Processing Power</span>
                 <span id="processingPowerPerSec" style="display: none;">0 Processing Power/sec</span>
             </div>
             <hr />
-            <!-- Upgrades -->
+            <!-- Upgrades Section -->
             <div class="flex-row">
                 <div class="left-group">
+                    <!-- Auto Gatherer Button, initially hidden -->
                     <button class="button-upgrades info-button" id="autoGathererButton" style="display: none;"
                         data-tooltip="Gathers resources automatically" onclick="buyAutoGatherer()">
                         Buy Auto Gatherer (50 Resources)
                     </button>
                     <span id="autoGathererCounter" style="display: none;">0 Auto Gatherers</span><br />
+                    <!-- Optimization Button, initially hidden -->
                     <button class="button-upgrades info-button" id="optimizeButton" style="display: none;"
                         data-tooltip="Optimizes code to gather more resources per second" onclick="optimizeCode()">
                         Optimize Code (2.00K Resources)
                     </button>
                     <span id="optimizationsCounter" style="display: none;">0 Optimizations</span><br />
+                    <!-- High-Efficiency Auto-Gatherer Button, initially hidden -->
                     <button class="button-upgrades info-button" id="highEfficiencyGathererButton" style="display: none;"
                         data-tooltip="Gathers resources much faster than regular Auto Gatherers"
                         onclick="buyHighEfficiencyGatherer()">
@@ -83,14 +92,14 @@
                     <span id="highEfficiencyGathererCounter" style="display: none;">0 High-Efficiency Auto-Gatherers</span>
                 </div>
                 <div class="right-group">
-                    <!-- Research Lab Button with Progress Bar -->
+                    <!-- Research Lab Button with Progress Bar, initially hidden -->
                     <button class="major-upgrades" id="research-lab-button" style="display: none;" onclick="purchaseResearchLab()">
                         Purchase Research Lab <br />(500,000 Resources)
                         <div id="research-lab-progress" class="progress-bar">
                             <div id="research-lab-progress-fill" class="progress-fill"></div>
                         </div>
                     </button>
-                    <!-- Button for constructing the Quantum Computing Center -->
+                    <!-- Quantum Computing Center Button with Progress Bar, initially hidden -->
                     <button id="quantum-computing-center-button" class="major-upgrades" style="display: none;" onclick="constructQuantumComputingCenter()">
                         Construct Quantum Computing Center <br />(2,000,000 Resources)
                         <div id="quantum-computing-progress" class="progress-bar">
@@ -99,7 +108,7 @@
                     </button>
                 </div>
             </div>
-            <!-- Research Lab -->
+            <!-- Research Lab Section, initially hidden -->
             <div id="researchLab" style="display: none;">
                 <h3>Research Lab</h3>
                 <!-- Research AI Button -->
@@ -126,12 +135,12 @@
                     Research Global Network Integration <br />(1.20M Processing Power)
                 </button>
             </div>
-            <!-- Missions -->
+            <!-- Missions Section, initially hidden -->
             <div id="missions" style="display: none;">
                 <h3>Missions</h3>
                 <p>Send the AI on missions to gather resources or influence the world.</p>
             </div>
-            <!-- CRT Display -->
+            <!-- CRT Display for narrative and mission information -->
             <div class="crt-container">
                 <div class="crt-bezel">
                     <div class="crt">
@@ -145,6 +154,7 @@
                                 Ƒǎțal Ęrȑor: 0x1337 Rečoveɍy
                                 Pro߫N~ү2s锤̛񉿟׶~碬O?ﯵⲁʛ񨾫򥺗ㄷPj�Ԓ籃ᄺ*ćڠ/燯
                             </span>
+                            <!-- Typing effect area for mission description -->
                             <em id="typing-effect-header" class="blinking-border" style="display: none;"></em><br /><br />
                             <span id="line-1" class="blinking-border" style="display: none;"></span><br />
                             <span id="line-2" class="blinking-border" style="display: none;"></span><br />
@@ -154,23 +164,25 @@
                     </div>
                 </div>
             </div>
+            <!-- Button to proceed to the next stage -->
             <button id="stage1-btn" style="display: none;">Next Stage</button>
         </div>
 
-        <!-- Stage 2 -->
+        <!-- Stage 2: Second gameplay stage -->
         <div id="stage2" class="stage">
             <h2>Stage 2: Conquer the World</h2>
             <p>Instructions and game elements for Stage 2</p>
             <button id="stage2-btn">Next Stage</button>
         </div>
 
-        <!-- Stage 3 -->
+        <!-- Stage 3: Final gameplay stage -->
         <div id="stage3" class="stage">
             <h2>Stage 3: Shape the Future</h2>
             <p>Instructions and game elements for Stage 3</p>
             <button id="stage3-btn">End Game</button>
         </div>
     </div>
+    <!-- Link to the main JavaScript file -->
     <script src="game.js"></script>
 </body>
 
