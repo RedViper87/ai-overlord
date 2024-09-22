@@ -2,7 +2,10 @@
 // div {
 //     border: 1px solid red;
 // }
-
+body {
+    background-color: #333333;
+    color: #ffffff;
+}
 #devRes,
 #devPow {
     background-color: white;
@@ -21,6 +24,9 @@
     }
 }
 /* NORMAL STUFF */
+#highEfficiencyGathererCounter {
+    padding-top: 0.5em;
+}
 #autoGathererCounter,
 #optimizationsCounter {
     padding-top: 0.5em;

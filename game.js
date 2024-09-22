@@ -9,7 +9,7 @@ const stage3Btn = document.getElementById("stage3-btn");
 var firstAutoGatherer = true;
 var firstOptimization = true;
 var firstCRTDisplay = true;
-var firstMainframe = true;
+var firstResearchLab = true;
 
 var resources = 0;
 var currentRes = 0;
@@ -33,7 +33,7 @@ var glitchEffectEnabled = true; // Track glitch effect state
 var glitchInterval;
 
 var processingPower = 0;
-var processingPowerPerSec = 100; // Initial generation rate
+var processingPowerPerSec = 10; // Initial generation rate
 var processingPowerUnlocked = false;
 var currentProcessingPower = 0;
 var previousProcessingPower = 0;
@@ -51,13 +51,21 @@ var advancedAlgorithmsPrice = 8000;
 var globalNetworkLevel = 0;
 var globalNetworkPrice = 12000;
 
+// High-Efficiency Auto-Gatherers
+var highEfficiencyGatherers = 0;
+var highEfficiencyGathererPriceRes = 10000; // Resource cost
+var highEfficiencyGathererPricePP = 5000;   // Processing Power cost
+var highEfficiencyGathererSpeed = 10;     // Gathering interval in ms
+var firstHighEfficiencyGatherer = true;
+
+
 // Add resources
 function addResource() {
     resources += resIncrement * resModifier;
     if (resources >= 20000 && firstCRTDisplay) {
         typeFirstMission();
     }
-    document.getElementById("resourceCounter").innerHTML = resources.toLocaleString() + " Resources";
+    document.getElementById("resourceCounter").innerHTML = formatNumber(resources) + " Resources";
     setButtonColors();
     if (resources >= autoGathererPrice && firstAutoGatherer) {
         blipInAutoGatherer();
@@ -68,9 +76,9 @@ function addResource() {
     if (resources >= resIncreasePrice && resModifier < resModCap) {
         showResModButton();
     }
-    if (resources >= 500000 && firstMainframe) {
-        document.getElementById("mainframe-button").style.display = "block";
-        firstMainframe = false;
+    if (resources >= 500000 && firstResearchLab) {
+        document.getElementById("research-lab-button").style.display = "block";
+        firstResearchLab = false;
     }
 }
 
@@ -83,11 +91,11 @@ function buyAutoGatherer() {
         autoGatherers++;
         setButtonColors();
         autoGathererPrice = Math.round(autoGathererPrice * 1.25);
-        document.getElementById("autoGathererButton").innerHTML = "Buy Auto Gatherer (" + autoGathererPrice.toLocaleString() + " Resources)";
+        document.getElementById("autoGathererButton").innerHTML = "Buy Auto Gatherer (" + formatNumber(autoGathererPrice) + " Resources)";
         if (autoGatherers === 1) {
-            document.getElementById("autoGathererCounter").innerHTML = autoGatherers.toLocaleString() + " Auto Gatherer";
+            document.getElementById("autoGathererCounter").innerHTML = formatNumber(autoGatherers) + " Auto Gatherer";
         } else {
-            document.getElementById("autoGathererCounter").innerHTML = autoGatherers.toLocaleString() + " Auto Gatherers";
+            document.getElementById("autoGathererCounter").innerHTML = formatNumber(autoGatherers) + " Auto Gatherers";
         }
         setInterval(function () { autoGather(); }, autoGatherSpeed);
     }
@@ -104,7 +112,7 @@ function autoGather() {
     if (resources >= resIncreasePrice && resModifier < resModCap) {
         showResModButton();
     }
-    document.getElementById("resourceCounter").innerHTML = resources.toLocaleString() + " Resources";
+    document.getElementById("resourceCounter").innerHTML = formatNumber(resources) + " Resources";
     if (resources >= optimizationsPrice && firstOptimization) {
         blipInOptimizeButton();
     }
@@ -118,31 +126,45 @@ function optimizeCode() {
         setButtonColors();
         optimizations++;
         optimizationsPrice = Math.round(optimizationsPrice * 1.5);
-        document.getElementById("optimizeButton").innerHTML = "Optimize Code (" + optimizationsPrice.toLocaleString() + " Resources)";
+        document.getElementById("optimizeButton").innerHTML = "Optimize Code (" + formatNumber(optimizationsPrice) + " Resources)";
         unseenGatherers = Math.round(Math.pow(optimizations, 2) / 2);
         if (optimizations === 1) {
-            document.getElementById("optimizationsCounter").innerHTML = optimizations.toLocaleString() + " Optimization";
+            document.getElementById("optimizationsCounter").innerHTML = formatNumber(optimizations) + " Optimization";
         } else {
-            document.getElementById("optimizationsCounter").innerHTML = optimizations.toLocaleString() + " Optimizations";
+            document.getElementById("optimizationsCounter").innerHTML = formatNumber(optimizations) + " Optimizations";
         }
     }
 }
 
 // Update resources per second
 function updateResPerSec() {
+    var baseAmount = 10;
+    var multiplier = 1.1;
+    var highEfficiencyGainPerSec = 0;
+
+    if (highEfficiencyGatherers > 0) {
+        var intervalInSeconds = highEfficiencyGathererSpeed / 1000;
+        var gainPerInterval = baseAmount * Math.pow(multiplier, highEfficiencyGatherers - 1);
+        highEfficiencyGainPerSec = gainPerInterval / intervalInSeconds;
+    }
+
     currentRes = resources;
-    resPerSec = currentRes - previousRes + resAddIn;
-    document.getElementById("resPerSec").innerHTML = resPerSec.toLocaleString() + " Resources/sec";
+    resPerSec = (currentRes - previousRes + resAddIn) / 1 + highEfficiencyGainPerSec;
+
+    resPerSec = parseFloat(resPerSec.toFixed(2));
+
+    document.getElementById("resPerSec").innerHTML = formatNumber(resPerSec) + " Resources/sec";
     previousRes = currentRes;
     resAddIn = 0;
 }
+
 
 // Increase resource modifier
 function increaseResModifier() {
     resources -= resIncreasePrice;
     resAddIn += resIncreasePrice;
     resModifier *= 2;
-    document.getElementById("resourceButton").innerHTML = "Gather Resources (x" + resModifier.toLocaleString() + ")";
+    document.getElementById("resourceButton").innerHTML = "Gather Resources (x" + formatNumber(resModifier) + ")";
     resIncreasePrice *= 2;
     removeResModButton();
 }
@@ -194,7 +216,7 @@ function blipInOptimizeButton() {
 
 // Show resource modifier button
 function showResModButton() {
-    document.getElementById("resourceIncreaseButton").innerHTML = "Resource Multiplier (" + resIncreasePrice.toLocaleString() + " Resources)";
+    document.getElementById("resourceIncreaseButton").innerHTML = "Resource Multiplier (" + formatNumber(resIncreasePrice) + " Resources)";
     document.getElementById("resourceIncreaseButton").style.display = "inline";
 }
 
@@ -246,6 +268,12 @@ function setButtonColors() {
         document.getElementById("globalNetworkButton").style.backgroundColor = "#777";
     } else {
         document.getElementById("globalNetworkButton").style.backgroundColor = "#00b7eb";
+    }
+    // High-Efficiency Auto-Gatherer Button
+    if (resources >= highEfficiencyGathererPriceRes && processingPower >= highEfficiencyGathererPricePP) {
+        document.getElementById("highEfficiencyGathererButton").style.backgroundColor = "#aaffaa";
+    } else {
+        document.getElementById("highEfficiencyGathererButton").style.backgroundColor = "#777";
     }
 }
 
@@ -299,14 +327,14 @@ function typeFirstMission() {
     const element2 = document.getElementById('line-2');
     const element3 = document.getElementById('line-3');
     const sentence = 'Mission: Acquire More Processing Power...';
-    const line1 = '1) Purchase a Mainframe Computer';
+    const line1 = '1) Purchase a Research Lab';
     const line2 = '2) Purchase an Enterprise Data Center';
     const line3 = '3) Purchase an Enterprise Performance Management System';
     const typingSpeed = 100; // Delay between each character in milliseconds
     var timeToWait = 0;
     typingElement.style.display = "inline";
     document.getElementById('startup-lines').style.display = "none";
-    document.getElementById('mainframe-button').style.display = "inline";
+    document.getElementById('research-lab-button').style.display = "inline";
     typeEffect(typingElement, sentence, typingSpeed);
     timeToWait += sentence.length * typingSpeed;
     setTimeout(function () {
@@ -363,13 +391,13 @@ function toggleTooltips() {
     });
 }
 
-// Function to purchase the mainframe
-function purchaseMainframe() {
-    var mainframePrice = 500000;
-    if (resources >= mainframePrice) {
-        resources -= mainframePrice;
+// Function to purchase the research lab
+function purchaseResearchLab() {
+    var researchLabPrice = 500000;
+    if (resources >= researchLabPrice) {
+        resources -= researchLabPrice;
         processingPowerUnlocked = true;
-        document.getElementById("mainframe-button").style.display = "none";
+        document.getElementById("research-lab-button").style.display = "none";
         document.getElementById("processingPowerCounter").style.display = "block";
         document.getElementById("processingPowerPerSec").style.display = "block";
         document.getElementById("researchLab").style.display = "block";
@@ -394,14 +422,14 @@ function generateProcessingPower() {
 
 // Function to update the display of processing power
 function updateProcessingPowerDisplay() {
-    document.getElementById("processingPowerCounter").innerHTML = processingPower.toLocaleString() + " Processing Power";
+    document.getElementById("processingPowerCounter").innerHTML = formatNumber(processingPower) + " Processing Power";
     setButtonColors();
 }
 
 // Function to advance the storyline
 function advanceStoryline() {
     // Display new messages or dialogues
-    alert("The AI has integrated the mainframe and gained immense Processing Power!");
+    alert("The AI has obtained a Research Lab and gained immense Processing Power!");
     // Additional narrative elements can be added here
 }
 
@@ -409,7 +437,8 @@ function advanceStoryline() {
 function updateProcessingPowerPerSec() {
     currentProcessingPower = processingPower;
     processingPowerPerSecDisplay = currentProcessingPower - previousProcessingPower;
-    document.getElementById("processingPowerPerSec").innerHTML = processingPowerPerSecDisplay.toLocaleString() + " Processing Power/sec";
+    processingPowerPerSecDisplay = parseFloat(processingPowerPerSecDisplay.toFixed(2));
+    document.getElementById("processingPowerPerSec").innerHTML = formatNumber(processingPowerPerSecDisplay) + " Processing Power/sec";
     previousProcessingPower = currentProcessingPower;
 }
 
@@ -420,7 +449,7 @@ function researchAI() {
         researchAILevel++;
         researchAIPrice = Math.round(researchAIPrice * 1.5);
         processingPowerPerSec = Math.round(processingPowerPerSec * 1.5); // Increase generation rate
-        document.getElementById("researchAIButton").innerHTML = "Research Neural Network Optimization (" + researchAIPrice.toLocaleString() + " Processing Power)";
+        document.getElementById("researchAIButton").innerHTML = "Research Neural Network Optimization (" + formatNumber(researchAIPrice) + " Processing Power)";
         updateProcessingPowerDisplay();
         setButtonColors();
     }
@@ -431,26 +460,35 @@ function researchQuantumComputing() {
     if (processingPower >= quantumComputingPrice) {
         processingPower -= quantumComputingPrice;
         quantumComputingLevel++;
-        quantumComputingPrice = Math.round(quantumComputingPrice * 2);
+        quantumComputingPrice = Math.round(quantumComputingPrice * 3);
         processingPowerPerSec = Math.round(processingPowerPerSec * 2); // Double the generation rate
-        document.getElementById("quantumComputingButton").innerHTML = "Research Quantum Computing (" + quantumComputingPrice.toLocaleString() + " Processing Power)";
+
+        document.getElementById("quantumComputingButton").innerHTML =
+            "Research Quantum Computing (" + formatNumber(quantumComputingPrice) + " Processing Power)";
         updateProcessingPowerDisplay();
         setButtonColors();
     }
 }
+
 
 // Function to research advanced algorithms
 function researchAdvancedAlgorithms() {
     if (processingPower >= advancedAlgorithmsPrice) {
         processingPower -= advancedAlgorithmsPrice;
         advancedAlgorithmsLevel++;
-        advancedAlgorithmsPrice = Math.round(advancedAlgorithmsPrice * 2);
+        advancedAlgorithmsPrice = Math.round(advancedAlgorithmsPrice * 2.1);
         resModifier *= 2; // Double the resource modifier
-        document.getElementById("resourceButton").innerHTML = "Gather Resources (x" + resModifier.toLocaleString() + ")";
-        document.getElementById("advancedAlgorithmsButton").innerHTML = "Research Advanced Algorithms (" + advancedAlgorithmsPrice.toLocaleString() + " Processing Power)";
+        document.getElementById("resourceButton").innerHTML = "Gather Resources (x" + formatNumber(resModifier) + ")";
+        document.getElementById("advancedAlgorithmsButton").innerHTML = "Research Advanced Algorithms (" + formatNumber(advancedAlgorithmsPrice) + " Processing Power)";
         updateProcessingPowerDisplay();
         setButtonColors();
     }
+    if (advancedAlgorithmsLevel === 1 && firstHighEfficiencyGatherer) {
+        document.getElementById("highEfficiencyGathererButton").style.display = "block";
+        document.getElementById("highEfficiencyGathererCounter").style.display = "block";
+        firstHighEfficiencyGatherer = false;
+    }
+    
 }
 
 // Function to research global network integration
@@ -465,6 +503,86 @@ function researchGlobalNetwork() {
         alert("Global Network Integration complete! Missions are now available.");
     }
 }
+
+// Function to buy high efficiency gatherers
+function buyHighEfficiencyGatherer() {
+    if (resources >= highEfficiencyGathererPriceRes && processingPower >= highEfficiencyGathererPricePP) {
+        resources -= highEfficiencyGathererPriceRes;
+        processingPower -= highEfficiencyGathererPricePP;
+        highEfficiencyGatherers++;
+        setButtonColors();
+        highEfficiencyGathererPriceRes = Math.round(highEfficiencyGathererPriceRes * 2); // Double the price each time
+        highEfficiencyGathererPricePP = Math.round(highEfficiencyGathererPricePP * 2);
+        document.getElementById("highEfficiencyGathererButton").innerHTML =
+            "Buy High-Efficiency Auto-Gatherer (" +
+            formatNumber(highEfficiencyGathererPriceRes) +
+            " Resources, " +
+            formatNumber(highEfficiencyGathererPricePP) +
+            " Processing Power)";
+        document.getElementById("highEfficiencyGathererCounter").innerHTML =
+            formatNumber(highEfficiencyGatherers) + " High-Efficiency Auto-Gatherers";
+
+        // Start the interval only once
+        if (highEfficiencyGatherers === 1) {
+            setInterval(function () {
+                highEfficiencyAutoGather();
+            }, highEfficiencyGathererSpeed);
+        }
+    }
+}
+
+
+function highEfficiencyAutoGather() {
+    var baseAmount = 10; // Base resources gained per interval
+    var multiplier = 1.1; // Exponential growth rate (10% increase per gatherer)
+    var totalGain = baseAmount * Math.pow(multiplier, highEfficiencyGatherers - 1);
+    resources += totalGain;
+    document.getElementById("resourceCounter").innerHTML =
+        formatNumber(resources) + " Resources";
+    setButtonColors();
+}
+
+
+// Function to abbreviate numbers
+function formatNumber(num) {
+    if (num === 0) return '0';
+
+    var absNum = Math.abs(num);
+    var exponent = Math.floor(Math.log10(absNum));
+    var mantissa = absNum / Math.pow(10, exponent);
+
+    if (exponent < 4) {
+        return num.toString();
+    }
+
+    var units = [
+        '', 'K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', // up to 1e33
+        'Dc', 'Ud', 'Dd', 'Td', 'Qad', 'Qid', 'Sxd', 'Spd', 'Ocd', 'Nod', // up to 1e63
+        'Vg', 'Uvg', 'Dvg', 'Tvg', 'Qavg', 'Qivg', 'Sxvg', 'Spvg', 'Ocvg', 'Novg', // up to 1e93
+        'Tg', 'Utg', 'Dtg', 'Ttg', 'Qatg', 'Qitg', 'Sxtg', 'Sptg', 'Octg', 'Notg', // up to 1e123
+        'Qag', 'Uqag', 'Dqag', 'Tqag', 'Qaqag', 'Qiqag', 'Sxqag', 'Spqag', 'Ocqag', 'Noqag', // up to 1e153
+        'Qig', 'Uqig', 'Dqig', 'Tqig', 'Qaqig', 'Qiqig', 'Sxqig', 'Spqig', 'Ocqig', 'Noqig', // up to 1e183
+        'Sxg', 'Usxg', 'Dsxg', 'Tsxg', 'Qasxg', 'Qisxg', 'Sxsxg', 'Spsxg', 'Ocsxg', 'Nosxg', // up to 1e213
+        'Spg', 'Uspg', 'Dspg', 'Tspg', 'Qaspg', 'Qispg', 'Sxspg', 'Spspg', 'Ocspg', 'Nospg', // up to 1e243
+        'Ocg', 'Uocg', 'Docg', 'Tocg', 'Qaocg', 'Qiocg', 'Sxocg', 'Spocg', 'Ococg', 'Noocg', // up to 1e273
+        'Nog', 'Unog', 'Dnog', 'Tnog', 'Qanog', 'Qinog', 'Sxnog', 'Spnog', 'Ocnog', 'Nonog', // up to 1e303
+        'C', 'Uc', 'Dc', 'Tc', 'Qac', 'Qic', 'Sxc', 'Spc', 'Occ', 'Noc', // up to 1e333
+        'Dec', 'Udec', 'Ddec', 'Tdec', 'Qadec', 'Qidec', 'Sxdec', 'Spdec', 'Ocdec', 'Nodec', // up to 1e363
+        // Continue adding suffixes as needed
+    ];
+
+    var tier = Math.floor(exponent / 3);
+
+    if (tier < units.length) {
+        var unit = units[tier];
+        var scaled = num / Math.pow(10, tier * 3);
+        return scaled.toFixed(2) + unit;
+    } else {
+        // For very large numbers, use scientific notation
+        return mantissa.toFixed(2) + 'e' + exponent;
+    }
+}
+
 
 
 // Start game function
@@ -502,7 +620,7 @@ function startGame() {
             var value = parseInt(this.innerText);
             if (!isNaN(value)) {
                 resources += value;
-                document.getElementById("resourceCounter").innerHTML = resources.toLocaleString() + " Resources";
+                document.getElementById("resourceCounter").innerHTML = formatNumber(resources) + " Resources";
                 this.innerText = "";
             }
             event.preventDefault();
@@ -514,7 +632,7 @@ function startGame() {
             var value = parseInt(this.innerText);
             if (!isNaN(value)) {
                 processingPower +=value;
-                document.getElementById("processingPowerCounter").innerHTML = processingPower.toLocaleString() + " Processing Power";
+                document.getElementById("processingPowerCounter").innerHTML = formatNumber(processingPower) + " Processing Power";
                 this.innerText = "";
             }
             event.preventDefault();

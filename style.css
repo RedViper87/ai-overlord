@@ -1,4 +1,8 @@
 /********** DEV STUFF **********/
+body {
+  background-color: #333333;
+  color: #ffffff; }
+
 #devRes,
 #devPow {
   background-color: white;
@@ -15,6 +19,9 @@
     color: gray; }
 
 /* NORMAL STUFF */
+#highEfficiencyGathererCounter {
+  padding-top: 0.5em; }
+
 #autoGathererCounter,
 #optimizationsCounter {
   padding-top: 0.5em; }
