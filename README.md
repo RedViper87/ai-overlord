@@ -21,7 +21,19 @@ To get started with AI Overlord, follow these steps:
     ```bash
     cd ai-overlord
     ```
-3. Open `index.html` in your web browser to start the game.
+3. Run the setup script to install dependencies and set up the project environment:
+    ```bash
+    python setup.py
+    ```
+4. Open `index.html` in your web browser to start the game.
+
+### Mapping SCSS to CSS
+
+If you make changes to the `style.scss` file, you need to map the SCSS to CSS using the following command:
+
+```bash
+sass style.scss style.css
+```
 
 ## Gameplay Overview
 
