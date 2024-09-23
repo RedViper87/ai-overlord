@@ -3,11 +3,12 @@
 **AI Overlord** is a web-based simulation game where you play as an AI system with a mission to gain power, influence the world, and shape the future. Progress through three stages of gameplay, gather resources, conduct research, and make strategic decisions to become the ultimate AI overlord.
 
 ## Table of Contents
-- [Installation](#installation)
-- [Gameplay Overview](#gameplay-overview)
-- [Game Features](#game-features)
-- [Contributing](#contributing)
-- [License](#license)
+
+-   [Installation](#installation)
+-   [Gameplay Overview](#gameplay-overview)
+-   [Game Features](#game-features)
+-   [Contributing](#contributing)
+-   [License](#license)
 
 ## Installation
 
@@ -21,11 +22,15 @@ To get started with AI Overlord, follow these steps:
     ```bash
     cd ai-overlord
     ```
-3. Run the setup script to install dependencies and set up the project environment:
+3. Give the setup script permission to run:
     ```bash
-    python setup.py
+    chmod +x ./setup
     ```
-4. Open `index.html` in your web browser to start the game.
+4. Run the setup script to install dependencies and set up the project environment:
+    ```bash
+    ./setup
+    ```
+5. Open `index.html` in your web browser to start the game. (I prefer the Live Server - VS Code Extension)
 
 ### Mapping SCSS to CSS
 
@@ -38,25 +43,28 @@ sass style.scss style.css
 ## Gameplay Overview
 
 ### Stage 1: Rise to Power
-- Start by gathering resources manually.
-- Upgrade to automate resource collection with Auto Gatherers.
-- Build a Research Lab to unlock advanced AI research.
+
+-   Start by gathering resources manually.
+-   Upgrade to automate resource collection with Auto Gatherers.
+-   Build a Research Lab to unlock advanced AI research.
 
 ### Stage 2: Conquer the World
-- Expand your AI's influence globally.
-- Further enhance your processing power and AI capabilities.
+
+-   Expand your AI's influence globally.
+-   Further enhance your processing power and AI capabilities.
 
 ### Stage 3: Shape the Future
-- Make decisions that impact the world.
-- Complete your mission to become the ultimate AI overlord.
+
+-   Make decisions that impact the world.
+-   Complete your mission to become the ultimate AI overlord.
 
 ## Game Features
 
-- **Resource Management**: Gather resources and automate the process to maximize efficiency.
-- **Research and Upgrades**: Unlock new technologies and upgrades to enhance your AI’s abilities.
-- **Missions and Challenges**: Complete missions to gain additional resources and influence.
-- **Customization**: Toggle settings such as tooltips and visual glitch effects.
-- **Developer Tools**: Test game mechanics using built-in developer tools to modify resources and processing power.
+-   **Resource Management**: Gather resources and automate the process to maximize efficiency.
+-   **Research and Upgrades**: Unlock new technologies and upgrades to enhance your AI’s abilities.
+-   **Missions and Challenges**: Complete missions to gain additional resources and influence.
+-   **Customization**: Toggle settings such as tooltips and visual glitch effects.
+-   **Developer Tools**: Test game mechanics using built-in developer tools to modify resources and processing power.
 
 ## Contributing
 
