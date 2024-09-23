@@ -8,67 +8,70 @@ const stage2Btn = document.getElementById("stage2-btn");
 const stage3Btn = document.getElementById("stage3-btn");
 
 // Initial state flags
-var firstAutoGatherer = true;
-var firstOptimization = true;
-var firstCRTDisplay = true;
-var firstResearchLab = true;
+let firstAutoGatherer = true;
+let firstOptimization = true;
+let firstCRTDisplay = true;
+let firstResearchLab = true;
+let firstQuantumComputingCenter = true;
 
 // Resource variables
-var resources = 0;
-var currentRes = 0;
-var previousRes = 0;
-var resPerSec = 0;
-var resAddIn = 0;
-var resIncrement = 1;
-var resModifier = 1;
-var resModCap = 64;
-var resIncreasePrice = 500;
+let resources = 0;
+let currentRes = 0;
+let previousRes = 0;
+let resPerSec = 0;
+let resAddIn = 0;
+let resIncrement = 1;
+let resModifier = 1;
+let resModCap = 64;
+let resIncreasePrice = 500;
 
 // Auto gatherer variables
-var autoGatherers = 0;
-var unseenGatherers = 0;
-var autoGathererPrice = 50;
-var autoGatherSpeed = 1000;
+let autoGatherers = 0;
+let unseenGatherers = 0;
+let autoGathererPrice = 50;
+let autoGatherSpeed = 1000;
+let autoGathererIntervals = [];
 
 // Optimization variables
-var optimizations = 0;
-var optimizationsPrice = 2000;
+let optimizations = 0;
+let optimizationsPrice = 2000;
 
 // Glitch effect state
-var glitchEffectEnabled = true;
-var glitchInterval;
+let glitchEffectEnabled = true;
+let glitchInterval;
 
 // Processing power variables
-var processingPower = 0;
-var processingPowerPerSec = 20;
-var processingPowerUnlocked = false;
-var currentProcessingPower = 0;
-var previousProcessingPower = 0;
-var processingPowerPerSecDisplay = 0;
+let processingPower = 0;
+let processingPowerPerSec = 100;
+let processingPowerUnlocked = false;
+let currentProcessingPower = 0;
+let previousProcessingPower = 0;
+let processingPowerPerSecDisplay = 0;
 
 // Research upgrade variables
-var researchAILevel = 0;
-var researchAIPrice = 1000;
+const researchLabPrice = 500000;
+let researchAILevel = 0;
+let researchAIPrice = 1000;
 
-var quantumComputingLevel = 0;
-var quantumComputingPrice = 5000;
+let quantumComputingLevel = 0;
+let quantumComputingPrice = 5000;
 
-var advancedAlgorithmsLevel = 0;
-var advancedAlgorithmsPrice = 8000;
+let advancedAlgorithmsLevel = 0;
+let advancedAlgorithmsPrice = 8000;
 
-var globalNetworkPrice = 1200000;
+let globalNetworkPrice = 1200000;
 
 // High-Efficiency Auto-Gatherer variables
-var highEfficiencyGatherers = 0;
-var highEfficiencyGathererPriceRes = 10000;
-var highEfficiencyGathererPricePP = 5000;
-var highEfficiencyGathererSpeed = 10;
-var firstHighEfficiencyGatherer = true;
+let highEfficiencyGatherers = 0;
+let highEfficiencyGathererPriceRes = 10000;
+let highEfficiencyGathererPricePP = 5000;
+let highEfficiencyGathererSpeed = 100;
+let firstHighEfficiencyGatherer = true;
 
 // Quantum Computing Center variables
-var quantumComputingCenterPrice = 2000000;
-var quantumComputingCenterBuilt = false;
-var processingPowerBoost = 100; // Processing power increase after building
+const quantumComputingCenterPrice = 2000000;
+let quantumComputingCenterBuilt = false;
+const processingPowerBoostFactor = 3; // Processing power multiplier factor
 
 // Function to construct the Quantum Computing Center
 function constructQuantumComputingCenter() {
@@ -77,10 +80,11 @@ function constructQuantumComputingCenter() {
         quantumComputingCenterBuilt = true;
 
         // Increase processing power generation rate
-        processingPowerPerSec += processingPowerBoost;
+        processingPowerPerSec *= processingPowerBoostFactor;
 
-        // Hide the button after construction
+        // Hide the button after construction and show the Center
         document.getElementById("quantum-computing-center-button").style.display = "none";
+        document.getElementById("quantumComputingCenter").style.display = "block";
         updateProcessingPowerDisplay();
 
         alert("Quantum Computing Center constructed! Processing power increased.");
@@ -96,7 +100,6 @@ function updateQuantumComputingProgress() {
 
 // Update the progress bar for the Research Lab button
 function updateResearchLabProgress() {
-    const researchLabPrice = 500000;
     const progressFill = document.getElementById("research-lab-progress-fill");
     const percentage = Math.min((resources / researchLabPrice) * 100, 100);
     progressFill.style.width = `${percentage}%`;
@@ -105,6 +108,7 @@ function updateResearchLabProgress() {
 // Function to add resources
 function addResource() {
     resources += resIncrement * resModifier;
+    resources = Math.max(resources, 0);
     if (resources >= 20000 && firstCRTDisplay) {
         typeFirstMission();
     }
@@ -131,13 +135,18 @@ function addResource() {
 function buyAutoGatherer() {
     if (resources >= autoGathererPrice) {
         resources -= autoGathererPrice;
+        resources = Math.max(resources, 0);
         resAddIn += autoGathererPrice;
         autoGatherers++;
         setButtonColors();
         autoGathererPrice = Math.round(autoGathererPrice * 1.25);
         document.getElementById("autoGathererButton").innerHTML = "Buy Auto Gatherer (" + formatNumber(autoGathererPrice) + " Resources)";
         document.getElementById("autoGathererCounter").innerHTML = formatNumber(autoGatherers) + " Auto Gatherer" + (autoGatherers > 1 ? "s" : "");
-        setInterval(function () { autoGather(); }, autoGatherSpeed);
+        if (autoGathererIntervals.length > 0) {
+            clearInterval(autoGathererIntervals[autoGathererIntervals.length - 1]);
+        }
+        var intervalId = setInterval(function () { autoGather(); }, autoGatherSpeed);
+        autoGathererIntervals.push(intervalId);
     }
 }
 
@@ -186,7 +195,7 @@ function updateResPerSec() {
     }
 
     currentRes = resources;
-    resPerSec = (currentRes - previousRes + resAddIn) / 1 + highEfficiencyGainPerSec;
+    resPerSec = (currentRes - previousRes + resAddIn) + highEfficiencyGainPerSec;
     resPerSec = parseFloat(resPerSec.toFixed(2));
 
     document.getElementById("resPerSec").innerHTML = formatNumber(resPerSec) + " Resources/sec";
@@ -266,25 +275,25 @@ function setButtonColors() {
     document.getElementById("autoGathererButton").style.backgroundColor = resources < autoGathererPrice ? "#777" : "#00ff00";
 
     // Optimize Code Button
-    document.getElementById("optimizeButton").style.backgroundColor = resources >= optimizationsPrice ? "#00ff00" : "#777";
+    document.getElementById("optimizeButton").style.backgroundColor = resources < optimizationsPrice ? "#777" : "#00ff00";
 
     // Resource Increase Button
     document.getElementById("resourceIncreaseButton").style.backgroundColor = resources < resIncreasePrice ? "#777" : "#6969ff";
 
     // Research AI Button
-    document.getElementById("researchAIButton").style.backgroundColor = processingPower >= researchAIPrice ? "#bf00ff" : "#777";
+    document.getElementById("researchAIButton").style.backgroundColor = processingPower < researchAIPrice ? "#777" : "#bf00ff";
 
     // Quantum Computing Button
-    document.getElementById("quantumComputingButton").style.backgroundColor = processingPower >= quantumComputingPrice ? "#5d3fd3" : "#777";
+    document.getElementById("quantumComputingButton").style.backgroundColor = processingPower < quantumComputingPrice ? "#777" : "#5d3fd3";
 
     // Advanced Algorithms Button
-    document.getElementById("advancedAlgorithmsButton").style.backgroundColor = processingPower >= advancedAlgorithmsPrice ? "#008080" : "#777";
+    document.getElementById("advancedAlgorithmsButton").style.backgroundColor = processingPower < advancedAlgorithmsPrice ? "#777" : "#008080";
 
     // Global Network Integration Button
-    document.getElementById("globalNetworkButton").style.backgroundColor = processingPower >= globalNetworkPrice ? "#00b7eb" : "#777";
+    document.getElementById("globalNetworkButton").style.backgroundColor = processingPower < globalNetworkPrice ? "#777" : "#00b7eb";
 
     // High-Efficiency Auto-Gatherer Button
-    document.getElementById("highEfficiencyGathererButton").style.backgroundColor = (resources >= highEfficiencyGathererPriceRes && processingPower >= highEfficiencyGathererPricePP) ? "#aaffaa" : "#777";
+    document.getElementById("highEfficiencyGathererButton").style.backgroundColor = (resources < highEfficiencyGathererPriceRes || processingPower < highEfficiencyGathererPricePP) ? "#777" : "#aaffaa";
 }
 
 // Randomize color for glitch effect
@@ -581,18 +590,7 @@ function formatNumber(num) {
     }
 
     var units = [
-        '', 'K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No',
-        'Dc', 'Ud', 'Dd', 'Td', 'Qad', 'Qid', 'Sxd', 'Spd', 'Ocd', 'Nod',
-        'Vg', 'Uvg', 'Dvg', 'Tvg', 'Qavg', 'Qivg', 'Sxvg', 'Spvg', 'Ocvg', 'Novg',
-        'Tg', 'Utg', 'Dtg', 'Ttg', 'Qatg', 'Qitg', 'Sxtg', 'Sptg', 'Octg', 'Notg',
-        'Qag', 'Uqag', 'Dqag', 'Tqag', 'Qaqag', 'Qiqag', 'Sxqag', 'Spqag', 'Ocqag', 'Noqag',
-        'Qig', 'Uqig', 'Dqig', 'Tqig', 'Qaqig', 'Qiqig', 'Sxqig', 'Spqig', 'Ocqig', 'Noqig',
-        'Sxg', 'Usxg', 'Dsxg', 'Tsxg', 'Qasxg', 'Qisxg', 'Sxsxg', 'Spsxg', 'Ocsxg', 'Nosxg',
-        'Spg', 'Uspg', 'Dspg', 'Tspg', 'Qaspg', 'Qispg', 'Sxspg', 'Spspg', 'Ocspg', 'Nospg',
-        'Ocg', 'Uocg', 'Docg', 'Tocg', 'Qaocg', 'Qiocg', 'Sxocg', 'Spocg', 'Ococg', 'Noocg',
-        'Nog', 'Unog', 'Dnog', 'Tnog', 'Qanog', 'Qinog', 'Sxnog', 'Spnog', 'Ocnog', 'Nonog',
-        'C', 'Uc', 'Dc', 'Tc', 'Qac', 'Qic', 'Sxc', 'Spc', 'Occ', 'Noc',
-        'Dec', 'Udec', 'Ddec', 'Tdec', 'Qadec', 'Qidec', 'Sxdec', 'Spdec', 'Ocdec', 'Nodec',
+        '', 'K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc'
     ];
 
     var tier = Math.floor(exponent / 3);
