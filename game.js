@@ -63,9 +63,9 @@ let globalNetworkPrice = 1200000;
 
 // High-Efficiency Auto-Gatherer variables
 let highEfficiencyGatherers = 0;
-let highEfficiencyGathererPriceRes = 10000;
+let highEfficiencyGathererPriceRes = 1000;
 let highEfficiencyGathererPricePP = 5000;
-let highEfficiencyGathererSpeed = 100;
+let highEfficiencyGathererSpeed = 1;
 let firstHighEfficiencyGatherer = true;
 
 // Quantum Computing Center variables
@@ -505,7 +505,7 @@ function updateQuantumComputingLevelDisplay() {
 
 // Function to upgrade Advanced Algorithms
 function researchAdvancedAlgorithms() {
-    const maxLevel = 5;
+    const maxLevel = 10;
     if (processingPower >= advancedAlgorithmsPrice && advancedAlgorithmsLevel < maxLevel) {
         processingPower -= advancedAlgorithmsPrice;
         advancedAlgorithmsLevel++;

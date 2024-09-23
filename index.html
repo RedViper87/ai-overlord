@@ -15,8 +15,11 @@
             <div class="left-group">
                 <h1 id="gameTitle">AI Overlord</h1>
                 <!-- Developer Inputs for adding resources and power during testing -->
-                <label id="devRes" contenteditable="true" data-placeholder="Add Dev Resources"></label>
-                <label id="devPow" contenteditable="true" data-placeholder="Add Dev Power"></label>
+                <div class="dev-tools">
+                    <span style="color: red;">DEVMODETOOLS</span><br />
+                    <label id="devRes" contenteditable="true" data-placeholder="Add Dev Resources"></label>
+                    <label id="devPow" contenteditable="true" data-placeholder="Add Dev Power"></label>
+                </div>
             </div>
             <div class="right-group">
                 <!-- Hamburger Menu for settings -->
@@ -87,7 +90,7 @@
                     <button class="button-upgrades info-button" id="highEfficiencyGathererButton" style="display: none;"
                         data-tooltip="Gathers resources much faster than regular Auto Gatherers"
                         onclick="buyHighEfficiencyGatherer()">
-                        Buy High-Efficiency Auto-Gatherer (10.00K Resources, 5.00K Processing Power)
+                        Buy High-Efficiency Auto-Gatherer (1.00K Resources, 5.00K Processing Power)
                     </button>
                     <span id="highEfficiencyGathererCounter" style="display: none;">0 High-Efficiency Auto-Gatherers</span>
                 </div>
