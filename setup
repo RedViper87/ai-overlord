@@ -24,7 +24,7 @@ source $venv_path/bin/activate || display_error "Failed to activate the virtual 
 echo "Installing necessary dependencies..."
 pip install Flask || display_error "Failed to install Flask."
 # Add any additional dependencies you may need for your specific web game here.
-npm install -g sass
+pip install sass
 
 # Deactivate the virtual environment
 echo "Deactivating the virtual environment..."
