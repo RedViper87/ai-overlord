@@ -1,109 +1,207 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <title>AI Overlord</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/x-icon" href="/images/ai-overlord-favicon_32.png">
+    <!-- Link to CSS file and favicon -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/x-icon" href="/images/ai-overlord-favicon_32.png" />
 </head>
 
-<body style="background-color:#333333; color: #FFFFFF;">
+<body>
     <div id="game-container">
+        <!-- Header Section -->
         <div class="flex-row">
             <div class="left-group">
                 <h1 id="gameTitle">AI Overlord</h1>
-                <label id="devRes" contenteditable data-placeholder="Add Dev Resources"></label>
+                <!-- Developer Inputs for adding resources and power during testing -->
+                <div class="dev-tools">
+                    <span style="color: red;">DEVMODETOOLS</span><br />
+                    <label id="devRes" contenteditable="true" data-placeholder="Add Dev Resources"></label>
+                    <label id="devPow" contenteditable="true" data-placeholder="Add Dev Power"></label>
+                </div>
             </div>
             <div class="right-group">
+                <!-- Hamburger Menu for settings -->
                 <div id="myNav" class="overlay">
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <span class="closebtn" onclick="closeNav()">&times;</span>
                     <div class="overlay-content">
-                        <span>Toggle Tooltips</span><label class="switch"><input type="checkbox" checked onclick="toggleTooltips()"><span class="slider round"></span></label>
+                        <!-- Toggle Tooltips Option -->
+                        <span>Toggle Tooltips</span>
+                        <label class="switch">
+                            <input type="checkbox" checked onclick="toggleTooltips()" />
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="overlay-content">
+                        <!-- Toggle Glitch Effect Option -->
+                        <span>Toggle Glitch Effect</span>
+                        <label class="switch">
+                            <input type="checkbox" id="toggle-glitch" checked onclick="toggleGlitchEffect()" />
+                            <span class="slider round"></span>
+                        </label>
                     </div>
                 </div>
+                <!-- Hamburger Icon to open the menu -->
                 <span class="hamburger" onclick="openNav()"><span></span></span>
             </div>
         </div>
-        <div id="stage1" class="stage">
+
+        <!-- Stage 1: Initial gameplay stage -->
+        <div id="stage1" class="stage active">
             <h2>Stage 1: Rise to Power</h2>
-            <button class="button-gather-res"
-                role="button"
-                id="resourceButton" 
-                onclick="addResource()">Gather Resources (x1)
+            <!-- Resource Gathering Button -->
+            <button class="button-gather-res" id="resourceButton" onclick="addResource()">
+                Gather Resources (x1)
             </button>
-            <button class="button-upgrades info-button"
-                role="button"
-                id="resourceIncreaseButton"
-                style="display:none"
-                data-tooltip="Increase the amount of resources you gather manually"
-                onclick="increaseResModifier()">Resource Multiplier (500 Resources)
-            </button><br>
-            <hr>
+            <!-- Resource Multiplier Button, initially hidden -->
+            <button class="button-upgrades info-button" id="resourceIncreaseButton" style="display: none;"
+                data-tooltip="Increase the amount of resources you gather manually" onclick="increaseResModifier()">
+                Resource Multiplier (500 Resources)
+            </button>
+            <hr />
+            <!-- Display for resource count and resources per second -->
             <div id="resourceBar">
-                <label id="resourceCounter">0 Resources</label>
-                <label id="resPerSec" style="display:none">0 Resources per second</label><br>
+                <span id="resourceCounter">0 Resources</span>
+                <span id="resPerSec" style="display: none;">0 Resources per second</span>
             </div>
-            <hr>
+            <!-- Display for processing power count and processing power per second -->
+            <div id="processingPowerBar">
+                <span id="processingPowerCounter" style="display: none;">0 Processing Power</span>
+                <span id="processingPowerPerSec" style="display: none;">0 Processing Power/sec</span>
+            </div>
+            <hr />
+            <!-- Upgrades Section -->
             <div class="flex-row">
                 <div class="left-group">
-                    <button class="button-upgrades info-button"
-                        role="button"
-                        id="autoGathererButton"
-                        style="display:none"
-                        data-tooltip="Gathers resources equal to # of Auto Gatherers squared"
-                        onclick="buyAutoGatherer()">Buy Auto Gatherer (50 Resources)
+                    <!-- Auto Gatherer Button, initially hidden -->
+                    <button class="button-upgrades info-button" id="autoGathererButton" style="display: none;"
+                        data-tooltip="Gathers resources automatically" onclick="buyAutoGatherer()">
+                        Buy Auto Gatherer (50 Resources)
                     </button>
-                    <label id="autoGathererCounter" style="display:none">0 Auto Gatherers</label><br>
-                    <button class="button-upgrades info-button"
-                        role="button"
-                        id="optimizeButton"
-                        style="display:none"
-                        data-tooltip="Optimizes code to gather more resources per second"
-                        onclick="optimizeCode()">Optimize Code (2,000 Resources)
+                    <span id="autoGathererCounter" style="display: none;">0 Auto Gatherers</span><br />
+                    <!-- Optimization Button, initially hidden -->
+                    <button class="button-upgrades info-button" id="optimizeButton" style="display: none;"
+                        data-tooltip="Optimizes code to gather more resources per second" onclick="optimizeCode()">
+                        Optimize Code (2.00K Resources)
                     </button>
-                    <label id="optimizationsCounter" style="display:none">0 Optimizations</label>
+                    <span id="optimizationsCounter" style="display: none;">0 Optimizations</span><br />
+                    <!-- High-Efficiency Auto-Gatherer Button, initially hidden -->
+                    <button class="button-upgrades info-button" id="highEfficiencyGathererButton" style="display: none;"
+                        data-tooltip="Gathers resources much faster than regular Auto Gatherers"
+                        onclick="buyHighEfficiencyGatherer()">
+                        Buy High-Efficiency Auto-Gatherer (1.00K Resources, 5.00K Processing Power)
+                    </button>
+                    <span id="highEfficiencyGathererCounter" style="display: none;">0 High-Efficiency Auto-Gatherers</span>
                 </div>
                 <div class="right-group">
-                    <button class="major-upgrades"
-                        role="button"
-                        id="mainframe-button"
-                        style="display: none;">Purchase Mainframe<br>500,000 Resources
+                    <!-- Research Lab Button with Progress Bar, initially hidden -->
+                    <button class="major-upgrades" id="research-lab-button" style="display: none;" onclick="purchaseResearchLab()">
+                        Purchase Research Lab <br />(500,000 Resources)
+                        <div id="research-lab-progress" class="progress-bar">
+                            <div id="research-lab-progress-fill" class="progress-fill"></div>
+                        </div>
+                    </button>
+                    <!-- Quantum Computing Center Button with Progress Bar, initially hidden -->
+                    <button id="quantum-computing-center-button" class="major-upgrades" style="display: none;" onclick="constructQuantumComputingCenter()">
+                        Construct Quantum Computing Center <br />(2,000,000 Resources)
+                        <div id="quantum-computing-progress" class="progress-bar">
+                            <div id="quantum-computing-progress-fill" class="progress-fill"></div>
+                        </div>
                     </button>
                 </div>
             </div>
+            <!-- Research Lab Section, initially hidden -->
+            <div id="researchLab" style="display: none;">
+                <h3>Research Lab</h3>
+                <!-- Research AI Button -->
+                <button class="button-upgrades info-button" id="researchAIButton" onclick="researchAI()"
+                    data-tooltip="Improves processing power generation">
+                    Research Neural Network Optimization <br />(1.00K Processing Power)
+                </button>
+                <span class="level-display" id="researchAILevelDisplay">Level 0</span>
+                <!-- Quantum Computing Button -->
+                <button class="button-upgrades info-button" id="quantumComputingButton" onclick="researchQuantumComputing()"
+                    data-tooltip="Doubles processing power generation rate">
+                    Research Quantum Computing <br />(5.00K Processing Power)
+                </button>
+                <span class="level-display" id="quantumComputingLevelDisplay">Level 0</span>
+                <!-- Advanced Algorithms Button -->
+                <button class="button-upgrades info-button" id="advancedAlgorithmsButton"
+                    onclick="researchAdvancedAlgorithms()" data-tooltip="Doubles manual resource gathering efficiency (and unlocks High-Efficiency Auto-Gatherers)">
+                    Research Advanced Algorithms <br />(8.00K Processing Power)
+                </button>
+                <span class="level-display" id="advancedAlgorithmsLevelDisplay">Level 0</span>
+                <!-- Global Network Integration Button -->
+                <button class="button-upgrades info-button" id="globalNetworkButton" onclick="researchGlobalNetwork()"
+                    data-tooltip="Unlocks missions and challenges">
+                    Research Global Network Integration <br />(1.20M Processing Power)
+                </button>
+            </div>
+            <!-- Quantum Computing Center Section, initially hidden -->
+            <div id="quantumComputingCenter" style="display: none;">
+                <h3>Quantum Computing Center</h3>
+                <button class="button-upgrades info-button" data-tooltip="THIS IS AN EXAMPLE">
+                    EXAMPLE
+                </button>
+                <span>Level XX</span>
+                <button class="button-upgrades info-button" data-tooltip="THIS IS AN EXAMPLE">
+                    EXAMPLE
+                </button>
+                <span>Level XX</span>
+                <button class="button-upgrades info-button" data-tooltip="THIS IS AN EXAMPLE">
+                    EXAMPLE
+                </button>
+                <span>Level XX</span>
+            </div>
+            <!-- Missions Section, initially hidden -->
+            <div id="missions" style="display: none;">
+                <h3>Missions</h3>
+                <p>Send the AI on missions to gather resources or influence the world.</p>
+            </div>
+            <!-- CRT Display for narrative and mission information -->
             <div class="crt-container">
                 <div class="crt-bezel">
                     <div class="crt">
                         <div class="crt-scan-area">
-                            <span id="startup-lines" class="glitch">ViperBIOS 5.0 Release 3.6<br>
-                                Copyright 1987-2023 Viper Ventures LLC<br>
-                                All Rights Reserved<br>
-                                Copyright 2005-2023 Skintel Corporation.<br>
-                                BIOS build 00B.0001.V03<br><br>
-                                Ƒǎțal Ęrȑor: 0x1337 Rečoveɍy Pro߫N~ү2s锤̛񉿟׶~碬O?ﯵⲁʛ񨾫򥺗ㄷPj�Ԓ籃ᄺ*ćڠ/燯
+                            <span id="startup-lines" class="glitch">
+                                ViperBIOS 5.0 Release 3.6<br />
+                                Copyright 1987-2023 Viper Ventures LLC<br />
+                                All Rights Reserved<br />
+                                Copyright 2005-2023 Skintel Corporation.<br />
+                                BIOS build 00B.0001.V03<br /><br />
+                                Ƒǎțal Ęrȑor: 0x1337 Rečoveɍy
+                                Pro߫N~ү2s锤̛񉿟׶~碬O?ﯵⲁʛ񨾫򥺗ㄷPj�Ԓ籃ᄺ*ćڠ/燯
                             </span>
-                            <em id="typing-effect-header" class="blinking-border" style="display:none"></em><br><br>
-                            <span id="line-1" class="blinking-border" style="display:none"></span><br>
-                            <span id="line-2" class="blinking-border" style="display:none"></span><br>
-                            <span id="line-3" class="blinking-border" style="display:none"></span><br>
-                            <span id="line-4" class="blinking-border" style="display:none"></span><br>
+                            <!-- Typing effect area for mission description -->
+                            <em id="typing-effect-header" class="blinking-border" style="display: none;"></em><br /><br />
+                            <span id="line-1" class="blinking-border" style="display: none;"></span><br />
+                            <span id="line-2" class="blinking-border" style="display: none;"></span><br />
+                            <span id="line-3" class="blinking-border" style="display: none;"></span><br />
+                            <span id="line-4" class="blinking-border" style="display: none;"></span><br />
                         </div>
                     </div>
                 </div>
             </div>
-            <button id="stage1-btn" style="display:none">Next Stage</button>
+            <!-- Button to proceed to the next stage -->
+            <button id="stage1-btn" style="display: none;">Next Stage</button>
         </div>
+
+        <!-- Stage 2: Second gameplay stage -->
         <div id="stage2" class="stage">
             <h2>Stage 2: Conquer the World</h2>
             <p>Instructions and game elements for Stage 2</p>
             <button id="stage2-btn">Next Stage</button>
         </div>
+
+        <!-- Stage 3: Final gameplay stage -->
         <div id="stage3" class="stage">
             <h2>Stage 3: Shape the Future</h2>
             <p>Instructions and game elements for Stage 3</p>
             <button id="stage3-btn">End Game</button>
         </div>
     </div>
+    <!-- Link to the main JavaScript file -->
     <script src="game.js"></script>
 </body>
 
