@@ -22,7 +22,7 @@ let resPerSec = 0;
 let resAddIn = 0;
 let resIncrement = 1;
 let resModifier = 1;
-let resModCap = 64;
+let resModCap = 1024;
 let resIncreasePrice = 500;
 
 // Auto gatherer variables
@@ -59,11 +59,11 @@ let quantumComputingPrice = 5000;
 let advancedAlgorithmsLevel = 0;
 let advancedAlgorithmsPrice = 8000;
 
-let globalNetworkPrice = 1200000;
+let globalNetworkPrice = 120000000;
 
 // High-Efficiency Auto-Gatherer variables
 let highEfficiencyGatherers = 0;
-let highEfficiencyGathererPriceRes = 1000;
+let highEfficiencyGathererPriceRes = 3000;
 let highEfficiencyGathererPricePP = 5000;
 let highEfficiencyGathererSpeed = 1;
 let firstHighEfficiencyGatherer = true;
@@ -73,9 +73,33 @@ const quantumComputingCenterPrice = 2000000;
 let quantumComputingCenterBuilt = false;
 const processingPowerBoostFactor = 3; // Processing power multiplier factor
 
+let quantumAlgorithmsLevel = 0;
+let quantumAlgorithmsPriceRes = 10000000; // 10.00M
+let quantumAlgorithmsPricePP = 20000000; // 20.00M
+const quantumAlgorithmsBoost = 250;
+
+// New variable to track multiplier based on quantumAlgorithmsLevel
+let quantumAlgorithmsMultiplier = 1;
+
+let quantumInfoLevel = 0;
+let quantumInfoPriceRes = 15000000; // 15.00M
+let quantumInfoPricePP = 30000000; // 30.00M
+const quantumInfoBoost = 2.5;
+
+let quantumCryptoLevel = 0;
+let quantumCryptoPriceRes = 25000000; // 25.00M
+let quantumCryptoPricePP = 50000000; // 50.00M
+const quantumCryptoBoost = 2.77;
+
+let quantumMaterialPriceRes = 100000000000; // 100.00B
+let quantumMaterialPricePP = 250000000000; // 250.00B
+
 // Function to construct the Quantum Computing Center
 function constructQuantumComputingCenter() {
-    if (resources >= quantumComputingCenterPrice && !quantumComputingCenterBuilt) {
+    if (
+        resources >= quantumComputingCenterPrice &&
+        !quantumComputingCenterBuilt
+    ) {
         resources -= quantumComputingCenterPrice;
         quantumComputingCenterBuilt = true;
 
@@ -83,18 +107,31 @@ function constructQuantumComputingCenter() {
         processingPowerPerSec *= processingPowerBoostFactor;
 
         // Hide the button after construction and show the Center
-        document.getElementById("quantum-computing-center-button").style.display = "none";
-        document.getElementById("quantumComputingCenter").style.display = "block";
+        document.getElementById(
+            "quantum-computing-center-button"
+        ).style.display = "none";
+        document.getElementById("quantumComputingCenter").style.display =
+            "block";
+        line2 = document.getElementById("line-2");
+        line2.innerText =
+            "2) Construct a Quantum Computing Center - complete ✓";
         updateProcessingPowerDisplay();
 
-        alert("Quantum Computing Center constructed! Processing power increased.");
+        alert(
+            "Quantum Computing Center constructed! Processing power increased."
+        );
     }
 }
 
 // Update the progress bar for Quantum Computing Center
 function updateQuantumComputingProgress() {
-    const progressFill = document.getElementById("quantum-computing-progress-fill");
-    const percentage = Math.min((resources / quantumComputingCenterPrice) * 100, 100);
+    const progressFill = document.getElementById(
+        "quantum-computing-progress-fill"
+    );
+    const percentage = Math.min(
+        (resources / quantumComputingCenterPrice) * 100,
+        100
+    );
     progressFill.style.width = `${percentage}%`;
 }
 
@@ -109,10 +146,11 @@ function updateResearchLabProgress() {
 function addResource() {
     resources += resIncrement * resModifier;
     resources = Math.max(resources, 0);
-    if (resources >= 20000 && firstCRTDisplay) {
+    if (resources >= 2000 && firstCRTDisplay) {
         typeFirstMission();
     }
-    document.getElementById("resourceCounter").innerHTML = formatNumber(resources) + " Resources";
+    document.getElementById("resourceCounter").innerHTML =
+        formatNumber(resources) + " Resources";
     updateResearchLabProgress();
     updateQuantumComputingProgress();
     setButtonColors();
@@ -140,19 +178,30 @@ function buyAutoGatherer() {
         autoGatherers++;
         setButtonColors();
         autoGathererPrice = Math.round(autoGathererPrice * 1.25);
-        document.getElementById("autoGathererButton").innerHTML = "Buy Auto Gatherer (" + formatNumber(autoGathererPrice) + " Resources)";
-        document.getElementById("autoGathererCounter").innerHTML = formatNumber(autoGatherers) + " Auto Gatherer" + (autoGatherers > 1 ? "s" : "");
+        document.getElementById("autoGathererButton").innerHTML =
+            "Buy Auto Gatherer (" +
+            formatNumber(autoGathererPrice) +
+            " Resources)";
+        document.getElementById("autoGathererCounter").innerHTML =
+            formatNumber(autoGatherers) +
+            " Auto Gatherer" +
+            (autoGatherers > 1 ? "s" : "");
         if (autoGathererIntervals.length > 0) {
-            clearInterval(autoGathererIntervals[autoGathererIntervals.length - 1]);
+            clearInterval(
+                autoGathererIntervals[autoGathererIntervals.length - 1]
+            );
         }
-        var intervalId = setInterval(function () { autoGather(); }, autoGatherSpeed);
+        var intervalId = setInterval(function () {
+            autoGather();
+        }, autoGatherSpeed);
         autoGathererIntervals.push(intervalId);
     }
 }
 
 // Function for auto gathering resources
 function autoGather() {
-    resources += autoGatherers + unseenGatherers;
+    resources +=
+        (autoGatherers + unseenGatherers) * 5 * quantumAlgorithmsMultiplier;
     if (firstCRTDisplay) {
         typeFirstMission();
     }
@@ -160,7 +209,8 @@ function autoGather() {
     if (resources >= resIncreasePrice && resModifier < resModCap) {
         showResModButton();
     }
-    document.getElementById("resourceCounter").innerHTML = formatNumber(resources) + " Resources";
+    document.getElementById("resourceCounter").innerHTML =
+        formatNumber(resources) + " Resources";
     if (resources >= optimizationsPrice && firstOptimization) {
         blipInOptimizeButton();
     }
@@ -176,9 +226,15 @@ function optimizeCode() {
         setButtonColors();
         optimizations++;
         optimizationsPrice = Math.round(optimizationsPrice * 1.5);
-        document.getElementById("optimizeButton").innerHTML = "Optimize Code (" + formatNumber(optimizationsPrice) + " Resources)";
+        document.getElementById("optimizeButton").innerHTML =
+            "Optimize Code (" +
+            formatNumber(optimizationsPrice) +
+            " Resources)";
         unseenGatherers = Math.round(Math.pow(optimizations, 2) / 2);
-        document.getElementById("optimizationsCounter").innerHTML = formatNumber(optimizations) + " Optimization" + (optimizations > 1 ? "s" : "");
+        document.getElementById("optimizationsCounter").innerHTML =
+            formatNumber(optimizations) +
+            " Optimization" +
+            (optimizations > 1 ? "s" : "");
     }
 }
 
@@ -190,15 +246,17 @@ function updateResPerSec() {
 
     if (highEfficiencyGatherers > 0) {
         var intervalInSeconds = highEfficiencyGathererSpeed / 1000;
-        var gainPerInterval = baseAmount * Math.pow(multiplier, highEfficiencyGatherers - 1);
+        var gainPerInterval =
+            baseAmount * Math.pow(multiplier, highEfficiencyGatherers - 1);
         highEfficiencyGainPerSec = gainPerInterval / intervalInSeconds;
     }
 
     currentRes = resources;
-    resPerSec = (currentRes - previousRes + resAddIn) + highEfficiencyGainPerSec;
+    resPerSec = currentRes - previousRes + resAddIn + highEfficiencyGainPerSec;
     resPerSec = parseFloat(resPerSec.toFixed(2));
 
-    document.getElementById("resPerSec").innerHTML = formatNumber(resPerSec) + " Resources/sec";
+    document.getElementById("resPerSec").innerHTML =
+        formatNumber(resPerSec) + " Resources/sec";
     previousRes = currentRes;
     resAddIn = 0;
 }
@@ -208,7 +266,8 @@ function increaseResModifier() {
     resources -= resIncreasePrice;
     resAddIn += resIncreasePrice;
     resModifier *= 2;
-    document.getElementById("resourceButton").innerHTML = "Gather Resources (x" + formatNumber(resModifier) + ")";
+    document.getElementById("resourceButton").innerHTML =
+        "Gather Resources (x" + formatNumber(resModifier) + ")";
     resIncreasePrice *= 2;
     removeResModButton();
 }
@@ -260,7 +319,10 @@ function blipInOptimizeButton() {
 
 // Show resource multiplier button
 function showResModButton() {
-    document.getElementById("resourceIncreaseButton").innerHTML = "Resource Multiplier (" + formatNumber(resIncreasePrice) + " Resources)";
+    document.getElementById("resourceIncreaseButton").innerHTML =
+        "Resource Multiplier (" +
+        formatNumber(resIncreasePrice) +
+        " Resources)";
     document.getElementById("resourceIncreaseButton").style.display = "inline";
 }
 
@@ -272,34 +334,74 @@ function removeResModButton() {
 // Set colors for buttons based on available resources
 function setButtonColors() {
     // Auto Gatherer Button
-    document.getElementById("autoGathererButton").style.backgroundColor = resources < autoGathererPrice ? "#777" : "#00ff00";
+    document.getElementById("autoGathererButton").style.backgroundColor =
+        resources < autoGathererPrice ? "#777" : "#00ff00";
 
     // Optimize Code Button
-    document.getElementById("optimizeButton").style.backgroundColor = resources < optimizationsPrice ? "#777" : "#00ff00";
+    document.getElementById("optimizeButton").style.backgroundColor =
+        resources < optimizationsPrice ? "#777" : "#00ff00";
 
     // Resource Increase Button
-    document.getElementById("resourceIncreaseButton").style.backgroundColor = resources < resIncreasePrice ? "#777" : "#6969ff";
+    document.getElementById("resourceIncreaseButton").style.backgroundColor =
+        resources < resIncreasePrice ? "#777" : "#6969ff";
 
     // Research AI Button
-    document.getElementById("researchAIButton").style.backgroundColor = processingPower < researchAIPrice ? "#777" : "#bf00ff";
+    document.getElementById("researchAIButton").style.backgroundColor =
+        processingPower < researchAIPrice ? "#777" : "#bf00ff";
 
     // Quantum Computing Button
-    document.getElementById("quantumComputingButton").style.backgroundColor = processingPower < quantumComputingPrice ? "#777" : "#5d3fd3";
+    document.getElementById("quantumComputingButton").style.backgroundColor =
+        processingPower < quantumComputingPrice ? "#777" : "#5d3fd3";
 
     // Advanced Algorithms Button
-    document.getElementById("advancedAlgorithmsButton").style.backgroundColor = processingPower < advancedAlgorithmsPrice ? "#777" : "#008080";
+    document.getElementById("advancedAlgorithmsButton").style.backgroundColor =
+        processingPower < advancedAlgorithmsPrice ? "#777" : "#008080";
 
     // Global Network Integration Button
-    document.getElementById("globalNetworkButton").style.backgroundColor = processingPower < globalNetworkPrice ? "#777" : "#00b7eb";
+    document.getElementById("globalNetworkButton").style.backgroundColor =
+        processingPower < globalNetworkPrice ? "#777" : "#00b7eb";
 
     // High-Efficiency Auto-Gatherer Button
-    document.getElementById("highEfficiencyGathererButton").style.backgroundColor = (resources < highEfficiencyGathererPriceRes || processingPower < highEfficiencyGathererPricePP) ? "#777" : "#aaffaa";
+    document.getElementById(
+        "highEfficiencyGathererButton"
+    ).style.backgroundColor =
+        resources < highEfficiencyGathererPriceRes ||
+        processingPower < highEfficiencyGathererPricePP
+            ? "#777"
+            : "#00ff7f";
+
+    // Quantum Algorithms Button
+    document.getElementById("quantumAlgorithmsButton").style.backgroundColor =
+        resources < quantumAlgorithmsPriceRes ||
+        processingPower < quantumAlgorithmsPricePP
+            ? "#777"
+            : "#89abe3";
+
+    // Quantum Information Button
+    document.getElementById("quantumInfoButton").style.backgroundColor =
+        resources < quantumInfoPriceRes || processingPower < quantumInfoPricePP
+            ? "#777"
+            : "#a8e6cf";
+
+    // Quantum Cryptography Button
+    document.getElementById("quantumCryptoButton").style.backgroundColor =
+        resources < quantumCryptoPriceRes ||
+        processingPower < quantumCryptoPricePP
+            ? "#777"
+            : "#d1c4e9";
+
+    // Quantum Material Button
+    document.getElementById("quantumMaterialButton").style.backgroundColor =
+        resources < quantumMaterialPriceRes ||
+        processingPower < quantumMaterialPricePP
+            ? "#777"
+            : "#d4af37";
 }
 
 // Randomize color for glitch effect
 function randomizeColor() {
-    var color = '#';
-    var letters = '0123456789ABCDEF';
+    var color = "#";
+    var letters = "0123456789ABCDEF";
     for (var i = 0; i < 6; i++) {
         color += letters[Math.floor(Math.random() * 16)];
     }
@@ -309,14 +411,14 @@ function randomizeColor() {
 // Apply random glitch effect
 function applyRandomGlitch() {
     if (glitchEffectEnabled) {
-        var glitchElement = document.querySelector('.glitch');
+        var glitchElement = document.querySelector(".glitch");
         glitchElement.style.color = randomizeColor();
     }
 }
 
 // Clear glitch effect
 function clearGlitch() {
-    var glitchElement = document.querySelector('.glitch');
+    var glitchElement = document.querySelector(".glitch");
     glitchElement.style.color = "white";
 }
 
@@ -336,41 +438,45 @@ function randomizeDuration() {
     var min = 2;
     var max = 5;
     var duration = Math.floor(Math.random() * (max - min + 1) + min);
-    document.documentElement.style.setProperty('--glitch-duration', duration + 's');
+    document.documentElement.style.setProperty(
+        "--glitch-duration",
+        duration + "s"
+    );
 }
 
 // Type out the first mission description
 function typeFirstMission() {
-    const typingElement = document.getElementById('typing-effect-header');
-    const element1 = document.getElementById('line-1');
-    const element2 = document.getElementById('line-2');
-    const element3 = document.getElementById('line-3');
-    const sentence = 'Mission: Acquire More Processing Power...';
-    const line1 = '1) Purchase a Research Lab';
-    const line2 = '2) Construct a Quantum Computing Center';
-    const line3 = '3) Deploy a Global AI Network';
+    const typingElement = document.getElementById("typing-effect-header");
+    const element1 = document.getElementById("line-1");
+    const element2 = document.getElementById("line-2");
+    const element3 = document.getElementById("line-3");
+    const sentence = "Mission: Acquire More Processing Power...";
+    const line1 = "1) Purchase a Research Lab";
+    const line2 = "2) Construct a Quantum Computing Center";
+    const line3 = "3) Deploy a Global AI Network";
     const typingSpeed = 100;
     var timeToWait = 0;
     typingElement.style.display = "inline";
-    document.getElementById('startup-lines').style.display = "none";
-    document.getElementById('research-lab-button').style.display = "inline";
+    document.getElementById("startup-lines").style.display = "none";
+    document.getElementById("research-lab-button").style.display = "inline";
     typeEffect(typingElement, sentence, typingSpeed);
     timeToWait += sentence.length * typingSpeed;
     setTimeout(function () {
-        document.getElementById('line-1').style.display = "inline";
-        document.getElementById('typing-effect-header').style.borderRight = "none";
+        document.getElementById("line-1").style.display = "inline";
+        document.getElementById("typing-effect-header").style.borderRight =
+            "none";
         typeEffect(element1, line1, typingSpeed);
     }, timeToWait);
     timeToWait += line1.length * typingSpeed;
     setTimeout(function () {
-        document.getElementById('line-2').style.display = "inline";
-        document.getElementById('line-1').style.borderRight = "none";
+        document.getElementById("line-2").style.display = "inline";
+        document.getElementById("line-1").style.borderRight = "none";
         typeEffect(element2, line2, typingSpeed);
     }, timeToWait);
     timeToWait += line2.length * typingSpeed;
     setTimeout(function () {
-        document.getElementById('line-3').style.display = "inline";
-        document.getElementById('line-2').style.borderRight = "none";
+        document.getElementById("line-3").style.display = "inline";
+        document.getElementById("line-2").style.borderRight = "none";
         typeEffect(element3, line3, typingSpeed);
     }, timeToWait);
     firstCRTDisplay = false;
@@ -400,9 +506,9 @@ function closeNav() {
 
 // Toggle tooltips visibility
 function toggleTooltips() {
-    const elements = document.querySelectorAll('.info-button');
+    const elements = document.querySelectorAll(".info-button");
     elements.forEach((element) => {
-        element.classList.toggle('tooltip-visible');
+        element.classList.toggle("tooltip-visible");
     });
 }
 
@@ -413,15 +519,23 @@ function purchaseResearchLab() {
         resources -= researchLabPrice;
         processingPowerUnlocked = true;
         document.getElementById("research-lab-button").style.display = "none";
-        document.getElementById("processingPowerCounter").style.display = "block";
-        document.getElementById("processingPowerPerSec").style.display = "block";
+        document.getElementById("processingPowerCounter").style.display =
+            "block";
+        document.getElementById("processingPowerPerSec").style.display =
+            "block";
         document.getElementById("researchLab").style.display = "block";
+        line1 = document.getElementById("line-1");
+        line1.innerText = "1) Purchase a Research Lab - complete ✓";
         setButtonColors();
-        document.getElementById("quantum-computing-center-button").style.display = "block";
+        document.getElementById(
+            "quantum-computing-center-button"
+        ).style.display = "block";
         updateResearchLabProgress();
         updateQuantumComputingProgress();
         setInterval(generateProcessingPower, 1000);
-        setInterval(function () { updateProcessingPowerPerSec(); }, 1000);
+        setInterval(function () {
+            updateProcessingPowerPerSec();
+        }, 1000);
         advanceStoryline();
     }
 }
@@ -437,22 +551,116 @@ function generateProcessingPower() {
 
 // Update the display of processing power
 function updateProcessingPowerDisplay() {
-    document.getElementById("processingPowerCounter").innerHTML = formatNumber(processingPower) + " Processing Power";
+    document.getElementById("processingPowerCounter").innerHTML =
+        formatNumber(processingPower) + " Processing Power";
     setButtonColors();
 }
 
 // Advance the storyline after purchasing research lab
 function advanceStoryline() {
-    alert("The AI has obtained a Research Lab and gained immense Processing Power!");
+    alert(
+        "The AI has obtained a Research Lab and gained immense Processing Power!"
+    );
 }
 
 // Update processing power generated per second
 function updateProcessingPowerPerSec() {
     currentProcessingPower = processingPower;
-    processingPowerPerSecDisplay = currentProcessingPower - previousProcessingPower;
-    processingPowerPerSecDisplay = parseFloat(processingPowerPerSecDisplay.toFixed(2));
-    document.getElementById("processingPowerPerSec").innerHTML = formatNumber(processingPowerPerSecDisplay) + " Processing Power/sec";
+    processingPowerPerSecDisplay =
+        currentProcessingPower - previousProcessingPower;
+    processingPowerPerSecDisplay = parseFloat(
+        processingPowerPerSecDisplay.toFixed(2)
+    );
+    document.getElementById("processingPowerPerSec").innerHTML =
+        formatNumber(processingPowerPerSecDisplay) + " Processing Power/sec";
     previousProcessingPower = currentProcessingPower;
+}
+
+// Function to upgrade Quantum Algorithms Development and Testing
+function quantumAlgorithmsDevelopmentAndTesting() {
+    const maxLevel = 10;
+    if (
+        resources >= quantumAlgorithmsPriceRes &&
+        processingPower >= quantumAlgorithmsPricePP &&
+        quantumAlgorithmsLevel < maxLevel
+    ) {
+        resources -= quantumAlgorithmsPriceRes;
+        processingPower -= quantumAlgorithmsPricePP;
+        quantumAlgorithmsLevel++;
+        quantumAlgorithmsPriceRes = Math.round(
+            (quantumAlgorithmsPriceRes * quantumAlgorithmsBoost) / 10
+        );
+        quantumAlgorithmsPricePP = Math.round(
+            (quantumAlgorithmsPricePP * quantumAlgorithmsBoost) / 10
+        );
+
+        // Update the quantumAlgorithmsMultiplier based on the new level
+        quantumAlgorithmsMultiplier = Math.pow(1.25, quantumAlgorithmsLevel);
+
+        document.getElementById(
+            "quantumAlgorithmsButton"
+        ).innerHTML = `Quantum Algorithms Development and Testing <br />(${formatNumber(
+            quantumAlgorithmsPriceRes
+        )} Resources, ${formatNumber(
+            quantumAlgorithmsPricePP
+        )} Processing Power)`;
+        updateProcessingPowerDisplay();
+        setButtonColors();
+        updateQuantumAlgorithmsLevelDisplay();
+    }
+    if (quantumAlgorithmsLevel >= maxLevel) {
+        document.getElementById("quantumAlgorithmsButton").disabled = true;
+        document.getElementById(
+            "quantumAlgorithmsButton"
+        ).innerHTML = `Max Level for Quantum Algorithms Development and Testing Reached`;
+    }
+}
+
+// Update the level display for Quantum Algorithms Development and Testing
+function updateQuantumAlgorithmsLevelDisplay() {
+    document.getElementById(
+        "quantumAlgorithmsLevelDisplay"
+    ).innerText = `Level ${quantumAlgorithmsLevel}`;
+}
+
+// Function to Research Quantum Information Theory
+function researchQuantumInformationTheory() {
+    const maxLevel = 10;
+    if (
+        resources >= quantumInfoPriceRes &&
+        processingPower >= quantumInfoPricePP &&
+        quantumInfoLevel < maxLevel
+    ) {
+        resources -= quantumInfoPriceRes;
+        processingPower -= quantumInfoPricePP;
+        quantumInfoLevel++;
+        quantumInfoPriceRes = Math.round(
+            quantumInfoPriceRes * quantumInfoBoost
+        );
+        quantumInfoPricePP = Math.round(quantumInfoPricePP * quantumInfoBoost);
+        processingPowerPerSec *= quantumInfoBoost;
+        document.getElementById(
+            "quantumInfoButton"
+        ).innerHTML = `Research Quantum Information Theory <br />(${formatNumber(
+            quantumInfoPriceRes
+        )} Resources, ${formatNumber(quantumInfoPricePP)} Processing Power)`;
+        updateProcessingPowerDisplay();
+        setButtonColors();
+        updateQuantumInfoLevelDisplay();
+    }
+    if (quantumInfoLevel >= maxLevel) {
+        document.getElementById("quantumInfoButton").disabled = true;
+        document.getElementById(
+            "quantumInfoButton"
+        ).innerHTML = `Max Level for Research Quantum Information Theory Reached`;
+    }
+}
+
+// Update the level display for Quantum Info Level Display
+function updateQuantumInfoLevelDisplay() {
+    document.getElementById(
+        "quantumInfoLevelDisplay"
+    ).innerText = `Level ${quantumInfoLevel}`;
 }
 
 // Function to upgrade AI research
@@ -461,75 +669,108 @@ function researchAI() {
     if (processingPower >= researchAIPrice && researchAILevel < maxLevel) {
         processingPower -= researchAIPrice;
         researchAILevel++;
-        researchAIPrice = Math.round(researchAIPrice * 1.5);
-        processingPowerPerSec = Math.round(processingPowerPerSec * 1.5);
-        document.getElementById("researchAIButton").innerHTML = 
-            `Research Neural Network Optimization <br />(${formatNumber(researchAIPrice)} Processing Power)`;
+        researchAIPrice = Math.round(researchAIPrice * 1.1);
+        processingPowerPerSec = Math.round(processingPowerPerSec * 1.1);
+        document.getElementById(
+            "researchAIButton"
+        ).innerHTML = `Research Neural Network Optimization <br />(${formatNumber(
+            researchAIPrice
+        )} Processing Power)`;
         updateProcessingPowerDisplay();
         setButtonColors();
         updateResearchAILevelDisplay();
-    } else if (researchAILevel >= maxLevel) {
+    }
+    if (researchAILevel >= maxLevel) {
         document.getElementById("researchAIButton").disabled = true;
-        document.getElementById("researchAIButton").innerHTML = `Max Neural Network Optimization Level Reached`;
+        document.getElementById(
+            "researchAIButton"
+        ).innerHTML = `Max Neural Network Optimization Level Reached`;
     }
 }
 
 // Update the level display for Research AI
 function updateResearchAILevelDisplay() {
-    document.getElementById("researchAILevelDisplay").innerText = `Level ${researchAILevel}`;
+    document.getElementById(
+        "researchAILevelDisplay"
+    ).innerText = `Level ${researchAILevel}`;
 }
 
 // Function to upgrade Quantum Computing
 function researchQuantumComputing() {
-    const maxLevel = 5;
-    if (processingPower >= quantumComputingPrice && quantumComputingLevel < maxLevel) {
+    const maxLevel = 10;
+    if (
+        processingPower >= quantumComputingPrice &&
+        quantumComputingLevel < maxLevel
+    ) {
         processingPower -= quantumComputingPrice;
         quantumComputingLevel++;
         quantumComputingPrice = Math.round(quantumComputingPrice * 3);
         processingPowerPerSec = Math.round(processingPowerPerSec * 2);
-        document.getElementById("quantumComputingButton").innerHTML = 
-            `Research Quantum Computing <br />(${formatNumber(quantumComputingPrice)} Processing Power)`;
+        document.getElementById(
+            "quantumComputingButton"
+        ).innerHTML = `Research Quantum Computing <br />(${formatNumber(
+            quantumComputingPrice
+        )} Processing Power)`;
         updateProcessingPowerDisplay();
         setButtonColors();
         updateQuantumComputingLevelDisplay();
-    } else if (quantumComputingLevel >= maxLevel) {
+    }
+    if (quantumComputingLevel >= maxLevel) {
         document.getElementById("quantumComputingButton").disabled = true;
-        document.getElementById("quantumComputingButton").innerHTML = `Max Quantum Computing Level Reached`;
+        document.getElementById(
+            "quantumComputingButton"
+        ).innerHTML = `Max Quantum Computing Level Reached`;
     }
 }
 
 // Update the level display for Quantum Computing
 function updateQuantumComputingLevelDisplay() {
-    document.getElementById("quantumComputingLevelDisplay").innerText = `Level ${quantumComputingLevel}`;
+    document.getElementById(
+        "quantumComputingLevelDisplay"
+    ).innerText = `Level ${quantumComputingLevel}`;
 }
 
 // Function to upgrade Advanced Algorithms
 function researchAdvancedAlgorithms() {
     const maxLevel = 10;
-    if (processingPower >= advancedAlgorithmsPrice && advancedAlgorithmsLevel < maxLevel) {
+    if (
+        processingPower >= advancedAlgorithmsPrice &&
+        advancedAlgorithmsLevel < maxLevel
+    ) {
         processingPower -= advancedAlgorithmsPrice;
         advancedAlgorithmsLevel++;
         advancedAlgorithmsPrice = Math.round(advancedAlgorithmsPrice * 2.1);
         resModifier *= 2;
-        document.getElementById("resourceButton").innerHTML = "Gather Resources (x" + formatNumber(resModifier) + ")";
-        document.getElementById("advancedAlgorithmsButton").innerHTML = "Research Advanced Algorithms <br />(" + formatNumber(advancedAlgorithmsPrice) + " Processing Power)";
+        document.getElementById("resourceButton").innerHTML =
+            "Gather Resources (x" + formatNumber(resModifier) + ")";
+        document.getElementById("advancedAlgorithmsButton").innerHTML =
+            "Research Advanced Algorithms <br />(" +
+            formatNumber(advancedAlgorithmsPrice) +
+            " Processing Power)";
         updateProcessingPowerDisplay();
         setButtonColors();
         updateAdvancedAlgorithmsLevelDisplay();
-    } else if (advancedAlgorithmsLevel >= maxLevel) {
+    }
+    if (advancedAlgorithmsLevel >= maxLevel) {
         document.getElementById("advancedAlgorithmsButton").disabled = true;
-        document.getElementById("advancedAlgorithmsButton").innerHTML = `Max Advanced Algorithms Level Reached`;
+        document.getElementById(
+            "advancedAlgorithmsButton"
+        ).innerHTML = `Max Advanced Algorithms Level Reached`;
     }
     if (advancedAlgorithmsLevel === 1 && firstHighEfficiencyGatherer) {
-        document.getElementById("highEfficiencyGathererButton").style.display = "block";
-        document.getElementById("highEfficiencyGathererCounter").style.display = "block";
+        document.getElementById("highEfficiencyGathererButton").style.display =
+            "block";
+        document.getElementById("highEfficiencyGathererCounter").style.display =
+            "block";
         firstHighEfficiencyGatherer = false;
-    } 
+    }
 }
 
 // Update the level display for Advanced Algorithms
 function updateAdvancedAlgorithmsLevelDisplay() {
-    document.getElementById("advancedAlgorithmsLevelDisplay").innerText = `Level ${advancedAlgorithmsLevel}`;
+    document.getElementById(
+        "advancedAlgorithmsLevelDisplay"
+    ).innerText = `Level ${advancedAlgorithmsLevel}`;
 }
 
 // Function to research global network integration
@@ -537,33 +778,47 @@ function researchGlobalNetwork() {
     if (processingPower >= globalNetworkPrice) {
         processingPower -= globalNetworkPrice;
         document.getElementById("globalNetworkButton").style.display = "none";
-        document.getElementById("missions").style.display = "block"; // Unlock Missions
+        document.getElementById("globalAiNetwork").style.display = "block"; // Unlock Global AI Network
+        line3 = document.getElementById("line-3");
+        line3.innerText = "3) Deploy a Global AI Network - complete ✓";
         updateProcessingPowerDisplay();
         updateQuantumComputingLevelDisplay();
         setButtonColors();
-        alert("Global Network Integration complete! Missions are now available.");
+        alert(
+            "Global Network Integration complete! The Global AI Network is now available."
+        );
     }
 }
 
 // Function to buy high efficiency gatherers
 function buyHighEfficiencyGatherer() {
-    if (resources >= highEfficiencyGathererPriceRes && processingPower >= highEfficiencyGathererPricePP) {
+    if (
+        resources >= highEfficiencyGathererPriceRes &&
+        processingPower >= highEfficiencyGathererPricePP
+    ) {
         resources -= highEfficiencyGathererPriceRes;
         processingPower -= highEfficiencyGathererPricePP;
         highEfficiencyGatherers++;
         setButtonColors();
-        highEfficiencyGathererPriceRes = Math.round(highEfficiencyGathererPriceRes * 2);
-        highEfficiencyGathererPricePP = Math.round(highEfficiencyGathererPricePP * 2);
+        highEfficiencyGathererPriceRes = Math.round(
+            highEfficiencyGathererPriceRes * 2
+        );
+        highEfficiencyGathererPricePP = Math.round(
+            highEfficiencyGathererPricePP * 2
+        );
         document.getElementById("highEfficiencyGathererButton").innerHTML =
-            "Buy High-Efficiency Auto-Gatherer (" +
+            "Buy High-Efficiency Auto-Gatherer <br />(" +
             formatNumber(highEfficiencyGathererPriceRes) +
             " Resources, " +
             formatNumber(highEfficiencyGathererPricePP) +
             " Processing Power)";
         document.getElementById("highEfficiencyGathererCounter").innerHTML =
-            formatNumber(highEfficiencyGatherers) + " High-Efficiency Auto-Gatherers";
+            formatNumber(highEfficiencyGatherers) +
+            " High-Efficiency Auto-Gatherers";
 
-        setInterval(function () { highEfficiencyAutoGather(); }, highEfficiencyGathererSpeed);
+        setInterval(function () {
+            highEfficiencyAutoGather();
+        }, highEfficiencyGathererSpeed);
     }
 }
 
@@ -571,15 +826,19 @@ function buyHighEfficiencyGatherer() {
 function highEfficiencyAutoGather() {
     var baseAmount = 10;
     var multiplier = 1.1;
-    var totalGain = baseAmount * Math.pow(multiplier, highEfficiencyGatherers - 1);
+    var totalGain =
+        baseAmount *
+        Math.pow(multiplier, highEfficiencyGatherers - 1) *
+        quantumAlgorithmsMultiplier;
     resources += totalGain;
-    document.getElementById("resourceCounter").innerHTML = formatNumber(resources) + " Resources";
+    document.getElementById("resourceCounter").innerHTML =
+        formatNumber(resources) + " Resources";
     setButtonColors();
 }
 
 // Function to format numbers with suffixes
 function formatNumber(num) {
-    if (num === 0) return '0';
+    if (num === 0) return "0";
 
     var absNum = Math.abs(num);
     var exponent = Math.floor(Math.log10(absNum));
@@ -589,9 +848,7 @@ function formatNumber(num) {
         return num.toString();
     }
 
-    var units = [
-        '', 'K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc'
-    ];
+    var units = ["", "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc"];
 
     var tier = Math.floor(exponent / 3);
 
@@ -600,7 +857,7 @@ function formatNumber(num) {
         var scaled = num / Math.pow(10, tier * 3);
         return scaled.toFixed(2) + unit;
     } else {
-        return mantissa.toFixed(2) + 'e' + exponent;
+        return mantissa.toFixed(2) + "e" + exponent;
     }
 }
 
@@ -635,32 +892,44 @@ function startGame() {
     });
 
     // Developer tools for adding resources and power
-    document.getElementById("devRes").addEventListener("keydown", function (event) {
-        if (event.key === "Enter") {
-            var value = parseInt(this.innerText);
-            if (!isNaN(value)) {
-                resources += value;
-                document.getElementById("resourceCounter").innerHTML = formatNumber(resources) + " Resources";
-                this.innerText = "";
+    document
+        .getElementById("devRes")
+        .addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                var value = parseInt(this.innerText);
+                if (!isNaN(value)) {
+                    resources += value;
+                    document.getElementById("resourceCounter").innerHTML =
+                        formatNumber(resources) + " Resources";
+                    this.innerText = "";
+                }
+                event.preventDefault();
             }
-            event.preventDefault();
-        }
-    });
+        });
 
-    document.getElementById("devPow").addEventListener("keydown", function (event) {
-        if (event.key === "Enter") {
-            var value = parseInt(this.innerText);
-            if (!isNaN(value)) {
-                processingPower += value;
-                document.getElementById("processingPowerCounter").innerHTML = formatNumber(processingPower) + " Processing Power";
-                this.innerText = "";
+    document
+        .getElementById("devPow")
+        .addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                var value = parseInt(this.innerText);
+                if (!isNaN(value)) {
+                    processingPower += value;
+                    document.getElementById(
+                        "processingPowerCounter"
+                    ).innerHTML =
+                        formatNumber(processingPower) + " Processing Power";
+                    this.innerText = "";
+                }
+                event.preventDefault();
             }
-            event.preventDefault();
-        }
-    });
+        });
 }
 
 // Set intervals for updating resources and processing power, then start the game
-setInterval(function () { updateResPerSec(); }, 1000);
-setInterval(function () { updateProcessingPowerDisplay(); }, 1000);
+setInterval(function () {
+    updateResPerSec();
+}, 1000);
+setInterval(function () {
+    updateProcessingPowerDisplay();
+}, 1000);
 startGame();

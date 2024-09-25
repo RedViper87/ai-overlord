@@ -20,12 +20,16 @@ virtualenv -p python3 $venv_path || display_error "Failed to create the virtual 
 echo "Activating the virtual environment..."
 source $venv_path/bin/activate || display_error "Failed to activate the virtual environment."
 
+# Upgrade pip, setuptools, and wheel
+echo "Upgrading pip, setuptools, and wheel..."
+pip install --upgrade pip setuptools wheel || display_error "Failed to upgrade pip, setuptools, and wheel."
+
 # Install necessary dependencies
 echo "Installing necessary dependencies..."
 pip install wheel || display_error "Failed to install wheel."
 pip install Flask || display_error "Failed to install Flask."
 # Add any additional dependencies you may need for your specific web game here.
-pip install sass || display_error "Failed to install sass."
+pip install libsass || display_error "Failed to install libsass."
 
 # Deactivate the virtual environment
 echo "Deactivating the virtual environment..."
