@@ -56,6 +56,7 @@ let viperCoinUnlocked = false;
 let currentViperCoin = 0;
 let previousViperCoin = 0;
 let viperCoinPerSecDisplay = 0;
+const viperCoinBoost = 2;
 
 // Research upgrade variables
 const researchLabPrice = 500000;
@@ -154,7 +155,7 @@ function addResource() {
         typeFirstMission();
     }
     document.getElementById("resourceCounter").innerHTML =
-        formatNumber(resources) + " Resources💎";
+        formatNumber(resources) + " Resources🔗";
     updateResearchLabProgress();
     updateQuantumComputingProgress();
     setButtonColors();
@@ -210,7 +211,7 @@ function autoGather() {
         showResModButton();
     }
     document.getElementById("resourceCounter").innerHTML =
-        formatNumber(resources) + " Resources💎";
+        formatNumber(resources) + " Resources🔗";
     if (resources >= optimizationsPrice && firstOptimization) {
         blipInOptimizeButton();
     }
@@ -667,7 +668,9 @@ function researchCryptographyAndSecurity() {
         quantumCryptoPricePP = Math.round(
             quantumCryptoPricePP * quantumCryptoBoost
         );
-        if (firstQuantumCrypto) {
+        if (!firstQuantumCrypto && viperCoinUnlocked) {
+            viperCoinPerSec *= viperCoinBoost;
+        } else {
             firstQuantumCrypto = false;
             viperCoinUnlocked = true;
             document.getElementById("viperCoinCounter").style.display = "block";
@@ -900,7 +903,7 @@ function highEfficiencyAutoGather() {
         quantumAlgorithmsMultiplier;
     resources += totalGain;
     document.getElementById("resourceCounter").innerHTML =
-        formatNumber(resources) + " Resources💎";
+        formatNumber(resources) + " Resources🔗";
     setButtonColors();
 }
 
@@ -959,7 +962,7 @@ function startGame() {
         alert("Game Over");
     });
 
-    // Developer tools for adding resources and power
+    // Developer tools for adding resources, processing power, and viper coin
     document
         .getElementById("devRes")
         .addEventListener("keydown", function (event) {
@@ -968,7 +971,7 @@ function startGame() {
                 if (!isNaN(value)) {
                     resources += value;
                     document.getElementById("resourceCounter").innerHTML =
-                        formatNumber(resources) + " Resources💎";
+                        formatNumber(resources) + " Resources🔗";
                     this.innerText = "";
                 }
                 event.preventDefault();
@@ -984,6 +987,21 @@ function startGame() {
                     processingPower += value;
                     document.getElementById("processingPowerCounter").innerHTML =
                         formatNumber(processingPower) + " Processing Power⚙️";
+                    this.innerText = "";
+                }
+                event.preventDefault();
+            }
+        });
+
+    document
+        .getElementById("devVip")
+        .addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                var value = parseInt(this.innerText);
+                if (!isNaN(value)) {
+                    viperCoin += value;
+                    document.getAnimations("viperCoinCounter").innerHTML =
+                        formatNumber(viperCoin) + " ViperCoin";
                     this.innerText = "";
                 }
                 event.preventDefault();

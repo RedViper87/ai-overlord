@@ -16,9 +16,10 @@
                 <h1 id="gameTitle">AI Overlord</h1>
                 <!-- Developer Inputs for adding resources and power during testing -->
                 <div class="dev-tools">
-                    <span style="color: red;">DEVMODETOOLS</span><br />
+                    <span id="devModeTools" style="color: red;">DEVMODETOOLS</span><br />
                     <label id="devRes" contenteditable="true" data-placeholder="Add Dev Resources"></label>
                     <label id="devPow" contenteditable="true" data-placeholder="Add Dev Power"></label>
+                    <label id="devVip" contenteditable="true" data-placeholder="Add Dev ViperCoin"></label>
                 </div>
             </div>
             <div class="right-group">
@@ -62,7 +63,7 @@
             <hr />
             <!-- Display for resource count and resources per second -->
             <div id="resourceBar">
-                <span id="resourceCounter">0 Resources💎</span>
+                <span id="resourceCounter">0 Resources🔗</span>
                 <span id="resPerSec" style="display: none;">0 Resources/sec</span>
             </div>
             <!-- Display for processing power count and processing power per second -->
@@ -194,7 +195,7 @@
                 <span class="level-display" id="quantumInfoLevelDisplay">Level 0</span>
                 <!-- Quantum Cryptography Button -->
                 <button class="button-upgrades info-button" id="quantumCryptoButton"
-                    onclick="researchCryptographyAndSecurity()" data-tooltip="Unlocks new cryptocurrency.">
+                    onclick="researchCryptographyAndSecurity()" data-tooltip="Unlocks new cryptocurrency. Doubles production rate with each additional level researched.">
                     Cryptography and Security Research <br />(25.00M Resources, 50.00M Processing Power)
                 </button>
                 <span class="level-display" id="quantumCryptoLevelDisplay">Level 0</span>

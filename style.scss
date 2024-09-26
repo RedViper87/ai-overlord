@@ -3,14 +3,20 @@
 //     border: 1px solid red;
 // }
 .dev-tools {
+    background-color: #000;
     border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 body {
     background-color: #333333;
     color: #ffffff;
 }
 #devRes,
-#devPow {
+#devPow,
+#devVip {
     background-color: white;
     display: inline-block;
     width: 140px;
@@ -26,6 +32,10 @@ body {
         }
     }
 }
+#devModeTools {
+    margin-top: 10px;
+    margin-bottom: -10px;
+}
 /* NORMAL STUFF */
 #highEfficiencyGathererCounter {
     padding-top: 0.5em;
@@ -35,7 +45,7 @@ body {
     padding-top: 0.5em;
 }
 #game-container {
-    width: 800px;
+    width: 1000px;
     margin: 0 auto;
 }
 #gameTitle {
@@ -256,11 +266,11 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: url("images/mainframe.jpeg") no-repeat center center;
+    background: #1d1d1d;
     background-size: calc(100% - 8px) calc(100% - 8px);
     left: 0;
     top: 0;
-    border-radius: 20px;
+    border-radius: 10px;
     overflow: hidden;
 }
 
