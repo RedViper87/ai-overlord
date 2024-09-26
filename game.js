@@ -63,8 +63,8 @@ let globalNetworkPrice = 120000000;
 
 // High-Efficiency Auto-Gatherer variables
 let highEfficiencyGatherers = 0;
-let highEfficiencyGathererPriceRes = 3000;
-let highEfficiencyGathererPricePP = 5000;
+let highEfficiencyGathererPriceRes = 5000;
+let highEfficiencyGathererPricePP = 3000;
 let highEfficiencyGathererSpeed = 1;
 let firstHighEfficiencyGatherer = true;
 
@@ -588,14 +588,14 @@ function quantumAlgorithmsDevelopmentAndTesting() {
         processingPower -= quantumAlgorithmsPricePP;
         quantumAlgorithmsLevel++;
         quantumAlgorithmsPriceRes = Math.round(
-            (quantumAlgorithmsPriceRes * quantumAlgorithmsBoost) / 10
+            (quantumAlgorithmsPriceRes * quantumAlgorithmsBoost) / 100
         );
         quantumAlgorithmsPricePP = Math.round(
-            (quantumAlgorithmsPricePP * quantumAlgorithmsBoost) / 10
+            (quantumAlgorithmsPricePP * quantumAlgorithmsBoost) / 100
         );
 
         // Update the quantumAlgorithmsMultiplier based on the new level
-        quantumAlgorithmsMultiplier = Math.pow(1.25, quantumAlgorithmsLevel);
+        quantumAlgorithmsMultiplier = Math.pow(2.5, quantumAlgorithmsLevel);
 
         document.getElementById(
             "quantumAlgorithmsButton"
@@ -684,7 +684,7 @@ function researchAI() {
         document.getElementById("researchAIButton").disabled = true;
         document.getElementById(
             "researchAIButton"
-        ).innerHTML = `Max Neural Network Optimization Level Reached`;
+        ).innerHTML = `Max Level for Neural Network Optimization Reached`;
     }
 }
 
@@ -719,7 +719,7 @@ function researchQuantumComputing() {
         document.getElementById("quantumComputingButton").disabled = true;
         document.getElementById(
             "quantumComputingButton"
-        ).innerHTML = `Max Quantum Computing Level Reached`;
+        ).innerHTML = `Max Level for Quantum Computing Reached`;
     }
 }
 
@@ -755,7 +755,7 @@ function researchAdvancedAlgorithms() {
         document.getElementById("advancedAlgorithmsButton").disabled = true;
         document.getElementById(
             "advancedAlgorithmsButton"
-        ).innerHTML = `Max Advanced Algorithms Level Reached`;
+        ).innerHTML = `Max Level for Advanced Algorithms Reached`;
     }
     if (advancedAlgorithmsLevel === 1 && firstHighEfficiencyGatherer) {
         document.getElementById("highEfficiencyGathererButton").style.display =
