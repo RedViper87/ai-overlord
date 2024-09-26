@@ -13,6 +13,7 @@ let firstOptimization = true;
 let firstCRTDisplay = true;
 let firstResearchLab = true;
 let firstQuantumComputingCenter = true;
+let firstQuantumCrypto = true;
 
 // Resource variables
 let resources = 0;
@@ -366,14 +367,14 @@ function setButtonColors() {
         "highEfficiencyGathererButton"
     ).style.backgroundColor =
         resources < highEfficiencyGathererPriceRes ||
-        processingPower < highEfficiencyGathererPricePP
+            processingPower < highEfficiencyGathererPricePP
             ? "#777"
             : "#00ff7f";
 
     // Quantum Algorithms Button
     document.getElementById("quantumAlgorithmsButton").style.backgroundColor =
         resources < quantumAlgorithmsPriceRes ||
-        processingPower < quantumAlgorithmsPricePP
+            processingPower < quantumAlgorithmsPricePP
             ? "#777"
             : "#89abe3";
 
@@ -386,14 +387,14 @@ function setButtonColors() {
     // Quantum Cryptography Button
     document.getElementById("quantumCryptoButton").style.backgroundColor =
         resources < quantumCryptoPriceRes ||
-        processingPower < quantumCryptoPricePP
+            processingPower < quantumCryptoPricePP
             ? "#777"
             : "#d1c4e9";
 
     // Quantum Material Button
     document.getElementById("quantumMaterialButton").style.backgroundColor =
         resources < quantumMaterialPriceRes ||
-        processingPower < quantumMaterialPricePP
+            processingPower < quantumMaterialPricePP
             ? "#777"
             : "#d4af37";
 }
@@ -661,6 +662,26 @@ function updateQuantumInfoLevelDisplay() {
     document.getElementById(
         "quantumInfoLevelDisplay"
     ).innerText = `Level ${quantumInfoLevel}`;
+}
+
+// Function to Research Cryptography and Security
+function researchCryptographyAndSecurity() {
+    const maxLevel = 10;
+    if (
+        resources >= quantumCryptoPriceRes &&
+        processingPower >= quantumCryptoPricePP &&
+        quantumCryptoLevel < maxLevel
+    ) {
+        resources -= quantumCryptoPriceRes;
+        processingPower -= quantumCryptoPricePP;
+        quantumCryptoLevel++;
+        quantumCryptoPriceRes = Math.round(quantumCryptoPriceRes * quantumCryptoBoost);
+        quantumCryptoPricePP = Math.round(quantumCryptoPricePP * quantumCryptoBoost);
+        if (firstQuantumCrypto) {
+            firstQuantumCrypto = false;
+            
+        }
+    }
 }
 
 // Function to upgrade AI research
