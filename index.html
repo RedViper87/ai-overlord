@@ -62,13 +62,21 @@
             <hr />
             <!-- Display for resource count and resources per second -->
             <div id="resourceBar">
-                <span id="resourceCounter">0 Resources</span>
-                <span id="resPerSec" style="display: none;">0 Resources per second</span>
+                <span id="resourceCounter">0 Resources💎</span>
+                <span id="resPerSec" style="display: none;">0 Resources/sec</span>
             </div>
             <!-- Display for processing power count and processing power per second -->
             <div id="processingPowerBar">
-                <span id="processingPowerCounter" style="display: none;">0 Processing Power</span>
+                <span id="processingPowerCounter" style="display: none;">0 Processing Power ⚙️</span>
                 <span id="processingPowerPerSec" style="display: none;">0 Processing Power/sec</span>
+            </div>
+            <!-- Display for viper coin counter and rate -->
+            <div id="viperCoinBar">
+                <div class="flex-row">
+                    <span id="viperCoinCounter" style="display: none;">0 ViperCoin</span>
+                    <div class="crypto-icon" id="cryptoIcon" style="display: none;"></div>
+                </div>
+                <span id="viperCoinPerSec" style="display: none;">0 ViperCoin/sec</span>
             </div>
             <hr />
             <!-- Upgrades Section -->
@@ -162,7 +170,8 @@
                 </button>
                 <span class="level-display" id="advancedAlgorithmsLevelDisplay">Level 0</span>
                 <!-- Global Network Integration Button -->
-                <button class="button-upgrades info-button" id="globalNetworkButton" onclick="researchGlobalNetwork()"
+                <button class="button-upgrades info-button" id="globalNetworkButton"
+                    onclick="researchGlobalNetwork()"
                     data-tooltip="Unlocks Global AI Network.">
                     Research Global Network Integration <br />(120.00M Processing Power)
                 </button>
@@ -185,13 +194,13 @@
                 <span class="level-display" id="quantumInfoLevelDisplay">Level 0</span>
                 <!-- Quantum Cryptography Button -->
                 <button class="button-upgrades info-button" id="quantumCryptoButton"
-                    onclick="researchCryptographyAndSecurity()" data-tooltip="THIS IS AN EXAMPLE">
+                    onclick="researchCryptographyAndSecurity()" data-tooltip="Unlocks new cryptocurrency.">
                     Cryptography and Security Research <br />(25.00M Resources, 50.00M Processing Power)
                 </button>
                 <span class="level-display" id="quantumCryptoLevelDisplay">Level 0</span>
                 <!-- Quantum Material Button -->
                 <button class="button-upgrades info-button" id="quantumMaterialButton" onclick="discoverNewMaterial()"
-                    data-tooltip="THIS IS AN EXAMPLE">
+                    data-tooltip="Discover a brand new material.">
                     New Material Discovery <br />(100.00B Resources, 250.00B Processing Power)
                 </button>
             </div>

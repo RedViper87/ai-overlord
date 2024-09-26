@@ -63,6 +63,17 @@ body {
     font-size: 1.5em;
     margin-left: auto;
 }
+#viperCoinBar {
+    display: flex;
+    justify-content:space-between;
+}
+#viperCoinCounter {
+    font-size: 1.5em;
+}
+#viperCoinPerSec {
+    font-size: 1.5em;
+    margin-left: auto;
+}
 #researchLab {
     margin-top: 20px;
     padding: 10px;
@@ -157,6 +168,14 @@ body {
         min-width: 120px;
         padding: 0 15px;
     }
+}
+
+.crypto-icon {
+    width: 32px;
+    height: 32px;
+    background-image: url('images/vipercoin-icon.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .flex-row {

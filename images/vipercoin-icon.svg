@@ -1,0 +1,59 @@
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 256 256"
+    width="256"
+    height="256"
+>
+    <!-- Outer Circle -->
+    <circle
+        cx="128"
+        cy="128"
+        r="110"
+        fill="#98FF98"
+    />
+    
+    <!-- Inner Circle for Contrast -->
+    <circle
+        cx="128"
+        cy="128"
+        r="90"
+        fill="#046307"
+    />
+    
+    <!-- Letter 'H' Design -->
+    <text
+        x="50%"
+        y="55%"
+        dominant-baseline="middle"
+        text-anchor="middle"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="150"
+        fill="#f0f0f0"
+        font-weight="bold"
+    >
+        V
+    </text>
+    
+    <!-- Optional: Adding Horizontal Lines Similar to Bitcoin's Design -->
+    <!-- Left Horizontal Line -->
+    <line
+        x1="75"
+        y1="100"
+        x2="180"
+        y2="100"
+        stroke="#000000"
+        stroke-width="15"
+        stroke-linecap="round"
+    />
+    
+    <!-- Right Horizontal Line -->
+    <line
+        x1="75"
+        y1="147"
+        x2="180"
+        y2="147"
+        stroke="#000000"
+        stroke-width="15"
+        stroke-linecap="round"
+    />
+</svg>
