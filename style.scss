@@ -113,20 +113,20 @@ body {
 }
 // Variables for consistent color usage
 $researchLab-primary: #1abc9c; // Turquoise for creativity and growth
-$researchLab-gradient: linear-gradient(45deg, #FF4500, #0047AB);
+$researchLab-gradient: linear-gradient(45deg, #0047ab, #ff4500);
 
 $quantumCenter-primary: #9b59b6; // Purple for technology and sophistication
-$quantumCenter-gradient: linear-gradient(45deg, #4B0082, #BF00FF);
+$quantumCenter-gradient: linear-gradient(45deg, #4b0082, #bf00ff);
 
 // Styles for Research Lab Header
 #researchLab {
     h3 {
         margin-top: 0;
         color: #fff; // White text for contrast
-        background: $researchLab-gradient; // Green gradient background
+        background: $researchLab-gradient;
         padding: 12px 24px;
         border-radius: 10px;
-        font-family: 'Space Grotesk', sans-serif;
+        font-family: "Space Grotesk", sans-serif;
         font-size: 1.8em;
         text-align: center;
         box-shadow: 0 4px 8px rgba(26, 188, 156, 0.3); // Subtle shadow with theme color
@@ -160,10 +160,10 @@ $quantumCenter-gradient: linear-gradient(45deg, #4B0082, #BF00FF);
     h3 {
         margin-top: 0;
         color: #fff; // White text for contrast
-        background: $quantumCenter-gradient; // Purple gradient background
+        background: $quantumCenter-gradient;
         padding: 12px 24px;
         border-radius: 10px;
-        font-family: 'Space Grotesk', sans-serif;
+        font-family: "Space Grotesk", sans-serif;
         font-size: 1.8em;
         text-align: center;
         box-shadow: 0 4px 8px rgba(155, 89, 182, 0.3); // Subtle shadow with theme color
@@ -242,7 +242,6 @@ $quantumCenter-gradient: linear-gradient(45deg, #4B0082, #BF00FF);
 }
 
 @media (min-width: 768px) {
-
     .button-gather-res,
     .button-upgrades {
         min-width: 120px;
@@ -253,7 +252,7 @@ $quantumCenter-gradient: linear-gradient(45deg, #4B0082, #BF00FF);
 .crypto-icon {
     width: 32px;
     height: 32px;
-    background-image: url('images/vipercoin-icon.svg');
+    background-image: url("images/vipercoin-icon.svg");
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -297,16 +296,18 @@ $quantumCenter-gradient: linear-gradient(45deg, #4B0082, #BF00FF);
 
 .major-upgrades:before {
     content: "";
-    background: linear-gradient(45deg,
-            #ff0000,
-            #ff7300,
-            #fffb00,
-            #48ff00,
-            #00ffd5,
-            #002bff,
-            #7a00ff,
-            #ff00c8,
-            #ff0000);
+    background: linear-gradient(
+        45deg,
+        #ff0000,
+        #ff7300,
+        #fffb00,
+        #48ff00,
+        #00ffd5,
+        #002bff,
+        #7a00ff,
+        #ff00c8,
+        #ff0000
+    );
     position: absolute;
     top: -2px;
     left: -2px;
@@ -598,15 +599,15 @@ $quantumCenter-gradient: linear-gradient(45deg, #4B0082, #BF00FF);
     transition: 0.4s;
 }
 
-input:checked+.slider {
+input:checked + .slider {
     background-color: #2196f3;
 }
 
-input:focus+.slider {
+input:focus + .slider {
     box-shadow: 0 0 1px #2196f3;
 }
 
-input:checked+.slider:before {
+input:checked + .slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
@@ -690,14 +691,16 @@ $crt-overscan-width: 2.66667em;
         right: 0;
         bottom: 0;
         z-index: -1;
-        background: linear-gradient(135deg,
-                rgba(149, 149, 149, 0.5) 0%,
-                rgba(13, 13, 13, 0.55) 19%,
-                rgba(1, 1, 1, 0.64) 50%,
-                rgba(10, 10, 10, 0.69) 69%,
-                rgba(51, 51, 51, 0.73) 84%,
-                rgba(22, 22, 22, 0.76) 93%,
-                rgba(27, 27, 27, 0.78) 100%);
+        background: linear-gradient(
+            135deg,
+            rgba(149, 149, 149, 0.5) 0%,
+            rgba(13, 13, 13, 0.55) 19%,
+            rgba(1, 1, 1, 0.64) 50%,
+            rgba(10, 10, 10, 0.69) 69%,
+            rgba(51, 51, 51, 0.73) 84%,
+            rgba(22, 22, 22, 0.76) 93%,
+            rgba(27, 27, 27, 0.78) 100%
+        );
         opacity: 0.5;
     }
 
@@ -734,9 +737,11 @@ $crt-overscan-width: 2.66667em;
         right: 0;
         box-shadow: inset 0 0 5px 5px rgba(255, 255, 255, 0.1);
         border-radius: $crt-border-radius;
-        background: radial-gradient(ellipse at center,
-                rgba($phosphor-color, 0.1) 0%,
-                rgba(255, 255, 255, 0) 100%);
+        background: radial-gradient(
+            ellipse at center,
+            rgba($phosphor-color, 0.1) 0%,
+            rgba(255, 255, 255, 0) 100%
+        );
         z-index: -4;
     }
 }
@@ -744,37 +749,33 @@ $crt-overscan-width: 2.66667em;
 .crt-scan-area {
     width: 100%;
 
-    @if $crt-lines =="auto" {
-        height: calc(100vh - #{$crt-margin *
- 2
-        }
-
-        - #{$crt-bezel-width *
- 2
+    @if $crt-lines == "auto" {
+        height: calc(
+            100vh -
+                #{$crt-margin *
+                2} -
+                #{$crt-bezel-width *
+                2} -
+                #{$crt-overscan-width *
+                2}
+        );
+    } @else {
+        height: ($crt-lines * 1em * $crt-line-height);
     }
 
-    - #{$crt-overscan-width *
- 2
-});
-}
+    //scrollbar-width: none; // Maybe?
+    margin: $crt-overscan-width;
+    overflow-y: $crt-overflow-y;
+    white-space: nowrap;
+    font-family: monospace;
+    color: $phosphor-color;
+    text-shadow: 0 0 1px rgba($phosphor-color, 0.8);
 
-@else {
-    height: ($crt-lines * 1em * $crt-line-height);
-}
-
-//scrollbar-width: none; // Maybe?
-margin: $crt-overscan-width;
-overflow-y: $crt-overflow-y;
-white-space: nowrap;
-font-family: monospace;
-color: $phosphor-color;
-text-shadow: 0 0 1px rgba($phosphor-color, 0.8);
-
-em {
-    color: $crt-bg-color;
-    background-color: $phosphor-color;
-    font-style: normal;
-}
+    em {
+        color: $crt-bg-color;
+        background-color: $phosphor-color;
+        font-style: normal;
+    }
 }
 
 .blinking-border {

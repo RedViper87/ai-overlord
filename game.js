@@ -141,13 +141,17 @@ function buyAutoGatherer() {
         setButtonColors();
         autoGathererPrice = Math.round(autoGathererPrice * 1.25);
         document.getElementById("autoGathererButton").innerHTML =
-            "Buy Auto Gatherer (" + formatNumber(autoGathererPrice) + " Resources)";
+            "Buy Auto Gatherer (" +
+            formatNumber(autoGathererPrice) +
+            " Resources)";
         document.getElementById("autoGathererCounter").innerHTML =
             formatNumber(autoGatherers) +
             " Auto Gatherer" +
             (autoGatherers > 1 ? "s" : "");
         if (autoGathererIntervals.length > 0) {
-            clearInterval(autoGathererIntervals[autoGathererIntervals.length - 1]);
+            clearInterval(
+                autoGathererIntervals[autoGathererIntervals.length - 1]
+            );
         }
         var intervalId = setInterval(function () {
             autoGather();
@@ -185,7 +189,9 @@ function optimizeCode() {
         optimizations++;
         optimizationsPrice = Math.round(optimizationsPrice * 1.5);
         document.getElementById("optimizeButton").innerHTML =
-            "Optimize Code (" + formatNumber(optimizationsPrice) + " Resources)";
+            "Optimize Code (" +
+            formatNumber(optimizationsPrice) +
+            " Resources)";
         unseenGatherers = Math.round(Math.pow(optimizations, 2) / 2);
         document.getElementById("optimizationsCounter").innerHTML =
             formatNumber(optimizations) +
@@ -276,7 +282,9 @@ function blipInOptimizeButton() {
 // Show resource multiplier button
 function showResModButton() {
     document.getElementById("resourceIncreaseButton").innerHTML =
-        "Resource Multiplier (" + formatNumber(resIncreasePrice) + " Resources)";
+        "Resource Multiplier (" +
+        formatNumber(resIncreasePrice) +
+        " Resources)";
     document.getElementById("resourceIncreaseButton").style.display = "inline";
 }
 
@@ -289,11 +297,11 @@ function removeResModButton() {
 function setButtonColors() {
     // Auto Gatherer Button
     document.getElementById("autoGathererButton").style.backgroundColor =
-        resources < autoGathererPrice ? "#777" : "#00ff00";
+        resources < autoGathererPrice ? "#777" : "#00FF00";
 
     // Optimize Code Button
     document.getElementById("optimizeButton").style.backgroundColor =
-        resources < optimizationsPrice ? "#777" : "#00ff00";
+        resources < optimizationsPrice ? "#777" : "#00FF00";
 
     // Resource Increase Button
     document.getElementById("resourceIncreaseButton").style.backgroundColor =
@@ -301,7 +309,7 @@ function setButtonColors() {
 
     // Research AI Button
     document.getElementById("researchAIButton").style.backgroundColor =
-        processingPower < researchAIPrice ? "#777" : "#00FFC5";
+        processingPower < researchAIPrice ? "#777" : "#3380FF";
 
     // Quantum Computing Button
     document.getElementById("quantumComputingButton").style.backgroundColor =
@@ -309,32 +317,47 @@ function setButtonColors() {
 
     // Advanced Algorithms Button
     document.getElementById("advancedAlgorithmsButton").style.backgroundColor =
-        processingPower < advancedAlgorithmsPrice ? "#777" : "#0047AB";
+        processingPower < advancedAlgorithmsPrice ? "#777" : "#00FFC5";
 
     // Global Network Integration Button
     document.getElementById("globalNetworkButton").style.backgroundColor =
         processingPower < globalNetworkPrice ? "#777" : "#FF4500";
 
     // High-Efficiency Auto-Gatherer Button
-    document.getElementById("highEfficiencyGathererButton").style.backgroundColor =
-        resources < highEfficiencyGathererPriceRes || processingPower < highEfficiencyGathererPricePP ? "#777" : "#00ff7f";
+    document.getElementById(
+        "highEfficiencyGathererButton"
+    ).style.backgroundColor =
+        resources < highEfficiencyGathererPriceRes ||
+        processingPower < highEfficiencyGathererPricePP
+            ? "#777"
+            : "#00FF7F";
 
     // Quantum Algorithms Button
     document.getElementById("quantumAlgorithmsButton").style.backgroundColor =
-        resources < quantumAlgorithmsPriceRes || processingPower < quantumAlgorithmsPricePP ? "#777" : "#4B0082";
+        resources < quantumAlgorithmsPriceRes ||
+        processingPower < quantumAlgorithmsPricePP
+            ? "#777"
+            : "#BA55D3";
 
     // Quantum Information Button
     document.getElementById("quantumInfoButton").style.backgroundColor =
-        resources < quantumInfoPriceRes || processingPower < quantumInfoPricePP ? "#777" : "#1F51FF";
+        resources < quantumInfoPriceRes || processingPower < quantumInfoPricePP
+            ? "#777"
+            : "#6AA1FF";
 
     // Quantum Cryptography Button
     document.getElementById("quantumCryptoButton").style.backgroundColor =
-        resources < quantumCryptoPriceRes || processingPower < quantumCryptoPricePP ? "#777" : "#C0C0C0";
+        resources < quantumCryptoPriceRes ||
+        processingPower < quantumCryptoPricePP
+            ? "#777"
+            : "#E8E0F8";
 
     // Quantum Material Button
     document.getElementById("quantumMaterialButton").style.backgroundColor =
         resources < quantumMaterialPriceRes ||
-            processingPower < quantumMaterialPricePP ? "#777" : "#BF00FF";
+        processingPower < quantumMaterialPricePP
+            ? "#777"
+            : "#D4AF37";
 }
 
 // Randomize color for glitch effect
@@ -402,7 +425,8 @@ function typeFirstMission() {
     timeToWait += sentence.length * typingSpeed;
     setTimeout(function () {
         document.getElementById("line-1").style.display = "inline";
-        document.getElementById("typing-effect-header").style.borderRight = "none";
+        document.getElementById("typing-effect-header").style.borderRight =
+            "none";
         typeEffect(element1, line1, typingSpeed);
     }, timeToWait);
     timeToWait += line1.length * typingSpeed;
@@ -457,14 +481,17 @@ function purchaseResearchLab() {
         resources -= researchLabPrice;
         processingPowerUnlocked = true;
         document.getElementById("research-lab-button").style.display = "none";
-        document.getElementById("processingPowerCounter").style.display = "block";
-        document.getElementById("processingPowerPerSec").style.display = "block";
+        document.getElementById("processingPowerCounter").style.display =
+            "block";
+        document.getElementById("processingPowerPerSec").style.display =
+            "block";
         document.getElementById("researchLab").style.display = "block";
         line1 = document.getElementById("line-1");
         line1.innerText = "1) Purchase a Research Lab - complete ✓";
         setButtonColors();
-        document.getElementById("quantum-computing-center-button").style.display =
-            "block";
+        document.getElementById(
+            "quantum-computing-center-button"
+        ).style.display = "block";
         updateResearchLabProgress();
         updateQuantumComputingProgress();
         setInterval(generateProcessingPower, 1000);
@@ -524,14 +551,19 @@ function constructQuantumComputingCenter() {
         processingPowerPerSec *= processingPowerBoostFactor;
 
         // Hide the button after construction and show the Center
-        document.getElementById("quantum-computing-center-button").style.display =
-            "none";
-        document.getElementById("quantumComputingCenter").style.display = "block";
+        document.getElementById(
+            "quantum-computing-center-button"
+        ).style.display = "none";
+        document.getElementById("quantumComputingCenter").style.display =
+            "block";
         line2 = document.getElementById("line-2");
-        line2.innerText = "2) Construct a Quantum Computing Center - complete ✓";
+        line2.innerText =
+            "2) Construct a Quantum Computing Center - complete ✓";
         updateProcessingPowerDisplay();
 
-        alert("Quantum Computing Center constructed! Processing power increased.");
+        alert(
+            "Quantum Computing Center constructed! Processing power increased."
+        );
     }
 }
 
@@ -579,7 +611,9 @@ function quantumAlgorithmsDevelopmentAndTesting() {
             "quantumAlgorithmsButton"
         ).innerHTML = `Quantum Algorithms Development and Testing <br />(${formatNumber(
             quantumAlgorithmsPriceRes
-        )} Resources, ${formatNumber(quantumAlgorithmsPricePP)} Processing Power)`;
+        )} Resources, ${formatNumber(
+            quantumAlgorithmsPricePP
+        )} Processing Power)`;
         updateProcessingPowerDisplay();
         setButtonColors();
         updateQuantumAlgorithmsLevelDisplay();
@@ -610,7 +644,9 @@ function researchQuantumInformationTheory() {
         resources -= quantumInfoPriceRes;
         processingPower -= quantumInfoPricePP;
         quantumInfoLevel++;
-        quantumInfoPriceRes = Math.round(quantumInfoPriceRes * quantumInfoBoost);
+        quantumInfoPriceRes = Math.round(
+            quantumInfoPriceRes * quantumInfoBoost
+        );
         quantumInfoPricePP = Math.round(quantumInfoPricePP * quantumInfoBoost);
         processingPowerPerSec *= quantumInfoBoost;
         document.getElementById(
@@ -870,7 +906,8 @@ function buyHighEfficiencyGatherer() {
             formatNumber(highEfficiencyGathererPricePP) +
             " Processing Power)";
         document.getElementById("highEfficiencyGathererCounter").innerHTML =
-            formatNumber(highEfficiencyGatherers) + " High-Efficiency Auto-Gatherers";
+            formatNumber(highEfficiencyGatherers) +
+            " High-Efficiency Auto-Gatherers";
 
         setInterval(function () {
             highEfficiencyAutoGather();
@@ -977,7 +1014,9 @@ function startGame() {
                 var value = parseInt(this.innerText);
                 if (!isNaN(value)) {
                     processingPower += value;
-                    document.getElementById("processingPowerCounter").innerHTML =
+                    document.getElementById(
+                        "processingPowerCounter"
+                    ).innerHTML =
                         formatNumber(processingPower) + " Processing Power⚙️";
                     this.innerText = "";
                 }
