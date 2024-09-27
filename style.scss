@@ -42,13 +42,13 @@ body {
 }
 
 /* NORMAL STUFF */
+#autoGathererCounter,
+#optimizationsCounter,
 #highEfficiencyGathererCounter {
     padding-top: 0.5em;
-}
-
-#autoGathererCounter,
-#optimizationsCounter {
-    padding-top: 0.5em;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+    font-weight: bolder;
 }
 
 #game-container {
