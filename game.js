@@ -301,19 +301,19 @@ function setButtonColors() {
 
     // Research AI Button
     document.getElementById("researchAIButton").style.backgroundColor =
-        processingPower < researchAIPrice ? "#777" : "#bf00ff";
+        processingPower < researchAIPrice ? "#777" : "#00FFC5";
 
     // Quantum Computing Button
     document.getElementById("quantumComputingButton").style.backgroundColor =
-        processingPower < quantumComputingPrice ? "#777" : "#5d3fd3";
+        processingPower < quantumComputingPrice ? "#777" : "#32CD32";
 
     // Advanced Algorithms Button
     document.getElementById("advancedAlgorithmsButton").style.backgroundColor =
-        processingPower < advancedAlgorithmsPrice ? "#777" : "#008080";
+        processingPower < advancedAlgorithmsPrice ? "#777" : "#0047AB";
 
     // Global Network Integration Button
     document.getElementById("globalNetworkButton").style.backgroundColor =
-        processingPower < globalNetworkPrice ? "#777" : "#00b7eb";
+        processingPower < globalNetworkPrice ? "#777" : "#FF4500";
 
     // High-Efficiency Auto-Gatherer Button
     document.getElementById("highEfficiencyGathererButton").style.backgroundColor =
@@ -321,20 +321,20 @@ function setButtonColors() {
 
     // Quantum Algorithms Button
     document.getElementById("quantumAlgorithmsButton").style.backgroundColor =
-        resources < quantumAlgorithmsPriceRes || processingPower < quantumAlgorithmsPricePP ? "#777" : "#89abe3";
+        resources < quantumAlgorithmsPriceRes || processingPower < quantumAlgorithmsPricePP ? "#777" : "#4B0082";
 
     // Quantum Information Button
     document.getElementById("quantumInfoButton").style.backgroundColor =
-        resources < quantumInfoPriceRes || processingPower < quantumInfoPricePP ? "#777" : "#a8e6cf";
+        resources < quantumInfoPriceRes || processingPower < quantumInfoPricePP ? "#777" : "#1F51FF";
 
     // Quantum Cryptography Button
     document.getElementById("quantumCryptoButton").style.backgroundColor =
-        resources < quantumCryptoPriceRes || processingPower < quantumCryptoPricePP ? "#777" : "#d1c4e9";
+        resources < quantumCryptoPriceRes || processingPower < quantumCryptoPricePP ? "#777" : "#C0C0C0";
 
     // Quantum Material Button
     document.getElementById("quantumMaterialButton").style.backgroundColor =
         resources < quantumMaterialPriceRes ||
-            processingPower < quantumMaterialPricePP ? "#777" : "#d4af37";
+            processingPower < quantumMaterialPricePP ? "#777" : "#BF00FF";
 }
 
 // Randomize color for glitch effect
@@ -915,6 +915,13 @@ function formatNumber(num) {
     } else {
         return mantissa.toFixed(2) + "e" + exponent;
     }
+}
+
+// Function to discover the new material, Quantarion
+function discoverNewMaterial() {
+    alert(`You just discovered the new material Quantarion! Nice!
+    ---------------------------------------------------------------------
+    Quantarion is a groundbreaking material recently discovered at the Quantum Horizons Institute's cutting-edge quantum computing center. This novel substance promises to revolutionize multiple technological fields, from quantum computing and energy storage to telecommunications and beyond.`);
 }
 
 // Initialize and start the game

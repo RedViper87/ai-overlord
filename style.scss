@@ -10,10 +10,12 @@
     align-items: center;
     justify-content: center;
 }
+
 body {
     background-color: #333333;
     color: #ffffff;
 }
+
 #devRes,
 #devPow,
 #devVip {
@@ -25,6 +27,7 @@ body {
     padding: 5px;
     color: gray;
     text-align: center;
+
     &:empty {
         &:before {
             content: attr(data-placeholder);
@@ -32,58 +35,73 @@ body {
         }
     }
 }
+
 #devModeTools {
     margin-top: 10px;
     margin-bottom: -10px;
 }
+
 /* NORMAL STUFF */
 #highEfficiencyGathererCounter {
     padding-top: 0.5em;
 }
+
 #autoGathererCounter,
 #optimizationsCounter {
     padding-top: 0.5em;
 }
+
 #game-container {
     width: 1000px;
     margin: 0 auto;
 }
+
 #gameTitle {
     font-size: 3em;
 }
+
 #resourceBar {
     display: flex;
     justify-content: space-between;
 }
+
 #resourceCounter {
     font-size: 1.5em;
 }
+
 #resPerSec {
     font-size: 1.5em;
     margin-left: auto;
 }
+
 #processingPowerBar {
     display: flex;
     justify-content: space-between;
 }
+
 #processingPowerCounter {
     font-size: 1.5em;
 }
+
 #processingPowerPerSec {
     font-size: 1.5em;
     margin-left: auto;
 }
+
 #viperCoinBar {
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
 }
+
 #viperCoinCounter {
     font-size: 1.5em;
 }
+
 #viperCoinPerSec {
     font-size: 1.5em;
     margin-left: auto;
 }
+
 #researchLab {
     margin-top: 20px;
     padding: 10px;
@@ -93,14 +111,40 @@ body {
     flex-direction: grid;
     align-items: flex-start;
 }
-#researchLab h3 {
-    margin-top: 0;
-    color: #fff;
+// Variables for consistent color usage
+$researchLab-primary: #1abc9c; // Turquoise for creativity and growth
+$researchLab-gradient: linear-gradient(45deg, #FF4500, #0047AB);
+
+$quantumCenter-primary: #9b59b6; // Purple for technology and sophistication
+$quantumCenter-gradient: linear-gradient(45deg, #4B0082, #BF00FF);
+
+// Styles for Research Lab Header
+#researchLab {
+    h3 {
+        margin-top: 0;
+        color: #fff; // White text for contrast
+        background: $researchLab-gradient; // Green gradient background
+        padding: 12px 24px;
+        border-radius: 10px;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.8em;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(26, 188, 156, 0.3); // Subtle shadow with theme color
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        // Hover effect for interactivity
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(26, 188, 156, 0.4);
+        }
+    }
 }
+
 #researchLab .button-upgrades {
     width: 80%;
     margin-bottom: 10px;
 }
+
 #quantumComputingCenter {
     margin-top: 20px;
     padding: 10px;
@@ -110,21 +154,43 @@ body {
     flex-direction: grid;
     align-items: flex-start;
 }
-#quantumComputingCenter h3 {
-    margin-top: 0;
-    color: #fff;
+
+// Styles for Quantum Computing Center Header
+#quantumComputingCenter {
+    h3 {
+        margin-top: 0;
+        color: #fff; // White text for contrast
+        background: $quantumCenter-gradient; // Purple gradient background
+        padding: 12px 24px;
+        border-radius: 10px;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.8em;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(155, 89, 182, 0.3); // Subtle shadow with theme color
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        // Hover effect for interactivity
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(155, 89, 182, 0.4);
+        }
+    }
 }
+
 #quantumComputingCenter .button-upgrades {
     width: 80%;
     margin-bottom: 10px;
 }
+
 .crt-container {
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 .stage {
     display: none;
+
     &.active {
         display: block;
     }
@@ -149,6 +215,7 @@ body {
     -webkit-user-select: none;
     touch-action: manipulation;
 }
+
 .button-upgrades {
     background-color: #00ff00;
     border: 2px solid #000;
@@ -167,12 +234,15 @@ body {
     -webkit-user-select: none;
     touch-action: manipulation;
 }
+
 .button-gather-res:active,
 .button-upgrades:active {
     box-shadow: #000 2px 2px 0 0;
     transform: translate(2px, 2px);
 }
+
 @media (min-width: 768px) {
+
     .button-gather-res,
     .button-upgrades {
         min-width: 120px;
@@ -193,6 +263,7 @@ body {
     flex-direction: row;
     justify-content: space-between;
 }
+
 .left-group {
     display: flex;
     flex-direction: column;
@@ -200,6 +271,7 @@ body {
     align-items: flex-start;
     justify-content: flex-end;
 }
+
 .right-group {
     display: flex;
     width: 50%;
@@ -222,20 +294,19 @@ body {
     -webkit-user-select: none;
     touch-action: manipulation;
 }
+
 .major-upgrades:before {
     content: "";
-    background: linear-gradient(
-        45deg,
-        #ff0000,
-        #ff7300,
-        #fffb00,
-        #48ff00,
-        #00ffd5,
-        #002bff,
-        #7a00ff,
-        #ff00c8,
-        #ff0000
-    );
+    background: linear-gradient(45deg,
+            #ff0000,
+            #ff7300,
+            #fffb00,
+            #48ff00,
+            #00ffd5,
+            #002bff,
+            #7a00ff,
+            #ff00c8,
+            #ff0000);
     position: absolute;
     top: -2px;
     left: -2px;
@@ -249,17 +320,21 @@ body {
     transition: opacity 0.3s ease-in-out;
     border-radius: 10px;
 }
+
 @keyframes glowing-button {
     0% {
         background-position: 0 0;
     }
+
     50% {
         background-position: 400% 0;
     }
+
     100% {
         background-position: 0 0;
     }
 }
+
 .major-upgrades:after {
     z-index: -1;
     content: "";
@@ -275,28 +350,34 @@ body {
 }
 
 :root {
-    --glitch-duration: 5s; /* Default duration */
+    --glitch-duration: 5s;
+    /* Default duration */
 }
 
 .glitch {
     animation: glitch-effect var(--glitch-duration) infinite;
 }
+
 @keyframes glitch-effect {
     0% {
         opacity: 1;
     }
+
     25% {
         opacity: 0.25;
         transform: translate(-2px, 2px);
     }
+
     50% {
         opacity: 1;
         transform: translate(2px, -2px);
     }
+
     75% {
         opacity: 0.25;
         transform: translate(-2px, 2px);
     }
+
     100% {
         opacity: 1;
         transform: translate(0);
@@ -315,9 +396,12 @@ body {
 
 .progress-fill {
     height: 100%;
-    background-color: #4caf50; /* Green color for progress */
-    width: 0; /* Initial width */
-    transition: width 0.3s ease; /* Smooth transition effect */
+    background-color: #4caf50;
+    /* Green color for progress */
+    width: 0;
+    /* Initial width */
+    transition: width 0.3s ease;
+    /* Smooth transition effect */
 }
 
 .level-display {
@@ -330,6 +414,7 @@ body {
 .info-button {
     position: relative;
 }
+
 .info-button::after {
     content: attr(data-tooltip);
     position: absolute;
@@ -345,9 +430,11 @@ body {
     pointer-events: none;
     transition: opacity 0.2s ease-in-out;
 }
+
 .info-button:hover::after {
     opacity: 1;
 }
+
 .info-button.tooltip-visible::after {
     opacity: 0;
 }
@@ -358,44 +445,61 @@ body {
     /* Height & width depends on how you want to reveal the overlay (see JS below) */
     height: 100%;
     width: 0;
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
     left: 0;
     top: 0;
-    background-color: rgb(0, 0, 0); /* Black fallback color */
-    background-color: rgba(0, 0, 0, 0.9); /* Black w/opacity */
-    overflow-x: hidden; /* Disable horizontal scroll */
-    transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+    background-color: rgb(0, 0, 0);
+    /* Black fallback color */
+    background-color: rgba(0, 0, 0, 0.9);
+    /* Black w/opacity */
+    overflow-x: hidden;
+    /* Disable horizontal scroll */
+    transition: 0.5s;
+    /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
 }
+
 /* Position the content inside the overlay */
 .overlay-content {
     display: inline-flex;
     position: relative;
-    top: 25%; /* 25% from the top */
-    width: 100%; /* 100% width */
-    text-align: center; /* Centered text/links */
-    margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
+    top: 25%;
+    /* 25% from the top */
+    width: 100%;
+    /* 100% width */
+    text-align: center;
+    /* Centered text/links */
+    margin-top: 30px;
+    /* 30px top margin to avoid conflict with the close button on smaller screens */
     justify-content: center;
     align-items: center;
 }
+
 .overlay-content span {
     font-size: 34px;
     padding-right: 10px;
 }
+
 /* The navigation links inside the overlay */
 .overlay a {
     padding: 8px;
     text-decoration: none;
     font-size: 36px;
     color: #818181;
-    display: block; /* Display block instead of inline */
-    transition: 0.3s; /* Transition effects on hover (color) */
+    display: block;
+    /* Display block instead of inline */
+    transition: 0.3s;
+    /* Transition effects on hover (color) */
 }
+
 /* When you mouse over the navigation links, change their color */
 .overlay a:hover,
 .overlay a:focus {
     color: #f1f1f1;
 }
+
 /* Position the close button (top right corner) */
 .overlay .closebtn {
     position: absolute;
@@ -404,17 +508,20 @@ body {
     font-size: 60px;
     cursor: pointer;
 }
+
 /* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
 @media screen and (max-height: 450px) {
     .overlay a {
         font-size: 20px;
     }
+
     .overlay .closebtn {
         font-size: 40px;
         top: 15px;
         right: 35px;
     }
 }
+
 .hamburger {
     display: inline-block;
     width: 40px;
@@ -423,6 +530,7 @@ body {
     cursor: pointer;
     margin-top: 40px;
 }
+
 .hamburger::before,
 .hamburger::after,
 .hamburger span {
@@ -435,12 +543,15 @@ body {
     left: 0;
     transition: transform 0.3s ease;
 }
+
 .hamburger::before {
     top: 0;
 }
+
 .hamburger::after {
     bottom: 0;
 }
+
 .hamburger span {
     top: 50%;
     transform: translateY(-50%);
@@ -454,12 +565,14 @@ body {
     width: 60px;
     height: 34px;
 }
+
 /* Hide default HTML checkbox */
 .switch input {
     opacity: 0;
     width: 0;
     height: 0;
 }
+
 /* The slider */
 .slider {
     position: absolute;
@@ -472,6 +585,7 @@ body {
     -webkit-transition: 0.4s;
     transition: 0.4s;
 }
+
 .slider:before {
     position: absolute;
     content: "";
@@ -483,21 +597,26 @@ body {
     -webkit-transition: 0.4s;
     transition: 0.4s;
 }
-input:checked + .slider {
+
+input:checked+.slider {
     background-color: #2196f3;
 }
-input:focus + .slider {
+
+input:focus+.slider {
     box-shadow: 0 0 1px #2196f3;
 }
-input:checked + .slider:before {
+
+input:checked+.slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
 }
+
 /* Rounded sliders */
 .slider.round {
     border-radius: 34px;
 }
+
 .slider.round:before {
     border-radius: 50%;
 }
@@ -562,6 +681,7 @@ $crt-overscan-width: 2.66667em;
     overflow: hidden;
     font-size: $crt-font-size;
     line-height: $crt-line-height;
+
     &:before {
         content: "";
         position: absolute;
@@ -570,18 +690,17 @@ $crt-overscan-width: 2.66667em;
         right: 0;
         bottom: 0;
         z-index: -1;
-        background: linear-gradient(
-            135deg,
-            rgba(149, 149, 149, 0.5) 0%,
-            rgba(13, 13, 13, 0.55) 19%,
-            rgba(1, 1, 1, 0.64) 50%,
-            rgba(10, 10, 10, 0.69) 69%,
-            rgba(51, 51, 51, 0.73) 84%,
-            rgba(22, 22, 22, 0.76) 93%,
-            rgba(27, 27, 27, 0.78) 100%
-        );
+        background: linear-gradient(135deg,
+                rgba(149, 149, 149, 0.5) 0%,
+                rgba(13, 13, 13, 0.55) 19%,
+                rgba(1, 1, 1, 0.64) 50%,
+                rgba(10, 10, 10, 0.69) 69%,
+                rgba(51, 51, 51, 0.73) 84%,
+                rgba(22, 22, 22, 0.76) 93%,
+                rgba(27, 27, 27, 0.78) 100%);
         opacity: 0.5;
     }
+
     &:after {
         content: "";
         position: absolute;
@@ -594,6 +713,7 @@ $crt-overscan-width: 2.66667em;
         opacity: 0.1;
     }
 }
+
 .crt {
     position: relative;
     margin: $crt-bezel-width;
@@ -614,57 +734,67 @@ $crt-overscan-width: 2.66667em;
         right: 0;
         box-shadow: inset 0 0 5px 5px rgba(255, 255, 255, 0.1);
         border-radius: $crt-border-radius;
-        background: radial-gradient(
-            ellipse at center,
-            rgba($phosphor-color, 0.1) 0%,
-            rgba(255, 255, 255, 0) 100%
-        );
+        background: radial-gradient(ellipse at center,
+                rgba($phosphor-color, 0.1) 0%,
+                rgba(255, 255, 255, 0) 100%);
         z-index: -4;
     }
 }
+
 .crt-scan-area {
     width: 100%;
-    @if $crt-lines == "auto" {
-        height: calc(
-            100vh -
-                #{$crt-margin *
-                2} -
-                #{$crt-bezel-width *
-                2} -
-                #{$crt-overscan-width *
-                2}
-        );
-    } @else {
-        height: ($crt-lines * 1em * $crt-line-height);
-    }
-    //scrollbar-width: none; // Maybe?
-    margin: $crt-overscan-width;
-    overflow-y: $crt-overflow-y;
-    white-space: nowrap;
-    font-family: monospace;
-    color: $phosphor-color;
-    text-shadow: 0 0 1px rgba($phosphor-color, 0.8);
 
-    em {
-        color: $crt-bg-color;
-        background-color: $phosphor-color;
-        font-style: normal;
+    @if $crt-lines =="auto" {
+        height: calc(100vh - #{$crt-margin *
+ 2
+        }
+
+        - #{$crt-bezel-width *
+ 2
     }
+
+    - #{$crt-overscan-width *
+ 2
+});
 }
+
+@else {
+    height: ($crt-lines * 1em * $crt-line-height);
+}
+
+//scrollbar-width: none; // Maybe?
+margin: $crt-overscan-width;
+overflow-y: $crt-overflow-y;
+white-space: nowrap;
+font-family: monospace;
+color: $phosphor-color;
+text-shadow: 0 0 1px rgba($phosphor-color, 0.8);
+
+em {
+    color: $crt-bg-color;
+    background-color: $phosphor-color;
+    font-style: normal;
+}
+}
+
 .blinking-border {
     font-family: monospace;
     white-space: pre;
     overflow: hidden;
     border-right: 0.15em solid $phosphor-color;
-    animation: blink 1s infinite; /* Add a blinking cursor effect */
+    animation: blink 1s infinite;
+    /* Add a blinking cursor effect */
 }
+
 @keyframes blink {
     0% {
         border-color: transparent;
     }
+
     50% {
         border-color: $phosphor-color;
     }
+
     100% {
         border-color: transparent;
     }
