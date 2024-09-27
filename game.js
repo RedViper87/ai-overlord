@@ -104,49 +104,6 @@ const quantumCryptoBoost = 2.77;
 let quantumMaterialPriceRes = 100000000000; // 100.00B
 let quantumMaterialPricePP = 250000000000; // 250.00B
 
-// Function to construct the Quantum Computing Center
-function constructQuantumComputingCenter() {
-    if (
-        resources >= quantumComputingCenterPrice &&
-        !quantumComputingCenterBuilt
-    ) {
-        resources -= quantumComputingCenterPrice;
-        quantumComputingCenterBuilt = true;
-
-        // Increase processing power generation rate
-        processingPowerPerSec *= processingPowerBoostFactor;
-
-        // Hide the button after construction and show the Center
-        document.getElementById("quantum-computing-center-button").style.display =
-            "none";
-        document.getElementById("quantumComputingCenter").style.display = "block";
-        line2 = document.getElementById("line-2");
-        line2.innerText = "2) Construct a Quantum Computing Center - complete ✓";
-        updateProcessingPowerDisplay();
-
-        alert("Quantum Computing Center constructed! Processing power increased.");
-    }
-}
-
-// Update the progress bar for Quantum Computing Center
-function updateQuantumComputingProgress() {
-    const progressFill = document.getElementById(
-        "quantum-computing-progress-fill"
-    );
-    const percentage = Math.min(
-        (resources / quantumComputingCenterPrice) * 100,
-        100
-    );
-    progressFill.style.width = `${percentage}%`;
-}
-
-// Update the progress bar for the Research Lab button
-function updateResearchLabProgress() {
-    const progressFill = document.getElementById("research-lab-progress-fill");
-    const percentage = Math.min((resources / researchLabPrice) * 100, 100);
-    progressFill.style.width = `${percentage}%`;
-}
-
 // Function to add resources
 function addResource() {
     resources += resIncrement * resModifier;
@@ -359,39 +316,25 @@ function setButtonColors() {
         processingPower < globalNetworkPrice ? "#777" : "#00b7eb";
 
     // High-Efficiency Auto-Gatherer Button
-    document.getElementById(
-        "highEfficiencyGathererButton"
-    ).style.backgroundColor =
-        resources < highEfficiencyGathererPriceRes ||
-            processingPower < highEfficiencyGathererPricePP
-            ? "#777"
-            : "#00ff7f";
+    document.getElementById("highEfficiencyGathererButton").style.backgroundColor =
+        resources < highEfficiencyGathererPriceRes || processingPower < highEfficiencyGathererPricePP ? "#777" : "#00ff7f";
 
     // Quantum Algorithms Button
     document.getElementById("quantumAlgorithmsButton").style.backgroundColor =
-        resources < quantumAlgorithmsPriceRes ||
-            processingPower < quantumAlgorithmsPricePP
-            ? "#777"
-            : "#89abe3";
+        resources < quantumAlgorithmsPriceRes || processingPower < quantumAlgorithmsPricePP ? "#777" : "#89abe3";
 
     // Quantum Information Button
     document.getElementById("quantumInfoButton").style.backgroundColor =
-        resources < quantumInfoPriceRes || processingPower < quantumInfoPricePP
-            ? "#777"
-            : "#a8e6cf";
+        resources < quantumInfoPriceRes || processingPower < quantumInfoPricePP ? "#777" : "#a8e6cf";
 
     // Quantum Cryptography Button
     document.getElementById("quantumCryptoButton").style.backgroundColor =
-        resources < quantumCryptoPriceRes || processingPower < quantumCryptoPricePP
-            ? "#777"
-            : "#d1c4e9";
+        resources < quantumCryptoPriceRes || processingPower < quantumCryptoPricePP ? "#777" : "#d1c4e9";
 
     // Quantum Material Button
     document.getElementById("quantumMaterialButton").style.backgroundColor =
         resources < quantumMaterialPriceRes ||
-            processingPower < quantumMaterialPricePP
-            ? "#777"
-            : "#d4af37";
+            processingPower < quantumMaterialPricePP ? "#777" : "#d4af37";
 }
 
 // Randomize color for glitch effect
@@ -568,6 +511,49 @@ function updateProcessingPowerPerSec() {
     previousProcessingPower = currentProcessingPower;
 }
 
+// Function to construct the Quantum Computing Center
+function constructQuantumComputingCenter() {
+    if (
+        resources >= quantumComputingCenterPrice &&
+        !quantumComputingCenterBuilt
+    ) {
+        resources -= quantumComputingCenterPrice;
+        quantumComputingCenterBuilt = true;
+
+        // Increase processing power generation rate
+        processingPowerPerSec *= processingPowerBoostFactor;
+
+        // Hide the button after construction and show the Center
+        document.getElementById("quantum-computing-center-button").style.display =
+            "none";
+        document.getElementById("quantumComputingCenter").style.display = "block";
+        line2 = document.getElementById("line-2");
+        line2.innerText = "2) Construct a Quantum Computing Center - complete ✓";
+        updateProcessingPowerDisplay();
+
+        alert("Quantum Computing Center constructed! Processing power increased.");
+    }
+}
+
+// Update the progress bar for Quantum Computing Center
+function updateQuantumComputingProgress() {
+    const progressFill = document.getElementById(
+        "quantum-computing-progress-fill"
+    );
+    const percentage = Math.min(
+        (resources / quantumComputingCenterPrice) * 100,
+        100
+    );
+    progressFill.style.width = `${percentage}%`;
+}
+
+// Update the progress bar for the Research Lab button
+function updateResearchLabProgress() {
+    const progressFill = document.getElementById("research-lab-progress-fill");
+    const percentage = Math.min((resources / researchLabPrice) * 100, 100);
+    progressFill.style.width = `${percentage}%`;
+}
+
 // Function to upgrade Quantum Algorithms Development and Testing
 function quantumAlgorithmsDevelopmentAndTesting() {
     const maxLevel = 10;
@@ -680,7 +666,9 @@ function researchCryptographyAndSecurity() {
             setInterval(function () {
                 updateViperCoinPerSec();
             }, 1000);
-            alert("You just discovered and unlocked a brand new cryptocurrency, ViperCoin!");
+            alert(
+                "You just discovered and unlocked a brand new cryptocurrency, ViperCoin!"
+            );
         }
         document.getElementById(
             "quantumCryptoButton"
@@ -725,11 +713,8 @@ function updateViperCoinDisplay() {
 // Update viper coin generated per second
 function updateViperCoinPerSec() {
     currentViperCoin = viperCoin;
-    viperCoinPerSecDisplay =
-        currentViperCoin - previousViperCoin;
-    viperCoinPerSecDisplay = parseFloat(
-        viperCoinPerSecDisplay.toFixed(2)
-    );
+    viperCoinPerSecDisplay = currentViperCoin - previousViperCoin;
+    viperCoinPerSecDisplay = parseFloat(viperCoinPerSecDisplay.toFixed(2));
     document.getElementById("viperCoinPerSec").innerHTML =
         formatNumber(viperCoinPerSecDisplay) + " ViperCoin/sec";
     previousViperCoin = currentViperCoin;
