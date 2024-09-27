@@ -985,7 +985,7 @@ function startGame() {
                 var value = parseInt(this.innerText);
                 if (!isNaN(value)) {
                     viperCoin += value;
-                    document.getAnimations("viperCoinCounter").innerHTML =
+                    document.getElementById("viperCoinCounter").innerHTML =
                         formatNumber(viperCoin) + " ViperCoin";
                     this.innerText = "";
                 }
