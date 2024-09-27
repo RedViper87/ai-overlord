@@ -62,6 +62,7 @@ const viperCoinBoost = 2;
 const researchLabPrice = 500000;
 let researchAILevel = 0;
 let researchAIPrice = 1000;
+let globalAiNetworkActivated = false;
 
 let quantumComputingLevel = 0;
 let quantumComputingPrice = 5000;
@@ -103,6 +104,7 @@ const quantumCryptoBoost = 2.77;
 
 let quantumMaterialPriceRes = 100000000000; // 100.00B
 let quantumMaterialPricePP = 250000000000; // 250.00B
+let newMaterialDiscovered = false;
 
 // Function to add resources
 function addResource() {
@@ -328,14 +330,14 @@ function setButtonColors() {
         "highEfficiencyGathererButton"
     ).style.backgroundColor =
         resources < highEfficiencyGathererPriceRes ||
-        processingPower < highEfficiencyGathererPricePP
+            processingPower < highEfficiencyGathererPricePP
             ? "#777"
             : "#00FF7F";
 
     // Quantum Algorithms Button
     document.getElementById("quantumAlgorithmsButton").style.backgroundColor =
         resources < quantumAlgorithmsPriceRes ||
-        processingPower < quantumAlgorithmsPricePP
+            processingPower < quantumAlgorithmsPricePP
             ? "#777"
             : "#BA55D3";
 
@@ -348,14 +350,14 @@ function setButtonColors() {
     // Quantum Cryptography Button
     document.getElementById("quantumCryptoButton").style.backgroundColor =
         resources < quantumCryptoPriceRes ||
-        processingPower < quantumCryptoPricePP
+            processingPower < quantumCryptoPricePP
             ? "#777"
             : "#E8E0F8";
 
     // Quantum Material Button
     document.getElementById("quantumMaterialButton").style.backgroundColor =
         resources < quantumMaterialPriceRes ||
-        processingPower < quantumMaterialPricePP
+            processingPower < quantumMaterialPricePP
             ? "#777"
             : "#D4AF37";
 }
@@ -868,9 +870,10 @@ function updateAdvancedAlgorithmsLevelDisplay() {
 
 // Function to research global network integration
 function researchGlobalNetwork() {
-    if (processingPower >= globalNetworkPrice) {
+    if (processingPower >= globalNetworkPrice && !globalAiNetworkActivated) {
+        globalAiNetworkActivated = true;
         processingPower -= globalNetworkPrice;
-        document.getElementById("globalNetworkButton").style.display = "none";
+        document.getElementById("globalNetworkButton").innerText = "Global AI Network Activated."
         document.getElementById("globalAiNetwork").style.display = "block"; // Unlock Global AI Network
         line3 = document.getElementById("line-3");
         line3.innerText = "3) Deploy a Global AI Network - complete ✓";
@@ -956,9 +959,12 @@ function formatNumber(num) {
 
 // Function to discover the new material, Quantarion
 function discoverNewMaterial() {
-    alert(`You just discovered the new material Quantarion! Nice!
-    ---------------------------------------------------------------------
-    Quantarion is a groundbreaking material recently discovered at the Quantum Horizons Institute's cutting-edge quantum computing center. This novel substance promises to revolutionize multiple technological fields, from quantum computing and energy storage to telecommunications and beyond.`);
+    if (!newMaterialDiscovered) {
+        document.getElementById("quantumMaterialButton").innerText = "New Material Discovered."
+        alert(`You just discovered the new material Quantarion! Nice!
+            ---------------------------------------------------------------------
+            Quantarion is a groundbreaking material recently discovered at the Quantum Horizons Institute's cutting-edge quantum computing center. This novel substance promises to revolutionize multiple technological fields, from quantum computing and energy storage to telecommunications and beyond.`);
+    }
 }
 
 // Initialize and start the game
