@@ -1008,7 +1008,6 @@ function discoverNewMaterial() {
 
 // Initialize and start the game
 function startGame() {
-    playMusic();
     // Initialize level displays
     updateResearchAILevelDisplay();
     updateQuantumComputingLevelDisplay();
@@ -1091,6 +1090,8 @@ function startGame() {
                 event.preventDefault();
             }
         });
+
+    playMusic();
 }
 
 // Set intervals for updating resources and processing power, then start the game
