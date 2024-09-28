@@ -7,6 +7,13 @@ const stage1Btn = document.getElementById("stage1-btn");
 const stage2Btn = document.getElementById("stage2-btn");
 const stage3Btn = document.getElementById("stage3-btn");
 
+// Get the audio element
+const backgroundMusic = document.getElementById('background-music');
+// Get the volume slider element
+const volumeSlider = document.getElementById('volume-slider');
+// Set initial volume
+backgroundMusic.volume = volumeSlider.value;
+
 // Initial state flags
 let firstAutoGatherer = true;
 let firstOptimization = true;
@@ -105,6 +112,38 @@ const quantumCryptoBoost = 2.77;
 let quantumMaterialPriceRes = 100000000000; // 100.00B
 let quantumMaterialPricePP = 250000000000; // 250.00B
 let newMaterialDiscovered = false;
+
+// Function to play music
+function playMusic() {
+    backgroundMusic.play()
+        .then(() => {
+            console.log('Background music playing');
+        })
+        .catch(error => {
+            console.error('Error playing background music:', error);
+        });
+}
+
+// Function to pause music
+function pauseMusic() {
+    backgroundMusic.pause();
+}
+
+// Function to toggle music playback
+function toggleMusic() {
+    if (backgroundMusic.paused) {
+        backgroundMusic.play()
+            .then(() => {
+                document.getElementById('music-toggle-button').textContent = '🎵 Pause Music';
+            })
+            .catch(error => {
+                console.error('Error playing background music:', error);
+            });
+    } else {
+        backgroundMusic.pause();
+        document.getElementById('music-toggle-button').textContent = '🎵 Play Music';
+    }
+}
 
 // Function to add resources
 function addResource() {
@@ -962,13 +1001,14 @@ function discoverNewMaterial() {
     if (!newMaterialDiscovered) {
         document.getElementById("quantumMaterialButton").innerText = "New Material Discovered."
         alert(`You just discovered the new material Quantarion! Nice!
-            ---------------------------------------------------------------------
-            Quantarion is a groundbreaking material recently discovered at the Quantum Horizons Institute's cutting-edge quantum computing center. This novel substance promises to revolutionize multiple technological fields, from quantum computing and energy storage to telecommunications and beyond.`);
+        ---------------------------------------------------------------------
+        Quantarion is a groundbreaking material recently discovered at the Quantum Horizons Institute's cutting-edge quantum computing center. This novel substance promises to revolutionize multiple technological fields, from quantum computing and energy storage to telecommunications and beyond.`);
     }
 }
 
 // Initialize and start the game
 function startGame() {
+    playMusic();
     // Initialize level displays
     updateResearchAILevelDisplay();
     updateQuantumComputingLevelDisplay();
@@ -995,6 +1035,13 @@ function startGame() {
 
     stage3Btn.addEventListener("click", () => {
         alert("Game Over");
+    });
+
+    // Attach event listener to the music toggle button
+    document.getElementById('music-toggle-button').addEventListener('click', toggleMusic);
+    // Update volume based on slider
+    volumeSlider.addEventListener('input', (e) => {
+        backgroundMusic.volume = e.target.value;
     });
 
     // Developer tools for adding resources, processing power, and viper coin
