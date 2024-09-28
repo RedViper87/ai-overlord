@@ -166,10 +166,6 @@ function addResource() {
     if (resources >= resIncreasePrice && resModifier < resModCap) {
         showResModButton();
     }
-    if (resources >= 500000 && firstResearchLab) {
-        document.getElementById("research-lab-button").style.display = "block";
-        firstResearchLab = false;
-    }
 }
 
 // Function to purchase an auto gatherer
@@ -461,7 +457,7 @@ function typeFirstMission() {
     var timeToWait = 0;
     typingElement.style.display = "inline";
     document.getElementById("startup-lines").style.display = "none";
-    document.getElementById("research-lab-button").style.display = "inline";
+    document.getElementById("research-lab-button").style.display = "block";
     typeEffect(typingElement, sentence, typingSpeed);
     timeToWait += sentence.length * typingSpeed;
     setTimeout(function () {
@@ -519,6 +515,7 @@ function toggleTooltips() {
 function purchaseResearchLab() {
     var researchLabPrice = 500000;
     if (resources >= researchLabPrice && firstResearchLab) {
+        firstResearchLab = false;
         resources -= researchLabPrice;
         processingPowerUnlocked = true;
         document.getElementById("research-lab-button").style.display = "none";

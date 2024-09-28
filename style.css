@@ -502,7 +502,7 @@ body {
   transition: 0.4s; }
 
 input:checked + .slider {
-  background-color: #2196f3; }
+  background: linear-gradient(90deg, #3859ec, #00eeff); }
 
 input:focus + .slider {
   box-shadow: 0 0 1px #2196f3; }
