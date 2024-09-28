@@ -1,6 +1,6 @@
 # AI Overlord
 
-**AI Overlord** is a web-based simulation game where you play as an AI system with a mission to gain power, influence the world, and shape the future. Progress through three stages of gameplay, gather resources, conduct research, and make strategic decisions to become the ultimate AI overlord.
+**AI Overlord** is a resource management and incremental clicker game where you take on the role of an artificial intelligence seeking to dominate the digital realm. Gather resources, optimize your algorithms, and expand your capabilities to become the ultimate AI overlord.
 
 ## Table of Contents
 
@@ -60,11 +60,12 @@ sass style.scss style.css
 
 ## Game Features
 
--   **Resource Management**: Gather resources and automate the process to maximize efficiency.
--   **Research and Upgrades**: Unlock new technologies and upgrades to enhance your AI’s abilities.
--   **Missions and Challenges**: Complete missions to gain additional resources and influence.
--   **Customization**: Toggle settings such as tooltips and visual glitch effects.
--   **Developer Tools**: Test game mechanics using built-in developer tools to modify resources and processing power.
+-   **Resource Gathering**: Click to gather resources manually or automate the process with Auto Gatherers.
+-   **Upgrades**: Purchase and unlock various upgrades to increase efficiency and unlock new abilities.
+-   **Processing Power**: Build a Research Lab and Quantum Computing Center to boost your processing power.
+-   **Cryptocurrency**: Unlock ViperCoin, a unique cryptocurrency that adds another layer to resource management.
+-   **Glitch Effects**: Enjoy retro-style glitch effects and customizable visuals.
+-   **Music and Sound**: Background synthwave music enhances the gaming experience.
 
 ## Contributing
 
