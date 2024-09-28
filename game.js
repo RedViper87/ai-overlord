@@ -518,7 +518,7 @@ function toggleTooltips() {
 // Function to purchase the research lab
 function purchaseResearchLab() {
     var researchLabPrice = 500000;
-    if (resources >= researchLabPrice) {
+    if (resources >= researchLabPrice && firstResearchLab) {
         resources -= researchLabPrice;
         processingPowerUnlocked = true;
         document.getElementById("research-lab-button").style.display = "none";
