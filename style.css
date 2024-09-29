@@ -150,7 +150,9 @@ body {
     display: block; }
 
 .button-gather-res,
-#music-toggle-button {
+#music-toggle-button,
+#prev-track-button,
+#next-track-button {
   background-color: #fff;
   border: 2px solid #000;
   border-radius: 30px;
@@ -160,7 +162,8 @@ body {
   display: inline-block;
   font-weight: 600;
   font-size: 18px;
-  margin-right: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
   padding: 0 18pxw;
   line-height: 30px;
   text-align: center;
@@ -189,7 +192,9 @@ body {
 
 .button-gather-res:active,
 .button-upgrades:active,
-#music-toggle-button:active {
+#music-toggle-button:active,
+#prev-track-button:active,
+#next-track-button:active {
   box-shadow: #000 2px 2px 0 0;
   transform: translate(2px, 2px); }
 
@@ -358,7 +363,7 @@ body {
   opacity: 0; }
 
 .toggle-title {
-  font-size: 3em; }
+  font-size: 2.5em; }
 
 .spacer {
   width: 20px; }

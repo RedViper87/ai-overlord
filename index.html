@@ -14,7 +14,7 @@
 
 <body>
     <!-- Background Music -->
-    <audio id="background-music" src="sounds/synthwave-background-music.mp3" loop></audio>
+    <audio id="background-music"></audio>
     <div id="game-container">
         <!-- Header Section -->
         <div class="flex-row">
@@ -39,11 +39,16 @@
                     </div>
                     <div class="centered-row">
                         <div class="music-player-container">
+                            <h2 id="trackName"><!-- Track Name injected here --></h2>
                             <!-- Toggle Music -->
-                            <button id="music-toggle-button">🎵 Pause Music</button><br />
+                            <div class="flex-row" style="margin-bottom: 20px;">
+                                <button id="prev-track-button">⏮️</button>
+                                <button id="music-toggle-button">🎵 Pause Music</button>
+                                <button id="next-track-button">⏭️</button><br />
+                            </div>
                             <!-- Add a volume slider -->
                             <label for="volume-slider" style="font-weight: bold;">Volume:</label>
-                            <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.05">
+                            <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.1">
                         </div>
                     </div>
                     <div class="centered-row">

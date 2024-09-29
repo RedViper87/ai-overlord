@@ -13,6 +13,26 @@ const backgroundMusic = document.getElementById('background-music');
 const volumeSlider = document.getElementById('volume-slider');
 // Set initial volume
 backgroundMusic.volume = volumeSlider.value;
+// Background music tracks
+const tracks = [
+    'sounds/synthwave-background-music.mp3',
+    'sounds/dark-ambience.mp3',
+    'sounds/industrial-dubstep.mp3',
+    'sounds/orchestral-ambience.mp3',
+    'sounds/retro-wave.mp3',
+    'sounds/electronic-ambience.mp3'
+]
+const trackNames = [
+    'Synthwave Track',
+    'Dark Ambience',
+    'Industrial Dubstep',
+    'Orchestral Ambience',
+    'Retro Wave Track',
+    'Electronic Ambience'
+]
+let currentTrackIndex = 0;
+// Set the initial track
+backgroundMusic.src = tracks[currentTrackIndex];
 
 // Initial state flags
 let firstAutoGatherer = true;
@@ -122,27 +142,42 @@ function playMusic() {
         .catch(error => {
             console.error('Error playing background music:', error);
         });
+    document.getElementById('trackName').innerText = trackNames[currentTrackIndex];
+    document.getElementById('music-toggle-button').textContent = '🎵 Pause Music';
 }
 
 // Function to pause music
 function pauseMusic() {
     backgroundMusic.pause();
+    document.getElementById('music-toggle-button').textContent = '🎵 Play Music';
 }
 
 // Function to toggle music playback
 function toggleMusic() {
     if (backgroundMusic.paused) {
-        backgroundMusic.play()
-            .then(() => {
-                document.getElementById('music-toggle-button').textContent = '🎵 Pause Music';
-            })
-            .catch(error => {
-                console.error('Error playing background music:', error);
-            });
+        playMusic();
     } else {
-        backgroundMusic.pause();
-        document.getElementById('music-toggle-button').textContent = '🎵 Play Music';
+        pauseMusic();
     }
+}
+
+// Function to go back to previous track
+function prevTrack() {
+    pauseMusic();
+    currentTrackIndex = (currentTrackIndex - 1) % tracks.length;
+    if (currentTrackIndex < 0) {
+        currentTrackIndex += tracks.length;
+    }
+    backgroundMusic.src = tracks[currentTrackIndex];
+    playMusic();
+}
+
+// Function to go to next track
+function nextTrack() {
+    pauseMusic();
+    currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+    backgroundMusic.src = tracks[currentTrackIndex];
+    playMusic();
 }
 
 // Function to add resources
@@ -1036,11 +1071,20 @@ function startGame() {
         alert("Game Over");
     });
 
-    // Attach event listener to the music toggle button
+    // Attach event listener to the music toggle button, next track, and prev track
     document.getElementById('music-toggle-button').addEventListener('click', toggleMusic);
+    document.getElementById('prev-track-button').addEventListener('click', prevTrack);
+    document.getElementById('next-track-button').addEventListener('click', nextTrack);
     // Update volume based on slider
     volumeSlider.addEventListener('input', (e) => {
         backgroundMusic.volume = e.target.value;
+    });
+
+    // Attach event listener to handle track end event
+    backgroundMusic.addEventListener('ended', function () {
+        currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+        backgroundMusic.src = tracks[currentTrackIndex];
+        playMusic();
     });
 
     // Developer tools for adding resources, processing power, and viper coin
