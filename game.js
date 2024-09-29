@@ -741,7 +741,7 @@ function researchCryptographyAndSecurity() {
                 updateViperCoinPerSec();
             }, 1000);
             alert(
-                "You just discovered and unlocked a brand new cryptocurrency, ViperCoin!"
+                "You just discovered a brand new cryptocurrency, ViperCoin!"
             );
         }
         document.getElementById(
@@ -894,6 +894,9 @@ function researchAdvancedAlgorithms() {
         document.getElementById("highEfficiencyGathererCounter").style.display =
             "block";
         firstHighEfficiencyGatherer = false;
+        alert(
+            "You just unlocked high-efficiency auto-gatherers!"
+        );
     }
 }
 

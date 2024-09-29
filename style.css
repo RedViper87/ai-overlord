@@ -2,6 +2,7 @@
 .dev-tools {
   background-color: #000;
   border: 1px solid red;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,6 +16,7 @@ body {
 #devPow,
 #devVip {
   background-color: white;
+  border-radius: 10px;
   display: inline-block;
   width: 140px;
   height: 20px;
@@ -522,7 +524,7 @@ input:checked + .slider:before {
 
 /* Music Player Styling */
 .music-player-container {
-  background: linear-gradient(135deg, #0E0B16, #6A0572, #A10D7B, #FF2E63, #ffaaaa);
+  background: linear-gradient(135deg, #0E0B16, #6A0572, #a1610d, #FF2E63, #ffaaaa);
   border: 2px solid #fff;
   border-radius: 15px;
   margin-top: 60px;
