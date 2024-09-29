@@ -469,8 +469,8 @@ body {
 .switch {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px; }
+  width: 64px;
+  height: 38px; }
 
 /* Hide default HTML checkbox */
 .switch input {
@@ -514,6 +514,7 @@ input:checked + .slider:before {
 
 /* Rounded sliders */
 .slider.round {
+  border: #fff solid 2px;
   border-radius: 34px; }
 
 .slider.round:before {
@@ -522,7 +523,7 @@ input:checked + .slider:before {
 /* Music Player Styling */
 .music-player-container {
   background: linear-gradient(135deg, #0E0B16, #6A0572, #A10D7B, #FF2E63, #ffaaaa);
-  border: 2px solid #193153;
+  border: 2px solid #fff;
   border-radius: 15px;
   margin-top: 60px;
   margin-bottom: 60px;
