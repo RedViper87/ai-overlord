@@ -16,19 +16,19 @@ backgroundMusic.volume = volumeSlider.value;
 // Background music tracks
 const tracks = [
     'sounds/synthwave-background-music.mp3',
-    'sounds/dark-ambience.mp3',
+    'sounds/electronic-wave.mp3',
     'sounds/industrial-dubstep.mp3',
-    'sounds/orchestral-ambience.mp3',
+    'sounds/futuristic-synth-ambient.mp3',
     'sounds/retro-wave.mp3',
-    'sounds/electronic-ambience.mp3'
+    'sounds/industrial-wave.mp3'
 ]
 const trackNames = [
-    'Synthwave Track',
-    'Dark Ambience',
+    'Synth Wave',
+    'Electronic Wave',
     'Industrial Dubstep',
-    'Orchestral Ambience',
-    'Retro Wave Track',
-    'Electronic Ambience'
+    'Futuristic Synth Wave',
+    'Retro Wave',
+    'Industrial Wave'
 ]
 let currentTrackIndex = 0;
 // Set the initial track
@@ -62,7 +62,7 @@ let autoGathererIntervals = [];
 
 // Optimization variables
 let optimizations = 0;
-let optimizationsPrice = 2000;
+let optimizationsPrice = 1000;
 
 // Glitch effect state
 let glitchEffectEnabled = true;
@@ -86,7 +86,7 @@ let viperCoinPerSecDisplay = 0;
 const viperCoinBoost = 2;
 
 // Research upgrade variables
-const researchLabPrice = 500000;
+const researchLabPrice = 50000;
 let researchAILevel = 0;
 let researchAIPrice = 1000;
 let globalAiNetworkActivated = false;
@@ -184,7 +184,7 @@ function nextTrack() {
 function addResource() {
     resources += resIncrement * resModifier;
     resources = Math.max(resources, 0);
-    if (resources >= 2000 && firstCRTDisplay) {
+    if (resources >= 1000 && firstCRTDisplay) {
         typeFirstMission();
     }
     document.getElementById("resourceCounter").innerHTML =
@@ -229,6 +229,7 @@ function buyAutoGatherer() {
             autoGather();
         }, autoGatherSpeed);
         autoGathererIntervals.push(intervalId);
+        updateResPerSec();
     }
 }
 
@@ -236,7 +237,7 @@ function buyAutoGatherer() {
 function autoGather() {
     resources +=
         (autoGatherers + unseenGatherers) * 5 * quantumAlgorithmsMultiplier;
-    if (firstCRTDisplay) {
+    if (resources >= 1000 && firstCRTDisplay) {
         typeFirstMission();
     }
     setButtonColors();
@@ -548,7 +549,6 @@ function toggleTooltips() {
 
 // Function to purchase the research lab
 function purchaseResearchLab() {
-    var researchLabPrice = 500000;
     if (resources >= researchLabPrice && firstResearchLab) {
         firstResearchLab = false;
         resources -= researchLabPrice;

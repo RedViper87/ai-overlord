@@ -44,6 +44,54 @@ body {
 }
 
 /* NORMAL STUFF */
+$dark-bg: #3A2C5A;
+$purple: #D700FF;
+$brown: #FFD700;
+$pink-red: #FF85C1;
+$light-pink: #FFD1DC;
+$glow-color: #FF85C1;
+
+
+h1.ai-overlord-title {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 4rem;
+    color: $pink-red;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+    padding: 20px;
+    background: linear-gradient(40deg, $dark-bg, $purple, $brown, $pink-red, $light-pink);
+    background-size: 200% 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+
+    &:before {
+        content: 'AI Overlord';
+        position: absolute;
+        top: 22%;
+        left: 2%;
+        width: 100%;
+        height: 100%;
+        color: $glow-color;
+        z-index: -1;
+        filter: blur(5px);
+        opacity: 0.6;
+    }
+
+    // Responsive Design
+    @media (max-width: 768px) {
+        font-size: 3rem;
+        padding: 15px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 2.5rem;
+        padding: 10px;
+    }
+}
+
 #autoGathererCounter,
 #optimizationsCounter,
 #highEfficiencyGathererCounter {
@@ -56,10 +104,6 @@ body {
 #game-container {
     width: 1000px;
     margin: 0 auto;
-}
-
-#gameTitle {
-    font-size: 3em;
 }
 
 #resourceBar {
@@ -214,13 +258,20 @@ $quantumCenter-gradient: linear-gradient(45deg, #4b0082, #bf00ff);
     font-size: 18px;
     margin-left: 5px;
     margin-right: 5px;
-    padding: 0 18pxw;
+    padding: 0 18px;
     line-height: 30px;
     text-align: center;
     text-decoration: none;
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    // Hover effect for interactivity
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: #000 4px 4px 0 0;
+    }
 }
 
 .button-upgrades {
@@ -240,6 +291,13 @@ $quantumCenter-gradient: linear-gradient(45deg, #4b0082, #bf00ff);
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    // Hover effect for interactivity
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: #000 4px 4px 0 0;
+    }
 }
 
 .button-gather-res:active,
@@ -249,6 +307,14 @@ $quantumCenter-gradient: linear-gradient(45deg, #4b0082, #bf00ff);
 #next-track-button:active {
     box-shadow: #000 2px 2px 0 0;
     transform: translate(2px, 2px);
+}
+
+#prev-track-button,
+#next-track-button {
+    img {
+        position: relative;
+        top: 4px;
+    }
 }
 
 @media (min-width: 768px) {
@@ -675,6 +741,7 @@ input:checked+.slider:before {
 $slider-track-color: linear-gradient(90deg, #00eeff, #3859ec, #151c2b);
 $slider-thumb-color: #780ca3;
 $slider-glow-color: rgba(120, 12, 163, 0.7);
+
 #volume-slider {
     width: 150px;
     margin-left: 10px;
