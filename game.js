@@ -645,6 +645,25 @@ function constructQuantumComputingCenter() {
     }
 }
 
+// Function to research global network integration
+function researchGlobalNetwork() {
+    if (processingPower >= globalNetworkPrice && !globalAiNetworkActivated) {
+        globalAiNetworkActivated = true;
+        processingPower -= globalNetworkPrice;
+        document.getElementById("globalNetworkButton").innerText = "Global AI Network Activated."
+        document.getElementById("globalAiNetwork").style.display = "block"; // Unlock Global AI Network
+        document.getElementById("info-box").style.display = "block";
+        line3 = document.getElementById("line-3");
+        line3.innerText = "3) Deploy a Global AI Network - complete ✓";
+        updateProcessingPowerDisplay();
+        updateQuantumComputingLevelDisplay();
+        setButtonColors();
+        alert(
+            "Global Network Integration complete! The Global AI Network is now available."
+        );
+    }
+}
+
 // Update the progress bar for Quantum Computing Center
 function updateQuantumComputingProgress() {
     const progressFill = document.getElementById(
@@ -957,24 +976,6 @@ function updateAdvancedAlgorithmsLevelDisplay() {
     ).innerText = `Level ${advancedAlgorithmsLevel}`;
 }
 
-// Function to research global network integration
-function researchGlobalNetwork() {
-    if (processingPower >= globalNetworkPrice && !globalAiNetworkActivated) {
-        globalAiNetworkActivated = true;
-        processingPower -= globalNetworkPrice;
-        document.getElementById("globalNetworkButton").innerText = "Global AI Network Activated."
-        document.getElementById("globalAiNetwork").style.display = "block"; // Unlock Global AI Network
-        line3 = document.getElementById("line-3");
-        line3.innerText = "3) Deploy a Global AI Network - complete ✓";
-        updateProcessingPowerDisplay();
-        updateQuantumComputingLevelDisplay();
-        setButtonColors();
-        alert(
-            "Global Network Integration complete! The Global AI Network is now available."
-        );
-    }
-}
-
 // Function to buy high efficiency gatherers
 function buyHighEfficiencyGatherer() {
     if (
@@ -1149,6 +1150,34 @@ function startGame() {
                 event.preventDefault();
             }
         });
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        const countries = document.querySelectorAll('.country');
+        const infoBox = document.getElementById('info-box');
+        const countryName = document.getElementById('country-name');
+        const countryInfo = document.getElementById('country-info');
+    
+        countries.forEach(country => {
+            country.addEventListener('mouseenter', () => {
+                country.classList.add('active');
+                const name = country.getAttribute('data-name');
+                const info = country.getAttribute('data-info');
+                countryName.textContent = name;
+                countryInfo.textContent = info;
+                infoBox.classList.remove('hidden');
+            });
+    
+            country.addEventListener('mouseleave', () => {
+                country.classList.remove('active');
+                infoBox.classList.add('hidden');
+            });
+    
+            country.addEventListener('click', () => {
+                // Add any click interaction logic here
+                alert(`You clicked on ${country.getAttribute('data-name')}`);
+            });
+        });
+    });
 }
 
 // Set intervals for updating resources and processing power, then start the game
