@@ -30,11 +30,12 @@ const trackNames = [
     'Retro Wave',
     'Industrial Wave'
 ]
-let currentTrackIndex = 0;
+let currentTrackIndex = Math.floor(Math.random() * tracks.length);
 // Set the initial track
 backgroundMusic.src = tracks[currentTrackIndex];
 
 // Initial state flags
+let firstResource = true;
 let firstAutoGatherer = true;
 let firstOptimization = true;
 let firstCRTDisplay = true;
@@ -182,6 +183,10 @@ function nextTrack() {
 
 // Function to add resources
 function addResource() {
+    if (firstResource) {
+        firstResource = false;
+        playMusic(); // Start bg music the first time the player gathers a resource
+    }
     resources += resIncrement * resModifier;
     resources = Math.max(resources, 0);
     if (resources >= 1000 && firstCRTDisplay) {
@@ -288,7 +293,7 @@ function updateResPerSec() {
 
     currentRes = resources;
     resPerSec = currentRes - previousRes + resAddIn + highEfficiencyGainPerSec;
-    resPerSec = parseFloat(resPerSec.toFixed(2));
+    resPerSec = parseFloat(resPerSec.toFixed(3));
 
     document.getElementById("resPerSec").innerHTML =
         formatNumber(resPerSec) + " Resources/sec";
@@ -604,7 +609,7 @@ function updateProcessingPowerPerSec() {
     processingPowerPerSecDisplay =
         currentProcessingPower - previousProcessingPower;
     processingPowerPerSecDisplay = parseFloat(
-        processingPowerPerSecDisplay.toFixed(2)
+        processingPowerPerSecDisplay.toFixed(3)
     );
     document.getElementById("processingPowerPerSec").innerHTML =
         formatNumber(processingPowerPerSecDisplay) + " Processing Power/sec";
@@ -650,6 +655,11 @@ function updateQuantumComputingProgress() {
         100
     );
     progressFill.style.width = `${percentage}%`;
+    if (percentage == 100) {
+        progressFill.style.backgroundColor = `#ff0000`;
+    } else {
+        progressFill.style.backgroundColor = `#00ff00`
+    }
 }
 
 // Update the progress bar for the Research Lab button
@@ -657,6 +667,11 @@ function updateResearchLabProgress() {
     const progressFill = document.getElementById("research-lab-progress-fill");
     const percentage = Math.min((resources / researchLabPrice) * 100, 100);
     progressFill.style.width = `${percentage}%`;
+    if (percentage == 100) {
+        progressFill.style.backgroundColor = `#ff0000`;
+    } else {
+        progressFill.style.backgroundColor = `#00ff00`;
+    }
 }
 
 // Function to upgrade Quantum Algorithms Development and Testing
@@ -823,7 +838,7 @@ function updateViperCoinDisplay() {
 function updateViperCoinPerSec() {
     currentViperCoin = viperCoin;
     viperCoinPerSecDisplay = currentViperCoin - previousViperCoin;
-    viperCoinPerSecDisplay = parseFloat(viperCoinPerSecDisplay.toFixed(2));
+    viperCoinPerSecDisplay = parseFloat(viperCoinPerSecDisplay.toFixed(3));
     document.getElementById("viperCoinPerSec").innerHTML =
         formatNumber(viperCoinPerSecDisplay) + " ViperCoin/sec";
     previousViperCoin = currentViperCoin;
@@ -1025,9 +1040,9 @@ function formatNumber(num) {
     if (tier < units.length) {
         var unit = units[tier];
         var scaled = num / Math.pow(10, tier * 3);
-        return scaled.toFixed(2) + unit;
+        return scaled.toFixed(3) + unit;
     } else {
-        return mantissa.toFixed(2) + "e" + exponent;
+        return mantissa.toFixed(3) + "e" + exponent;
     }
 }
 
@@ -1134,8 +1149,6 @@ function startGame() {
                 event.preventDefault();
             }
         });
-
-    playMusic();
 }
 
 // Set intervals for updating resources and processing power, then start the game

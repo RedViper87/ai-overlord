@@ -52,6 +52,45 @@ $light-pink: #FFD1DC;
 $glow-color: #FF85C1;
 
 
+h2.stage-1-title {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 2.5em;
+    color: $pink-red;
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+    background: linear-gradient(40deg, $dark-bg, $purple, $brown, $pink-red, $light-pink);
+    background-size: 150% 150%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+
+    &:before {
+        content: 'Stage 1: Rise to Power';
+        position: absolute;
+        top: 22%;
+        left: 2%;
+        width: 100%;
+        height: 100%;
+        color: $glow-color;
+        z-index: -1;
+        filter: blur(5px);
+        opacity: 0.6;
+    }
+
+    // Responsive Design
+    @media (max-width: 768px) {
+        font-size: 1.5rem;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 1rem;
+        padding: 5px;
+    }
+}
+
 h1.ai-overlord-title {
     font-family: 'Courier New', Courier, monospace;
     font-size: 4rem;
@@ -59,9 +98,9 @@ h1.ai-overlord-title {
     text-transform: uppercase;
     position: relative;
     display: inline-block;
-    padding: 20px;
-    background: linear-gradient(40deg, $dark-bg, $purple, $brown, $pink-red, $light-pink);
-    background-size: 200% 200%;
+    padding: 10px;
+    background: linear-gradient(130deg, $dark-bg, $purple, $brown, $pink-red, $light-pink);
+    background-size: 150% 150%;
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -83,12 +122,12 @@ h1.ai-overlord-title {
     // Responsive Design
     @media (max-width: 768px) {
         font-size: 3rem;
-        padding: 15px;
+        padding: 8px;
     }
 
     @media (max-width: 480px) {
         font-size: 2.5rem;
-        padding: 10px;
+        padding: 5px;
     }
 }
 
@@ -118,6 +157,10 @@ h1.ai-overlord-title {
 #resPerSec {
     font-size: 1.5em;
     margin-left: auto;
+}
+
+#resourceIncreaseButton {
+    margin-left: 20px;
 }
 
 #processingPowerBar {
@@ -256,8 +299,7 @@ $quantumCenter-gradient: linear-gradient(45deg, #4b0082, #bf00ff);
     display: inline-block;
     font-weight: 600;
     font-size: 18px;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin: 5px;
     padding: 0 18px;
     line-height: 30px;
     text-align: center;
@@ -478,7 +520,7 @@ $quantumCenter-gradient: linear-gradient(45deg, #4b0082, #bf00ff);
     width: 100%;
     height: 15px;
     background-color: #ddd;
-    border-radius: 10px;
+    border-radius: 5px;
     overflow: hidden;
     margin-top: 5px;
     position: relative;
@@ -497,6 +539,7 @@ $quantumCenter-gradient: linear-gradient(45deg, #4b0082, #bf00ff);
 .level-display {
     font-family: 'Courier New', Courier, monospace;
     font-size: 1.5em;
+    font-weight: bold;
     color: goldenrod;
     margin-left: 10px;
 }
