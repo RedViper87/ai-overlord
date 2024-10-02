@@ -15,6 +15,7 @@
 body {
     background-color: #333333;
     color: #ffffff;
+    user-select: none;
 }
 
 #devRes,
@@ -44,16 +45,16 @@ body {
 }
 
 /* NORMAL STUFF */
-$dark-bg: #3A2C5A;
-$purple: #D700FF;
-$brown: #FFD700;
-$pink-red: #FF85C1;
-$light-pink: #FFD1DC;
-$glow-color: #FF85C1;
-
+$dark-bg: #3a2c5a;
+$purple: #d700ff;
+$brown: #ffd700;
+$pink-red: #ff85c1;
+$light-pink: #ffd1dc;
+$glow-color: #ff85c1;
+$globalAiNetwork-primary: #00ffff; // Bright Cyan for connectivity and clarity
 
 h2.stage-1-title {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Courier New", Courier, monospace;
     font-size: 2.5em;
     color: $pink-red;
     position: relative;
@@ -67,7 +68,7 @@ h2.stage-1-title {
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 
     &:before {
-        content: 'Stage 1: Rise to Power';
+        content: "Stage 1: Rise to Power";
         position: absolute;
         top: 22%;
         left: 2%;
@@ -92,14 +93,21 @@ h2.stage-1-title {
 }
 
 h1.ai-overlord-title {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Courier New", Courier, monospace;
     font-size: 4rem;
     color: $pink-red;
     text-transform: uppercase;
     position: relative;
     display: inline-block;
     padding: 10px;
-    background: linear-gradient(130deg, $dark-bg, $purple, $brown, $pink-red, $light-pink);
+    background: linear-gradient(
+        130deg,
+        $dark-bg,
+        $purple,
+        $brown,
+        $pink-red,
+        $light-pink
+    );
     background-size: 150% 150%;
     background-clip: text;
     -webkit-background-clip: text;
@@ -107,7 +115,7 @@ h1.ai-overlord-title {
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 
     &:before {
-        content: 'AI Overlord';
+        content: "AI Overlord";
         position: absolute;
         top: 22%;
         left: 2%;
@@ -135,7 +143,7 @@ h1.ai-overlord-title {
 #optimizationsCounter,
 #highEfficiencyGathererCounter {
     padding-top: 0.5em;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Courier New", Courier, monospace;
     font-size: 1em;
     font-weight: bolder;
 }
@@ -208,8 +216,7 @@ $researchLab-gradient: linear-gradient(45deg, #0047ab, #ff4500);
 $quantumCenter-primary: #9b59b6; // Purple for technology and sophistication
 $quantumCenter-gradient: linear-gradient(45deg, #4b0082, #bf00ff);
 
-$globalAiNetwork-primary: #00FFFF; // Bright Cyan for connectivity and clarity
-$globalAiNetwork-gradient: linear-gradient(45deg, #00FFFF, #FF0000);
+$globalAiNetwork-gradient: linear-gradient(45deg, #00ffff, #ff0000);
 
 // Styles for Research Lab Header
 #researchLab {
@@ -281,8 +288,8 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #00FFFF, #FF0000);
     background-color: #666;
     border-radius: 10px;
     display: flex;
-    flex-direction: grid;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
 }
 
 // Styles for Global AI Network Header
@@ -312,21 +319,50 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #00FFFF, #FF0000);
     margin-bottom: 10px;
 }
 
+/* Zoom Controls Styling */
+.zoom-controls {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+
+    button {
+        background-color: #fff;
+        border: 2px solid #000;
+        border-radius: 5px;
+        padding: 8px 12px;
+        margin: 0 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+
+        &:hover {
+            background-color: #ddd;
+            transform: scale(1.05);
+        }
+
+        &:active {
+            background-color: #ccc;
+            transform: scale(0.95);
+        }
+    }
+}
+
 .global-ai-network-map {
     position: relative;
     width: 100%;
     max-width: 1200px;
-    max-height: 1200px;
+    height: 600px; // Set a fixed height for the container
     margin: 0 auto;
     background-color: #b58ad4;
     border: 2px solid $purple;
     border-radius: 10px;
-    overflow: hidden;
+    overflow: hidden; // Hide overflow when panning
 
     #world-map {
         width: 100%;
-        height: auto;
-        margin-bottom: -4px;
+        height: 100%;
+        transform-origin: top left; // Ensure transformations start from top-left
+        cursor: grab;
 
         .country {
             fill: #1aaa1a;
@@ -340,6 +376,10 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #00FFFF, #FF0000);
                 cursor: pointer;
             }
         }
+    }
+
+    #world-map:active {
+        cursor: grabbing;
     }
 
     .info-box {
@@ -369,6 +409,14 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #00FFFF, #FF0000);
             margin: 0;
         }
     }
+}
+
+/* Ensure the info-box is not affected by the SVG transformations */
+.global-ai-network-map .info-box {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    transform: none !important; // Prevent any inherited transformations
 }
 
 /*
@@ -402,7 +450,6 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #00FFFF, #FF0000);
     stroke-width: 0.3;
 }
 
-
 /*
   * Land
   * (all land, as opposed to water, should belong to this class; in order to modify the coastline for land pieces with no borders on them a special class "coastxx" has been added below)
@@ -421,7 +468,6 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #00FFFF, #FF0000);
 .coastxx {
     stroke-width: 0.2;
 }
-
 
 /*
   * Styles for territories without permanent population (the largest of which is Antarctica)
@@ -444,7 +490,6 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #00FFFF, #FF0000);
     stroke: #000000;
     stroke-width: 0.5;
 }
-
 
 /*
   * Styles for territories with limited or no recognition
@@ -472,7 +517,6 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #00FFFF, #FF0000);
     stroke-width: 0.3;
 }
 
-
 /*
   * Oceans, seas, and large lakes
   */
@@ -489,7 +533,6 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #00FFFF, #FF0000);
   * .eu - for members of European Union
   * .eaeu - for members of Eurasian Economic Union
   */
-
 
 /*
   * Additional style rules
@@ -602,7 +645,6 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #00FFFF, #FF0000);
 }
 
 @media (min-width: 768px) {
-
     .button-gather-res,
     .button-upgrades,
     #music-toggle-button {
@@ -671,16 +713,18 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #00FFFF, #FF0000);
 
 .major-upgrades:before {
     content: "";
-    background: linear-gradient(45deg,
-            #ff0000,
-            #ff7300,
-            #fffb00,
-            #48ff00,
-            #00ffd5,
-            #002bff,
-            #7a00ff,
-            #ff00c8,
-            #ff0000);
+    background: linear-gradient(
+        45deg,
+        #ff0000,
+        #ff7300,
+        #fffb00,
+        #48ff00,
+        #00ffd5,
+        #002bff,
+        #7a00ff,
+        #ff00c8,
+        #ff0000
+    );
     position: absolute;
     top: -2px;
     left: -2px;
@@ -779,7 +823,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #00FFFF, #FF0000);
 }
 
 .level-display {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Courier New", Courier, monospace;
     font-size: 1.5em;
     font-weight: bold;
     color: goldenrod;
@@ -982,15 +1026,15 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #00FFFF, #FF0000);
     transition: 0.4s;
 }
 
-input:checked+.slider {
+input:checked + .slider {
     background: linear-gradient(90deg, #3859ec, #00eeff);
 }
 
-input:focus+.slider {
+input:focus + .slider {
     box-shadow: 0 0 1px #2196f3;
 }
 
-input:checked+.slider:before {
+input:checked + .slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
@@ -1008,7 +1052,14 @@ input:checked+.slider:before {
 
 /* Music Player Styling */
 .music-player-container {
-    background: linear-gradient(135deg, #0E0B16, #6A0572, #a1610d, #FF2E63, #ffaaaa);
+    background: linear-gradient(
+        135deg,
+        #0e0b16,
+        #6a0572,
+        #a1610d,
+        #ff2e63,
+        #ffaaaa
+    );
     border: 2px solid #fff;
     border-radius: 15px;
     margin-top: 60px;
@@ -1151,14 +1202,16 @@ $crt-overscan-width: 2.66667em;
         right: 0;
         bottom: 0;
         z-index: -1;
-        background: linear-gradient(135deg,
-                rgba(149, 149, 149, 0.5) 0%,
-                rgba(13, 13, 13, 0.55) 19%,
-                rgba(1, 1, 1, 0.64) 50%,
-                rgba(10, 10, 10, 0.69) 69%,
-                rgba(51, 51, 51, 0.73) 84%,
-                rgba(22, 22, 22, 0.76) 93%,
-                rgba(27, 27, 27, 0.78) 100%);
+        background: linear-gradient(
+            135deg,
+            rgba(149, 149, 149, 0.5) 0%,
+            rgba(13, 13, 13, 0.55) 19%,
+            rgba(1, 1, 1, 0.64) 50%,
+            rgba(10, 10, 10, 0.69) 69%,
+            rgba(51, 51, 51, 0.73) 84%,
+            rgba(22, 22, 22, 0.76) 93%,
+            rgba(27, 27, 27, 0.78) 100%
+        );
         opacity: 0.5;
     }
 
@@ -1195,9 +1248,11 @@ $crt-overscan-width: 2.66667em;
         right: 0;
         box-shadow: inset 0 0 5px 5px rgba(255, 255, 255, 0.1);
         border-radius: $crt-border-radius;
-        background: radial-gradient(ellipse at center,
-                rgba($phosphor-color, 0.1) 0%,
-                rgba(255, 255, 255, 0) 100%);
+        background: radial-gradient(
+            ellipse at center,
+            rgba($phosphor-color, 0.1) 0%,
+            rgba(255, 255, 255, 0) 100%
+        );
         z-index: -4;
     }
 }
@@ -1205,37 +1260,31 @@ $crt-overscan-width: 2.66667em;
 .crt-scan-area {
     width: 100%;
 
-    @if $crt-lines =="auto" {
-        height: calc(100vh - #{$crt-margin *
- 2
-        }
-
-        - #{$crt-bezel-width *
- 2
+    @if $crt-lines == "auto" {
+        height: calc(
+            100vh -
+                #{$crt-margin *
+                2} -
+                #{$crt-bezel-width *
+                2} -
+                #{$crt-overscan-width *
+                2}
+        );
+    } @else {
+        height: ($crt-lines * 1em * $crt-line-height);
     }
+    margin: $crt-overscan-width;
+    overflow-y: $crt-overflow-y;
+    white-space: nowrap;
+    font-family: monospace;
+    color: $phosphor-color;
+    text-shadow: 0 0 1px rgba($phosphor-color, 0.8);
 
-    - #{$crt-overscan-width *
- 2
-});
-}
-
-@else {
-    height: ($crt-lines * 1em * $crt-line-height);
-}
-
-//scrollbar-width: none; // Maybe?
-margin: $crt-overscan-width;
-overflow-y: $crt-overflow-y;
-white-space: nowrap;
-font-family: monospace;
-color: $phosphor-color;
-text-shadow: 0 0 1px rgba($phosphor-color, 0.8);
-
-em {
-    color: $crt-bg-color;
-    background-color: $phosphor-color;
-    font-style: normal;
-}
+    em {
+        color: $crt-bg-color;
+        background-color: $phosphor-color;
+        font-style: normal;
+    }
 }
 
 .blinking-border {

@@ -8,28 +8,28 @@ const stage2Btn = document.getElementById("stage2-btn");
 const stage3Btn = document.getElementById("stage3-btn");
 
 // Get the audio element
-const backgroundMusic = document.getElementById('background-music');
+const backgroundMusic = document.getElementById("background-music");
 // Get the volume slider element
-const volumeSlider = document.getElementById('volume-slider');
+const volumeSlider = document.getElementById("volume-slider");
 // Set initial volume
 backgroundMusic.volume = volumeSlider.value;
 // Background music tracks
 const tracks = [
-    'sounds/synthwave-background-music.mp3',
-    'sounds/electronic-wave.mp3',
-    'sounds/industrial-dubstep.mp3',
-    'sounds/futuristic-synth-ambient.mp3',
-    'sounds/retro-wave.mp3',
-    'sounds/industrial-wave.mp3'
-]
+    "sounds/synthwave-background-music.mp3",
+    "sounds/electronic-wave.mp3",
+    "sounds/industrial-dubstep.mp3",
+    "sounds/futuristic-synth-ambient.mp3",
+    "sounds/retro-wave.mp3",
+    "sounds/industrial-wave.mp3",
+];
 const trackNames = [
-    'Synth Wave',
-    'Electronic Wave',
-    'Industrial Dubstep',
-    'Futuristic Synth Wave',
-    'Retro Wave',
-    'Industrial Wave'
-]
+    "Synth Wave",
+    "Electronic Wave",
+    "Industrial Dubstep",
+    "Futuristic Synth Wave",
+    "Retro Wave",
+    "Industrial Wave",
+];
 let currentTrackIndex = Math.floor(Math.random() * tracks.length);
 // Set the initial track
 backgroundMusic.src = tracks[currentTrackIndex];
@@ -136,21 +136,25 @@ let newMaterialDiscovered = false;
 
 // Function to play music
 function playMusic() {
-    backgroundMusic.play()
+    backgroundMusic
+        .play()
         .then(() => {
-            console.log('Background music playing');
+            console.log("Background music playing");
         })
-        .catch(error => {
-            console.error('Error playing background music:', error);
+        .catch((error) => {
+            console.error("Error playing background music:", error);
         });
-    document.getElementById('trackName').innerText = trackNames[currentTrackIndex];
-    document.getElementById('music-toggle-button').textContent = '🎵 Pause Music';
+    document.getElementById("trackName").innerText =
+        trackNames[currentTrackIndex];
+    document.getElementById("music-toggle-button").textContent =
+        "🎵 Pause Music";
 }
 
 // Function to pause music
 function pauseMusic() {
     backgroundMusic.pause();
-    document.getElementById('music-toggle-button').textContent = '🎵 Play Music';
+    document.getElementById("music-toggle-button").textContent =
+        "🎵 Play Music";
 }
 
 // Function to toggle music playback
@@ -371,7 +375,7 @@ function removeResModButton() {
     document.getElementById("resourceIncreaseButton").style.display = "none";
 }
 
-// Set colors for buttons based on available resources
+// Function to set colors for buttons based on available resources
 function setButtonColors() {
     // Auto Gatherer Button
     document.getElementById("autoGathererButton").style.backgroundColor =
@@ -406,14 +410,14 @@ function setButtonColors() {
         "highEfficiencyGathererButton"
     ).style.backgroundColor =
         resources < highEfficiencyGathererPriceRes ||
-            processingPower < highEfficiencyGathererPricePP
+        processingPower < highEfficiencyGathererPricePP
             ? "#777"
             : "#00FF7F";
 
     // Quantum Algorithms Button
     document.getElementById("quantumAlgorithmsButton").style.backgroundColor =
         resources < quantumAlgorithmsPriceRes ||
-            processingPower < quantumAlgorithmsPricePP
+        processingPower < quantumAlgorithmsPricePP
             ? "#777"
             : "#BA55D3";
 
@@ -426,14 +430,14 @@ function setButtonColors() {
     // Quantum Cryptography Button
     document.getElementById("quantumCryptoButton").style.backgroundColor =
         resources < quantumCryptoPriceRes ||
-            processingPower < quantumCryptoPricePP
+        processingPower < quantumCryptoPricePP
             ? "#777"
             : "#E8E0F8";
 
     // Quantum Material Button
     document.getElementById("quantumMaterialButton").style.backgroundColor =
         resources < quantumMaterialPriceRes ||
-            processingPower < quantumMaterialPricePP
+        processingPower < quantumMaterialPricePP
             ? "#777"
             : "#D4AF37";
 }
@@ -650,7 +654,8 @@ function researchGlobalNetwork() {
     if (processingPower >= globalNetworkPrice && !globalAiNetworkActivated) {
         globalAiNetworkActivated = true;
         processingPower -= globalNetworkPrice;
-        document.getElementById("globalNetworkButton").innerText = "Global AI Network Activated."
+        document.getElementById("globalNetworkButton").innerText =
+            "Global AI Network Activated.";
         document.getElementById("globalAiNetwork").style.display = "block"; // Unlock Global AI Network
         document.getElementById("info-box").style.display = "block";
         line3 = document.getElementById("line-3");
@@ -677,7 +682,7 @@ function updateQuantumComputingProgress() {
     if (percentage == 100) {
         progressFill.style.backgroundColor = `#ff0000`;
     } else {
-        progressFill.style.backgroundColor = `#00ff00`
+        progressFill.style.backgroundColor = `#00ff00`;
     }
 }
 
@@ -809,9 +814,7 @@ function researchCryptographyAndSecurity() {
             setInterval(function () {
                 updateViperCoinPerSec();
             }, 1000);
-            alert(
-                "You just discovered a brand new cryptocurrency, ViperCoin!"
-            );
+            alert("You just discovered a brand new cryptocurrency, ViperCoin!");
         }
         document.getElementById(
             "quantumCryptoButton"
@@ -963,9 +966,7 @@ function researchAdvancedAlgorithms() {
         document.getElementById("highEfficiencyGathererCounter").style.display =
             "block";
         firstHighEfficiencyGatherer = false;
-        alert(
-            "You just unlocked high-efficiency auto-gatherers!"
-        );
+        alert("You just unlocked high-efficiency auto-gatherers!");
     }
 }
 
@@ -1050,7 +1051,8 @@ function formatNumber(num) {
 // Function to discover the new material, Quantarion
 function discoverNewMaterial() {
     if (!newMaterialDiscovered) {
-        document.getElementById("quantumMaterialButton").innerText = "New Material Discovered."
+        document.getElementById("quantumMaterialButton").innerText =
+            "New Material Discovered.";
         alert(`You just discovered the new material Quantarion! Nice!
         ---------------------------------------------------------------------
         Quantarion is a groundbreaking material recently discovered at the Quantum Horizons Institute's cutting-edge quantum computing center. This novel substance promises to revolutionize multiple technological fields, from quantum computing and energy storage to telecommunications and beyond.`);
@@ -1088,16 +1090,22 @@ function startGame() {
     });
 
     // Attach event listener to the music toggle button, next track, and prev track
-    document.getElementById('music-toggle-button').addEventListener('click', toggleMusic);
-    document.getElementById('prev-track-button').addEventListener('click', prevTrack);
-    document.getElementById('next-track-button').addEventListener('click', nextTrack);
+    document
+        .getElementById("music-toggle-button")
+        .addEventListener("click", toggleMusic);
+    document
+        .getElementById("prev-track-button")
+        .addEventListener("click", prevTrack);
+    document
+        .getElementById("next-track-button")
+        .addEventListener("click", nextTrack);
     // Update volume based on slider
-    volumeSlider.addEventListener('input', (e) => {
+    volumeSlider.addEventListener("input", (e) => {
         backgroundMusic.volume = e.target.value;
     });
 
     // Attach event listener to handle track end event
-    backgroundMusic.addEventListener('ended', function () {
+    backgroundMusic.addEventListener("ended", function () {
         currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
         backgroundMusic.src = tracks[currentTrackIndex];
         playMusic();
@@ -1150,31 +1158,34 @@ function startGame() {
                 event.preventDefault();
             }
         });
-    
-    document.addEventListener('DOMContentLoaded', () => {
-        const countries = document.querySelectorAll('.country');
-        const infoBox = document.getElementById('info-box');
-        const countryName = document.getElementById('country-name');
-        const countryInfo = document.getElementById('country-info');
-    
-        countries.forEach(country => {
-            country.addEventListener('mouseenter', () => {
-                country.classList.add('active');
-                const name = country.getAttribute('data-name');
-                const info = country.getAttribute('data-info');
+
+    // Initialize Zoom and Pan functionality
+    initializeZoomAndPan();
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const countries = document.querySelectorAll(".country");
+        const infoBox = document.getElementById("info-box");
+        const countryName = document.getElementById("country-name");
+        const countryInfo = document.getElementById("country-info");
+
+        countries.forEach((country) => {
+            country.addEventListener("mouseenter", () => {
+                country.classList.add("active");
+                const name = country.getAttribute("data-name");
+                const info = country.getAttribute("data-info");
                 countryName.textContent = name;
                 countryInfo.textContent = info;
-                infoBox.classList.remove('hidden');
+                infoBox.classList.remove("hidden");
             });
-    
-            country.addEventListener('mouseleave', () => {
-                country.classList.remove('active');
-                infoBox.classList.add('hidden');
+
+            country.addEventListener("mouseleave", () => {
+                country.classList.remove("active");
+                infoBox.classList.add("hidden");
             });
-    
-            country.addEventListener('click', () => {
+
+            country.addEventListener("click", () => {
                 // Add any click interaction logic here
-                alert(`You clicked on ${country.getAttribute('data-name')}`);
+                alert(`You clicked on ${country.getAttribute("data-name")}`);
             });
         });
     });
@@ -1188,3 +1199,210 @@ setInterval(function () {
     updateProcessingPowerDisplay();
 }, 1000);
 startGame();
+
+/************ Zoom and Pan Functionality ************/
+
+let currentScale = 1;
+let previousScale = 1;
+const minScale = 1;
+const maxScale = 10;
+const zoomFactor = 0.1;
+let currentTranslate = { x: 0, y: 0 };
+let isDragging = false;
+let startPoint = { x: 0, y: 0 };
+let lastTranslate = { x: 0, y: 0 };
+
+// Function to initialize Zoom and Pan
+function initializeZoomAndPan() {
+    const zoomInBtn = document.getElementById("zoom-in");
+    const zoomOutBtn = document.getElementById("zoom-out");
+    const panUpBtn = document.getElementById("pan-up");
+    const panDownBtn = document.getElementById("pan-down");
+    const panLeftBtn = document.getElementById("pan-left");
+    const panRightBtn = document.getElementById("pan-right");
+    const resetMapBtn = document.getElementById("reset-map");
+    const worldMap = document.getElementById("world-map");
+    const mapContainer = document.querySelector(".global-ai-network-map");
+
+    zoomInBtn.addEventListener("click", zoomIn);
+    zoomOutBtn.addEventListener("click", zoomOut);
+    panUpBtn.addEventListener("click", () => pan("up"));
+    panDownBtn.addEventListener("click", () => pan("down"));
+    panLeftBtn.addEventListener("click", () => pan("left"));
+    panRightBtn.addEventListener("click", () => pan("right"));
+    resetMapBtn.addEventListener("click", resetMap);
+    mapContainer.addEventListener("wheel", handleWheelZoom);
+
+    worldMap.addEventListener("mousedown", startDrag);
+    document.addEventListener("mousemove", duringDrag);
+    document.addEventListener("mouseup", endDrag);
+    // For touch devices
+    worldMap.addEventListener("touchstart", startDrag);
+    document.addEventListener("touchmove", duringDrag);
+    document.addEventListener("touchend", endDrag);
+}
+
+// Functions for dragging
+function startDrag(event) {
+    isDragging = true;
+    startPoint = getMousePosition(event);
+    lastTranslate = { x: currentTranslate.x, y: currentTranslate.y };
+    event.preventDefault();
+}
+
+function duringDrag(event) {
+    if (!isDragging) return;
+
+    const currentPoint = getMousePosition(event);
+    if (!currentPoint) return;
+
+    const dx = currentPoint.x - startPoint.x;
+    const dy = currentPoint.y - startPoint.y;
+
+    currentTranslate.x = lastTranslate.x + dx;
+    currentTranslate.y = lastTranslate.y + dy;
+
+    applyTransform();
+}
+
+function endDrag(event) {
+    if (isDragging) {
+        isDragging = false;
+    }
+}
+
+// Helper function to get mouse position
+function getMousePosition(event) {
+    const svg = document.getElementById("world-map");
+    const rect = svg.getBoundingClientRect();
+    let clientX, clientY;
+
+    if (event.touches && event.touches.length > 0) {
+        clientX = event.touches[0].clientX;
+        clientY = event.touches[0].clientY;
+    } else if (event.clientX !== undefined && event.clientY !== undefined) {
+        clientX = event.clientX;
+        clientY = event.clientY;
+    } else {
+        return null;
+    }
+
+    return {
+        x: clientX - rect.left,
+        y: clientY - rect.top,
+    };
+}
+
+// Function to apply transformations
+function applyTransform() {
+    const worldMap = document.getElementById("world-map");
+    worldMap.style.transform = `translate(${currentTranslate.x}px, ${currentTranslate.y}px) scale(${currentScale})`;
+    worldMap.style.transformOrigin = "0 0"; // Keep the transform origin at the top-left corner
+}
+
+// Zoom In
+function zoomIn() {
+    if (currentScale < maxScale) {
+        const mapContainer = document.querySelector(".global-ai-network-map");
+        const rect = mapContainer.getBoundingClientRect();
+
+        // Get the center point of the map container
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        // Calculate the zoom ratio
+        const newScale = Math.min(currentScale + zoomFactor, maxScale);
+        const zoomRatio = newScale / currentScale;
+
+        // Adjust translation to keep the center point stationary
+        currentTranslate.x -= (centerX - currentTranslate.x) * (zoomRatio - 1);
+        currentTranslate.y -= (centerY - currentTranslate.y) * (zoomRatio - 1);
+
+        currentScale = newScale;
+
+        applyTransform();
+    }
+}
+
+// Zoom out
+function zoomOut() {
+    if (currentScale > minScale) {
+        const mapContainer = document.querySelector(".global-ai-network-map");
+        const rect = mapContainer.getBoundingClientRect();
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const newScale = Math.max(currentScale - zoomFactor, minScale);
+        const zoomRatio = newScale / currentScale;
+
+        currentTranslate.x -= (centerX - currentTranslate.x) * (zoomRatio - 1);
+        currentTranslate.y -= (centerY - currentTranslate.y) * (zoomRatio - 1);
+
+        currentScale = newScale;
+
+        applyTransform();
+    }
+}
+
+// Pan function
+function pan(direction) {
+    const panStep = 50;
+    switch (direction) {
+        case "up":
+            currentTranslate.y += panStep;
+            break;
+        case "down":
+            currentTranslate.y -= panStep;
+            break;
+        case "left":
+            currentTranslate.x += panStep;
+            break;
+        case "right":
+            currentTranslate.x -= panStep;
+            break;
+    }
+    applyTransform();
+}
+
+// Handle the wheel zoom
+function handleWheelZoom(event) {
+    event.preventDefault(); // Prevent the default scroll behavior
+
+    const delta = -Math.sign(event.deltaY); // Invert if necessary
+    const zoomAmount = delta * zoomFactor;
+
+    // Calculate the new scale
+    let newScale = currentScale + zoomAmount;
+
+    // Clamp the new scale within min and max limits
+    newScale = Math.min(Math.max(newScale, minScale), maxScale);
+
+    // Calculate the change in scale
+    const zoomRatio = newScale / currentScale;
+
+    // Get the mouse position relative to the map container
+    const mapContainer = document.querySelector(".global-ai-network-map");
+    const rect = mapContainer.getBoundingClientRect();
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+
+    // Adjust translation to keep the point under the cursor stationary
+    currentTranslate.x -= (mouseX - currentTranslate.x) * (zoomRatio - 1);
+    currentTranslate.y -= (mouseY - currentTranslate.y) * (zoomRatio - 1);
+
+    // Update the current scale
+    currentScale = newScale;
+
+    applyTransform();
+}
+
+// Reset Map to initial state
+function resetMap() {
+    currentScale = 1;
+    previousScale = 1;
+    currentTranslate = { x: 0, y: 0 };
+    applyTransform();
+}
+
+/******************************************************/
