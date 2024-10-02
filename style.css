@@ -42,7 +42,7 @@ h2.stage-1-title {
   position: relative;
   display: inline-block;
   padding: 10px;
-  background: linear-gradient(40deg, #3A2C5A, #D700FF, #FFD700, #FF85C1, #FFD1DC);
+  background: #74ff67;
   background-size: 150% 150%;
   background-clip: text;
   -webkit-background-clip: text;
