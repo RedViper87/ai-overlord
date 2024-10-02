@@ -240,7 +240,7 @@ h1.ai-overlord-title {
   max-width: 1200px;
   max-height: 1200px;
   margin: 0 auto;
-  background-color: #3A2C5A;
+  background-color: #b58ad4;
   border: 2px solid #D700FF;
   border-radius: 10px;
   overflow: hidden; }
@@ -249,7 +249,7 @@ h1.ai-overlord-title {
     height: auto;
     margin-bottom: -4px; }
     .global-ai-network-map #world-map .country {
-      fill: #D700FF;
+      fill: #1aaa1a;
       stroke: #3A2C5A;
       stroke-width: 1;
       transition: fill 0.3s, transform 0.3s; }
@@ -371,7 +371,7 @@ h1.ai-overlord-title {
   */
 .oceanxx {
   opacity: 1;
-  fill: #ffffff;
+  fill: #1240be;
   stroke: #000000;
   stroke-width: 0.5; }
 

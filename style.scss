@@ -318,7 +318,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #00FFFF, #FF0000);
     max-width: 1200px;
     max-height: 1200px;
     margin: 0 auto;
-    background-color: $dark-bg;
+    background-color: #b58ad4;
     border: 2px solid $purple;
     border-radius: 10px;
     overflow: hidden;
@@ -329,7 +329,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #00FFFF, #FF0000);
         margin-bottom: -4px;
 
         .country {
-            fill: $purple;
+            fill: #1aaa1a;
             stroke: $dark-bg;
             stroke-width: 1;
             transition: fill 0.3s, transform 0.3s;
@@ -478,7 +478,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #00FFFF, #FF0000);
   */
 .oceanxx {
     opacity: 1;
-    fill: #ffffff;
+    fill: #1240be;
     stroke: #000000;
     stroke-width: 0.5;
 }
