@@ -1347,6 +1347,9 @@ function applyTransform() {
 
     worldMap.style.transform = `translate(${currentTranslate.x}px, ${currentTranslate.y}px) scale(${currentScale})`;
     worldMap.style.transformOrigin = "top left";
+    if (currentScale == 1) {
+        resetMap();
+    }
 }
 
 // Zoom In
@@ -1388,9 +1391,6 @@ function zoomOut() {
         currentTranslate.y = (currentTranslate.y - centerY) * zoomRatio + centerY;
 
         currentScale = newScale;
-        if (currentScale == 1) {
-            resetMap();
-        }
 
         applyTransform();
     }
