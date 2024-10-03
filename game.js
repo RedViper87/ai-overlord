@@ -410,14 +410,14 @@ function setButtonColors() {
         "highEfficiencyGathererButton"
     ).style.backgroundColor =
         resources < highEfficiencyGathererPriceRes ||
-            processingPower < highEfficiencyGathererPricePP
+        processingPower < highEfficiencyGathererPricePP
             ? "#777"
             : "#00FF7F";
 
     // Quantum Algorithms Button
     document.getElementById("quantumAlgorithmsButton").style.backgroundColor =
         resources < quantumAlgorithmsPriceRes ||
-            processingPower < quantumAlgorithmsPricePP
+        processingPower < quantumAlgorithmsPricePP
             ? "#777"
             : "#BA55D3";
 
@@ -430,14 +430,14 @@ function setButtonColors() {
     // Quantum Cryptography Button
     document.getElementById("quantumCryptoButton").style.backgroundColor =
         resources < quantumCryptoPriceRes ||
-            processingPower < quantumCryptoPricePP
+        processingPower < quantumCryptoPricePP
             ? "#777"
             : "#E8E0F8";
 
     // Quantum Material Button
     document.getElementById("quantumMaterialButton").style.backgroundColor =
         resources < quantumMaterialPriceRes ||
-            processingPower < quantumMaterialPricePP
+        processingPower < quantumMaterialPricePP
             ? "#777"
             : "#D4AF37";
 }
@@ -1166,15 +1166,15 @@ function startGame() {
         const countries = document.querySelectorAll(".country");
         const infoBox = document.getElementById("info-box");
         const countryName = document.getElementById("country-name");
-        const countryInfo = document.getElementById("country-info");
+        const countryPop = document.getElementById("country-pop");
 
         countries.forEach((country) => {
             country.addEventListener("mouseenter", () => {
                 country.classList.add("active");
                 const name = country.getAttribute("data-name");
-                const info = country.getAttribute("data-info");
+                const pop = country.getAttribute("data-pop");
                 countryName.textContent = name;
-                countryInfo.textContent = info;
+                countryPop.textContent = "Population: " + pop;
                 infoBox.classList.remove("hidden");
             });
 
@@ -1185,12 +1185,16 @@ function startGame() {
 
             country.addEventListener("click", () => {
                 // Add any click interaction logic here
-                alert(`You clicked on ${country.getAttribute("data-name")}`);
+                // alert(`You clicked on ${country.getAttribute("data-name")}`);
             });
         });
     });
 
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
+        applyTransform();
+    });
+
+    window.addEventListener("resize", () => {
         applyTransform();
     });
 }
@@ -1365,8 +1369,10 @@ function zoomIn() {
         const zoomRatio = newScale / currentScale;
 
         // Adjust translation to keep the center point stationary
-        currentTranslate.x = (currentTranslate.x - centerX) * zoomRatio + centerX;
-        currentTranslate.y = (currentTranslate.y - centerY) * zoomRatio + centerY;
+        currentTranslate.x =
+            (currentTranslate.x - centerX) * zoomRatio + centerX;
+        currentTranslate.y =
+            (currentTranslate.y - centerY) * zoomRatio + centerY;
 
         currentScale = newScale;
 
@@ -1387,8 +1393,10 @@ function zoomOut() {
         const zoomRatio = newScale / currentScale;
 
         // Adjust translation to keep the center point stationary
-        currentTranslate.x = (currentTranslate.x - centerX) * zoomRatio + centerX;
-        currentTranslate.y = (currentTranslate.y - centerY) * zoomRatio + centerY;
+        currentTranslate.x =
+            (currentTranslate.x - centerX) * zoomRatio + centerX;
+        currentTranslate.y =
+            (currentTranslate.y - centerY) * zoomRatio + centerY;
 
         currentScale = newScale;
 
@@ -1419,8 +1427,14 @@ function pan(direction) {
 
     // Clamp the translation values
     const bounds = getTranslationBounds();
-    newTranslateX = Math.max(bounds.minTranslateX, Math.min(newTranslateX, bounds.maxTranslateX));
-    newTranslateY = Math.max(bounds.minTranslateY, Math.min(newTranslateY, bounds.maxTranslateY));
+    newTranslateX = Math.max(
+        bounds.minTranslateX,
+        Math.min(newTranslateX, bounds.maxTranslateX)
+    );
+    newTranslateY = Math.max(
+        bounds.minTranslateY,
+        Math.min(newTranslateY, bounds.maxTranslateY)
+    );
 
     currentTranslate.x = newTranslateX;
     currentTranslate.y = newTranslateY;
@@ -1468,7 +1482,7 @@ function getTranslationBounds() {
         minTranslateX,
         maxTranslateX,
         minTranslateY,
-        maxTranslateY
+        maxTranslateY,
     };
 }
 

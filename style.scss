@@ -353,7 +353,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #00ffff, #ff0000);
     max-width: 1200px;
     height: 495px; // Set a fixed height for the container
     margin: 0 auto;
-    background-color: #b58ad4;
+    background-color: #e0f7fa;
     border: 2px solid $purple;
     border-radius: 10px;
     overflow: hidden; // Hide overflow when panning
@@ -365,7 +365,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #00ffff, #ff0000);
         cursor: grab;
 
         .country {
-            fill: #1aaa1a;
+            fill: #86c440;
             stroke: $dark-bg;
             stroke-width: 1;
             transition: fill 0.3s, transform 0.3s;
@@ -455,10 +455,16 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #00ffff, #ff0000);
   * (all land, as opposed to water, should belong to this class; in order to modify the coastline for land pieces with no borders on them a special class "coastxx" has been added below)
   */
 .landxx {
-    fill: #c0c0c0;
+    fill: #86c440;
     stroke: #ffffff;
     stroke-width: 0.5;
     fill-rule: evenodd;
+
+    &:hover,
+    &:active {
+        fill: #ccc;
+        cursor: pointer;
+    }
 }
 
 /*
@@ -476,7 +482,14 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #00ffff, #ff0000);
   */
 .antxx {
     opacity: 1;
-    fill: #c0c0c0;
+    fill: #86c440;
+    transition: fill 0.3s, transform 0.3s;
+
+    &:hover,
+    &:active {
+        fill: #fff;
+        cursor: pointer;
+    }
 }
 
 /*
@@ -522,7 +535,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #00ffff, #ff0000);
   */
 .oceanxx {
     opacity: 1;
-    fill: #1240be;
+    fill: #005da8;
     stroke: #000000;
     stroke-width: 0.5;
 }
@@ -685,11 +698,12 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #00ffff, #ff0000);
     flex-direction: column;
     width: 50%;
     align-items: flex-start;
-    justify-content: flex-end;
+    justify-content: center;
 }
 
 .right-group {
     display: flex;
+    flex-direction: row;
     width: 50%;
     align-items: flex-start;
     justify-content: flex-end;
