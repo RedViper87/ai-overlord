@@ -410,14 +410,14 @@ function setButtonColors() {
         "highEfficiencyGathererButton"
     ).style.backgroundColor =
         resources < highEfficiencyGathererPriceRes ||
-        processingPower < highEfficiencyGathererPricePP
+            processingPower < highEfficiencyGathererPricePP
             ? "#777"
             : "#00FF7F";
 
     // Quantum Algorithms Button
     document.getElementById("quantumAlgorithmsButton").style.backgroundColor =
         resources < quantumAlgorithmsPriceRes ||
-        processingPower < quantumAlgorithmsPricePP
+            processingPower < quantumAlgorithmsPricePP
             ? "#777"
             : "#BA55D3";
 
@@ -430,14 +430,14 @@ function setButtonColors() {
     // Quantum Cryptography Button
     document.getElementById("quantumCryptoButton").style.backgroundColor =
         resources < quantumCryptoPriceRes ||
-        processingPower < quantumCryptoPricePP
+            processingPower < quantumCryptoPricePP
             ? "#777"
             : "#E8E0F8";
 
     // Quantum Material Button
     document.getElementById("quantumMaterialButton").style.backgroundColor =
         resources < quantumMaterialPriceRes ||
-        processingPower < quantumMaterialPricePP
+            processingPower < quantumMaterialPricePP
             ? "#777"
             : "#D4AF37";
 }
@@ -1189,6 +1189,10 @@ function startGame() {
             });
         });
     });
+
+    window.addEventListener('resize', () => {
+        applyTransform();
+    });
 }
 
 // Set intervals for updating resources and processing power, then start the game
@@ -1206,7 +1210,7 @@ let currentScale = 1;
 let previousScale = 1;
 const minScale = 1;
 const maxScale = 10;
-const zoomFactor = 0.1;
+const zoomFactor = 1;
 let currentTranslate = { x: 0, y: 0 };
 let isDragging = false;
 let startPoint = { x: 0, y: 0 };
@@ -1252,15 +1256,59 @@ function startDrag(event) {
 
 function duringDrag(event) {
     if (!isDragging) return;
-
+    event.preventDefault();
     const currentPoint = getMousePosition(event);
     if (!currentPoint) return;
 
-    const dx = currentPoint.x - startPoint.x;
-    const dy = currentPoint.y - startPoint.y;
+    let dx = currentPoint.x - startPoint.x;
+    let dy = currentPoint.y - startPoint.y;
 
-    currentTranslate.x = lastTranslate.x + dx;
-    currentTranslate.y = lastTranslate.y + dy;
+    // Get the dimensions and positions
+    const worldMap = document.getElementById("world-map");
+    const mapContainer = document.querySelector(".global-ai-network-map");
+
+    // Get the container's bounding rect
+    const containerRect = mapContainer.getBoundingClientRect();
+
+    // Get the map's bounding rect before applying the new translation
+    const mapRect = worldMap.getBoundingClientRect();
+
+    // Calculate the new positions after applying the translation
+    const newMapLeft = mapRect.left + dx;
+    const newMapTop = mapRect.top + dy;
+    const newMapRight = newMapLeft + mapRect.width;
+    const newMapBottom = newMapTop + mapRect.height;
+
+    let adjustedDx = dx;
+    let adjustedDy = dy;
+
+    // Adjust dx if moving beyond bounds
+    if (newMapLeft > containerRect.left && dx > 0) {
+        adjustedDx = containerRect.left - mapRect.left;
+    } else if (newMapRight < containerRect.right && dx < 0) {
+        adjustedDx = containerRect.right - mapRect.right;
+    }
+
+    // Adjust dy if moving beyond bounds
+    if (newMapTop > containerRect.top && dy > 0) {
+        adjustedDy = containerRect.top - mapRect.top;
+    } else if (newMapBottom < containerRect.bottom && dy < 0) {
+        adjustedDy = containerRect.bottom - mapRect.bottom;
+    }
+
+    // If no movement, return early to prevent jitter
+    if (adjustedDx === 0 && adjustedDy === 0) {
+        return;
+    }
+
+    currentTranslate.x = lastTranslate.x + adjustedDx;
+    currentTranslate.y = lastTranslate.y + adjustedDy;
+
+    // Update lastTranslate and startPoint only if there was movement
+    lastTranslate.x = currentTranslate.x;
+    lastTranslate.y = currentTranslate.y;
+    startPoint.x = currentPoint.x;
+    startPoint.y = currentPoint.y;
 
     applyTransform();
 }
@@ -1273,8 +1321,8 @@ function endDrag(event) {
 
 // Helper function to get mouse position
 function getMousePosition(event) {
-    const svg = document.getElementById("world-map");
-    const rect = svg.getBoundingClientRect();
+    const container = document.querySelector(".global-ai-network-map");
+    const rect = container.getBoundingClientRect();
     let clientX, clientY;
 
     if (event.touches && event.touches.length > 0) {
@@ -1296,8 +1344,9 @@ function getMousePosition(event) {
 // Function to apply transformations
 function applyTransform() {
     const worldMap = document.getElementById("world-map");
+
     worldMap.style.transform = `translate(${currentTranslate.x}px, ${currentTranslate.y}px) scale(${currentScale})`;
-    worldMap.style.transformOrigin = "0 0"; // Keep the transform origin at the top-left corner
+    worldMap.style.transformOrigin = "top left";
 }
 
 // Zoom In
@@ -1306,17 +1355,15 @@ function zoomIn() {
         const mapContainer = document.querySelector(".global-ai-network-map");
         const rect = mapContainer.getBoundingClientRect();
 
-        // Get the center point of the map container
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
 
-        // Calculate the zoom ratio
         const newScale = Math.min(currentScale + zoomFactor, maxScale);
         const zoomRatio = newScale / currentScale;
 
         // Adjust translation to keep the center point stationary
-        currentTranslate.x -= (centerX - currentTranslate.x) * (zoomRatio - 1);
-        currentTranslate.y -= (centerY - currentTranslate.y) * (zoomRatio - 1);
+        currentTranslate.x = (currentTranslate.x - centerX) * zoomRatio + centerX;
+        currentTranslate.y = (currentTranslate.y - centerY) * zoomRatio + centerY;
 
         currentScale = newScale;
 
@@ -1324,7 +1371,7 @@ function zoomIn() {
     }
 }
 
-// Zoom out
+// Zoom Out
 function zoomOut() {
     if (currentScale > minScale) {
         const mapContainer = document.querySelector(".global-ai-network-map");
@@ -1336,10 +1383,14 @@ function zoomOut() {
         const newScale = Math.max(currentScale - zoomFactor, minScale);
         const zoomRatio = newScale / currentScale;
 
-        currentTranslate.x -= (centerX - currentTranslate.x) * (zoomRatio - 1);
-        currentTranslate.y -= (centerY - currentTranslate.y) * (zoomRatio - 1);
+        // Adjust translation to keep the center point stationary
+        currentTranslate.x = (currentTranslate.x - centerX) * zoomRatio + centerX;
+        currentTranslate.y = (currentTranslate.y - centerY) * zoomRatio + centerY;
 
         currentScale = newScale;
+        if (currentScale == 1) {
+            resetMap();
+        }
 
         applyTransform();
     }
@@ -1347,51 +1398,101 @@ function zoomOut() {
 
 // Pan function
 function pan(direction) {
-    const panStep = 50;
+    const panStep = 50 / currentScale;
+    let newTranslateX = currentTranslate.x;
+    let newTranslateY = currentTranslate.y;
+
     switch (direction) {
         case "up":
-            currentTranslate.y += panStep;
+            newTranslateY += panStep;
             break;
         case "down":
-            currentTranslate.y -= panStep;
+            newTranslateY -= panStep;
             break;
         case "left":
-            currentTranslate.x += panStep;
+            newTranslateX += panStep;
             break;
         case "right":
-            currentTranslate.x -= panStep;
+            newTranslateX -= panStep;
             break;
     }
+
+    // Clamp the translation values
+    const bounds = getTranslationBounds();
+    newTranslateX = Math.max(bounds.minTranslateX, Math.min(newTranslateX, bounds.maxTranslateX));
+    newTranslateY = Math.max(bounds.minTranslateY, Math.min(newTranslateY, bounds.maxTranslateY));
+
+    currentTranslate.x = newTranslateX;
+    currentTranslate.y = newTranslateY;
+
     applyTransform();
+}
+
+function getTranslationBounds() {
+    const worldMap = document.getElementById("world-map");
+    const mapContainer = document.querySelector(".global-ai-network-map");
+
+    // Get the dimensions of the map's bounding box
+    const mapBBox = worldMap.getBBox();
+    const mapWidth = mapBBox.width;
+    const mapHeight = mapBBox.height;
+
+    // Get the dimensions of the container
+    const containerWidth = mapContainer.clientWidth;
+    const containerHeight = mapContainer.clientHeight;
+
+    // Calculate the scaled map dimensions
+    const scaledMapWidth = mapWidth * currentScale;
+    const scaledMapHeight = mapHeight * currentScale;
+
+    let minTranslateX, maxTranslateX, minTranslateY, maxTranslateY;
+
+    if (scaledMapWidth > containerWidth) {
+        // Map is larger than container
+        minTranslateX = containerWidth - scaledMapWidth; // Negative value
+        maxTranslateX = 0; // Zero
+    } else {
+        // Map is smaller than container, center it
+        minTranslateX = maxTranslateX = (containerWidth - scaledMapWidth) / 2;
+    }
+
+    if (scaledMapHeight > containerHeight) {
+        minTranslateY = containerHeight - scaledMapHeight; // Negative value
+        maxTranslateY = 0; // Zero
+    } else {
+        // Map is smaller than container, center it
+        minTranslateY = maxTranslateY = (containerHeight - scaledMapHeight) / 2;
+    }
+
+    return {
+        minTranslateX,
+        maxTranslateX,
+        minTranslateY,
+        maxTranslateY
+    };
 }
 
 // Handle the wheel zoom
 function handleWheelZoom(event) {
-    event.preventDefault(); // Prevent the default scroll behavior
+    event.preventDefault();
 
-    const delta = -Math.sign(event.deltaY); // Invert if necessary
-    const zoomAmount = delta * zoomFactor;
+    const delta = -Math.sign(event.deltaY);
+    const zoomAmount = delta * 0.1; // Adjust zoom sensitivity as needed
 
-    // Calculate the new scale
     let newScale = currentScale + zoomAmount;
-
-    // Clamp the new scale within min and max limits
     newScale = Math.min(Math.max(newScale, minScale), maxScale);
 
-    // Calculate the change in scale
-    const zoomRatio = newScale / currentScale;
-
-    // Get the mouse position relative to the map container
     const mapContainer = document.querySelector(".global-ai-network-map");
     const rect = mapContainer.getBoundingClientRect();
+
     const mouseX = event.clientX - rect.left;
     const mouseY = event.clientY - rect.top;
 
-    // Adjust translation to keep the point under the cursor stationary
-    currentTranslate.x -= (mouseX - currentTranslate.x) * (zoomRatio - 1);
-    currentTranslate.y -= (mouseY - currentTranslate.y) * (zoomRatio - 1);
+    const zoomRatio = newScale / currentScale;
 
-    // Update the current scale
+    currentTranslate.x = (currentTranslate.x - mouseX) * zoomRatio + mouseX;
+    currentTranslate.y = (currentTranslate.y - mouseY) * zoomRatio + mouseY;
+
     currentScale = newScale;
 
     applyTransform();
@@ -1399,9 +1500,28 @@ function handleWheelZoom(event) {
 
 // Reset Map to initial state
 function resetMap() {
+    const worldMap = document.getElementById("world-map");
+    const mapContainer = document.querySelector(".global-ai-network-map");
+
+    const containerRect = mapContainer.getBoundingClientRect();
+    const mapRect = worldMap.getBoundingClientRect();
+
     currentScale = 1;
     previousScale = 1;
-    currentTranslate = { x: 0, y: 0 };
+
+    // Center the map if it's smaller than the container
+    if (mapRect.width < containerRect.width) {
+        currentTranslate.x = (containerRect.width - mapRect.width) / 2;
+    } else {
+        currentTranslate.x = 0;
+    }
+
+    if (mapRect.height < containerRect.height) {
+        currentTranslate.y = (containerRect.height - mapRect.height) / 2;
+    } else {
+        currentTranslate.y = 0;
+    }
+
     applyTransform();
 }
 
