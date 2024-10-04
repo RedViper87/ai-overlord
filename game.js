@@ -89,13 +89,16 @@ const viperCoinBoost = 2;
 // Research upgrade variables
 const researchLabPrice = 50000;
 let researchAILevel = 0;
+const researchAIMaxLevel = 10;
 let researchAIPrice = 1000;
 let globalAiNetworkActivated = false;
 
 let quantumComputingLevel = 0;
+const quantumComputingMaxLevel = 10;
 let quantumComputingPrice = 5000;
 
 let advancedAlgorithmsLevel = 0;
+const advancedAlgorithmsMaxLevel = 10;
 let advancedAlgorithmsPrice = 8000;
 
 let globalNetworkPrice = 120000000;
@@ -113,6 +116,7 @@ let quantumComputingCenterBuilt = false;
 const processingPowerBoostFactor = 3; // Processing power multiplier factor
 
 let quantumAlgorithmsLevel = 0;
+const quantumAlgorithmsMaxLevel = 10;
 let quantumAlgorithmsPriceRes = 10000000; // 10.00M
 let quantumAlgorithmsPricePP = 20000000; // 20.00M
 const quantumAlgorithmsBoost = 250;
@@ -121,11 +125,13 @@ const quantumAlgorithmsBoost = 250;
 let quantumAlgorithmsMultiplier = 1;
 
 let quantumInfoLevel = 0;
+const quantumInfoMaxLevel = 10;
 let quantumInfoPriceRes = 15000000; // 15.00M
 let quantumInfoPricePP = 30000000; // 30.00M
 const quantumInfoBoost = 2.5;
 
 let quantumCryptoLevel = 0;
+const quantumCryptoMaxLevel = 10;
 let quantumCryptoPriceRes = 25000000; // 25.00M
 let quantumCryptoPricePP = 50000000; // 50.00M
 const quantumCryptoBoost = 2.77;
@@ -391,19 +397,30 @@ function setButtonColors() {
 
     // Research AI Button
     document.getElementById("researchAIButton").style.backgroundColor =
-        processingPower < researchAIPrice ? "#777" : "#9999FF";
+        processingPower < researchAIPrice &&
+        researchAILevel < researchAIMaxLevel
+            ? "#777"
+            : "#9999FF";
 
     // Quantum Computing Button
     document.getElementById("quantumComputingButton").style.backgroundColor =
-        processingPower < quantumComputingPrice ? "#777" : "#33BAFF";
+        processingPower < quantumComputingPrice &&
+        quantumComputingLevel < quantumComputingMaxLevel
+            ? "#777"
+            : "#33BAFF";
 
     // Advanced Algorithms Button
     document.getElementById("advancedAlgorithmsButton").style.backgroundColor =
-        processingPower < advancedAlgorithmsPrice ? "#777" : "#FF33BA";
+        processingPower < advancedAlgorithmsPrice &&
+        advancedAlgorithmsLevel < advancedAlgorithmsMaxLevel
+            ? "#777"
+            : "#FF33BA";
 
     // Global Network Integration Button
     document.getElementById("globalNetworkButton").style.backgroundColor =
-        processingPower < globalNetworkPrice ? "#777" : "#FF3333";
+        processingPower < globalNetworkPrice && !globalAiNetworkActivated
+            ? "#777"
+            : "#FF3333";
 
     // High-Efficiency Auto-Gatherer Button
     document.getElementById(
@@ -416,28 +433,33 @@ function setButtonColors() {
 
     // Quantum Algorithms Button
     document.getElementById("quantumAlgorithmsButton").style.backgroundColor =
-        resources < quantumAlgorithmsPriceRes ||
-        processingPower < quantumAlgorithmsPricePP
+        quantumAlgorithmsLevel < quantumAlgorithmsMaxLevel &&
+        (resources < quantumAlgorithmsPriceRes ||
+            processingPower < quantumAlgorithmsPricePP)
             ? "#777"
             : "#BA55D3";
 
     // Quantum Information Button
     document.getElementById("quantumInfoButton").style.backgroundColor =
-        resources < quantumInfoPriceRes || processingPower < quantumInfoPricePP
+        quantumInfoLevel < quantumInfoMaxLevel &&
+        (resources < quantumInfoPriceRes ||
+            processingPower < quantumInfoPricePP)
             ? "#777"
             : "#6AA1FF";
 
     // Quantum Cryptography Button
     document.getElementById("quantumCryptoButton").style.backgroundColor =
-        resources < quantumCryptoPriceRes ||
-        processingPower < quantumCryptoPricePP
+        quantumCryptoLevel < quantumCryptoMaxLevel &&
+        (resources < quantumCryptoPriceRes ||
+            processingPower < quantumCryptoPricePP)
             ? "#777"
             : "#E8E0F8";
 
     // Quantum Material Button
     document.getElementById("quantumMaterialButton").style.backgroundColor =
-        resources < quantumMaterialPriceRes ||
-        processingPower < quantumMaterialPricePP
+        !newMaterialDiscovered &&
+        (resources < quantumMaterialPriceRes ||
+            processingPower < quantumMaterialPricePP)
             ? "#777"
             : "#D4AF37";
 }
@@ -703,11 +725,10 @@ function updateResearchLabProgress() {
 
 // Function to upgrade Quantum Algorithms Development and Testing
 function quantumAlgorithmsDevelopmentAndTesting() {
-    const maxLevel = 10;
     if (
         resources >= quantumAlgorithmsPriceRes &&
         processingPower >= quantumAlgorithmsPricePP &&
-        quantumAlgorithmsLevel < maxLevel
+        quantumAlgorithmsLevel < quantumAlgorithmsMaxLevel
     ) {
         resources -= quantumAlgorithmsPriceRes;
         processingPower -= quantumAlgorithmsPricePP;
@@ -733,7 +754,7 @@ function quantumAlgorithmsDevelopmentAndTesting() {
         setButtonColors();
         updateQuantumAlgorithmsLevelDisplay();
     }
-    if (quantumAlgorithmsLevel >= maxLevel) {
+    if (quantumAlgorithmsLevel >= quantumAlgorithmsMaxLevel) {
         document.getElementById("quantumAlgorithmsButton").disabled = true;
         document.getElementById(
             "quantumAlgorithmsButton"
@@ -750,11 +771,10 @@ function updateQuantumAlgorithmsLevelDisplay() {
 
 // Function to Research Quantum Information Theory
 function researchQuantumInformationTheory() {
-    const maxLevel = 10;
     if (
         resources >= quantumInfoPriceRes &&
         processingPower >= quantumInfoPricePP &&
-        quantumInfoLevel < maxLevel
+        quantumInfoLevel < quantumInfoMaxLevel
     ) {
         resources -= quantumInfoPriceRes;
         processingPower -= quantumInfoPricePP;
@@ -773,7 +793,7 @@ function researchQuantumInformationTheory() {
         setButtonColors();
         updateQuantumInfoLevelDisplay();
     }
-    if (quantumInfoLevel >= maxLevel) {
+    if (quantumInfoLevel >= quantumInfoMaxLevel) {
         document.getElementById("quantumInfoButton").disabled = true;
         document.getElementById(
             "quantumInfoButton"
@@ -790,11 +810,10 @@ function updateQuantumInfoLevelDisplay() {
 
 // Function to Research Cryptography and Security
 function researchCryptographyAndSecurity() {
-    const maxLevel = 10;
     if (
         resources >= quantumCryptoPriceRes &&
         processingPower >= quantumCryptoPricePP &&
-        quantumCryptoLevel < maxLevel
+        quantumCryptoLevel < quantumCryptoMaxLevel
     ) {
         resources -= quantumCryptoPriceRes;
         processingPower -= quantumCryptoPricePP;
@@ -828,7 +847,7 @@ function researchCryptographyAndSecurity() {
         setButtonColors();
         updateQuantumCryptoLevelDisplay();
     }
-    if (quantumCryptoLevel >= maxLevel) {
+    if (quantumCryptoLevel >= quantumCryptoMaxLevel) {
         document.getElementById("quantumCryptoButton").disabled = true;
         document.getElementById(
             "quantumCryptoButton"
@@ -871,8 +890,10 @@ function updateViperCoinPerSec() {
 
 // Function to upgrade AI research
 function researchAI() {
-    const maxLevel = 10;
-    if (processingPower >= researchAIPrice && researchAILevel < maxLevel) {
+    if (
+        processingPower >= researchAIPrice &&
+        researchAILevel < researchAIMaxLevel
+    ) {
         processingPower -= researchAIPrice;
         researchAILevel++;
         researchAIPrice = Math.round(researchAIPrice * 1.1);
@@ -886,7 +907,7 @@ function researchAI() {
         setButtonColors();
         updateResearchAILevelDisplay();
     }
-    if (researchAILevel >= maxLevel) {
+    if (researchAILevel >= researchAIMaxLevel) {
         document.getElementById("researchAIButton").disabled = true;
         document.getElementById(
             "researchAIButton"
@@ -903,10 +924,9 @@ function updateResearchAILevelDisplay() {
 
 // Function to upgrade Quantum Computing
 function researchQuantumComputing() {
-    const maxLevel = 10;
     if (
         processingPower >= quantumComputingPrice &&
-        quantumComputingLevel < maxLevel
+        quantumComputingLevel < quantumComputingMaxLevel
     ) {
         processingPower -= quantumComputingPrice;
         quantumComputingLevel++;
@@ -921,7 +941,7 @@ function researchQuantumComputing() {
         setButtonColors();
         updateQuantumComputingLevelDisplay();
     }
-    if (quantumComputingLevel >= maxLevel) {
+    if (quantumComputingLevel >= quantumComputingMaxLevel) {
         document.getElementById("quantumComputingButton").disabled = true;
         document.getElementById(
             "quantumComputingButton"
@@ -938,10 +958,9 @@ function updateQuantumComputingLevelDisplay() {
 
 // Function to upgrade Advanced Algorithms
 function researchAdvancedAlgorithms() {
-    const maxLevel = 10;
     if (
         processingPower >= advancedAlgorithmsPrice &&
-        advancedAlgorithmsLevel < maxLevel
+        advancedAlgorithmsLevel < advancedAlgorithmsMaxLevel
     ) {
         processingPower -= advancedAlgorithmsPrice;
         advancedAlgorithmsLevel++;
@@ -957,7 +976,7 @@ function researchAdvancedAlgorithms() {
         setButtonColors();
         updateAdvancedAlgorithmsLevelDisplay();
     }
-    if (advancedAlgorithmsLevel >= maxLevel) {
+    if (advancedAlgorithmsLevel >= advancedAlgorithmsMaxLevel) {
         document.getElementById("advancedAlgorithmsButton").disabled = true;
         document.getElementById(
             "advancedAlgorithmsButton"
@@ -1054,6 +1073,7 @@ function formatNumber(num) {
 // Function to discover the new material, Quantarion
 function discoverNewMaterial() {
     if (!newMaterialDiscovered) {
+        newMaterialDiscovered = true;
         document.getElementById("quantumMaterialButton").innerText =
             "New Material Discovered";
         alert(`You just discovered the new material Quantarion! Nice!
