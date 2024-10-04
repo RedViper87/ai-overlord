@@ -410,14 +410,14 @@ function setButtonColors() {
         "highEfficiencyGathererButton"
     ).style.backgroundColor =
         resources < highEfficiencyGathererPriceRes ||
-            processingPower < highEfficiencyGathererPricePP
+        processingPower < highEfficiencyGathererPricePP
             ? "#777"
             : "#00FF7F";
 
     // Quantum Algorithms Button
     document.getElementById("quantumAlgorithmsButton").style.backgroundColor =
         resources < quantumAlgorithmsPriceRes ||
-            processingPower < quantumAlgorithmsPricePP
+        processingPower < quantumAlgorithmsPricePP
             ? "#777"
             : "#BA55D3";
 
@@ -430,14 +430,14 @@ function setButtonColors() {
     // Quantum Cryptography Button
     document.getElementById("quantumCryptoButton").style.backgroundColor =
         resources < quantumCryptoPriceRes ||
-            processingPower < quantumCryptoPricePP
+        processingPower < quantumCryptoPricePP
             ? "#777"
             : "#E8E0F8";
 
     // Quantum Material Button
     document.getElementById("quantumMaterialButton").style.backgroundColor =
         resources < quantumMaterialPriceRes ||
-            processingPower < quantumMaterialPricePP
+        processingPower < quantumMaterialPricePP
             ? "#777"
             : "#D4AF37";
 }
@@ -568,6 +568,7 @@ function purchaseResearchLab() {
         document.getElementById("processingPowerPerSec").style.display =
             "block";
         document.getElementById("researchLab").style.display = "block";
+        document.getElementById("researchLabImage").style.display = "block";
         line1 = document.getElementById("line-1");
         line1.innerText = "1) Purchase a Research Lab - complete ✓";
         setButtonColors();
@@ -637,6 +638,8 @@ function constructQuantumComputingCenter() {
             "quantum-computing-center-button"
         ).style.display = "none";
         document.getElementById("quantumComputingCenter").style.display =
+            "block";
+        document.getElementById("quantumComputingCenterImage").style.display =
             "block";
         line2 = document.getElementById("line-2");
         line2.innerText =
@@ -734,7 +737,7 @@ function quantumAlgorithmsDevelopmentAndTesting() {
         document.getElementById("quantumAlgorithmsButton").disabled = true;
         document.getElementById(
             "quantumAlgorithmsButton"
-        ).innerHTML = `Max Level for Quantum Algorithms Development and Testing Reached`;
+        ).innerHTML = `Max Level Reached`;
     }
 }
 
@@ -774,7 +777,7 @@ function researchQuantumInformationTheory() {
         document.getElementById("quantumInfoButton").disabled = true;
         document.getElementById(
             "quantumInfoButton"
-        ).innerHTML = `Max Level for Research Quantum Information Theory Reached`;
+        ).innerHTML = `Max Level Reached`;
     }
 }
 
@@ -829,7 +832,7 @@ function researchCryptographyAndSecurity() {
         document.getElementById("quantumCryptoButton").disabled = true;
         document.getElementById(
             "quantumCryptoButton"
-        ).innerHTML = `Max Level for Cryptography and Security Research Reached`;
+        ).innerHTML = `Max Level Reached`;
     }
 }
 
@@ -887,7 +890,7 @@ function researchAI() {
         document.getElementById("researchAIButton").disabled = true;
         document.getElementById(
             "researchAIButton"
-        ).innerHTML = `Max Level for Neural Network Optimization Reached`;
+        ).innerHTML = `Max Level Reached`;
     }
 }
 
@@ -922,7 +925,7 @@ function researchQuantumComputing() {
         document.getElementById("quantumComputingButton").disabled = true;
         document.getElementById(
             "quantumComputingButton"
-        ).innerHTML = `Max Level for Quantum Computing Reached`;
+        ).innerHTML = `Max Level Reached`;
     }
 }
 
@@ -958,7 +961,7 @@ function researchAdvancedAlgorithms() {
         document.getElementById("advancedAlgorithmsButton").disabled = true;
         document.getElementById(
             "advancedAlgorithmsButton"
-        ).innerHTML = `Max Level for Advanced Algorithms Reached`;
+        ).innerHTML = `Max Level Reached`;
     }
     if (advancedAlgorithmsLevel === 1 && firstHighEfficiencyGatherer) {
         document.getElementById("highEfficiencyGathererButton").style.display =
@@ -1507,8 +1510,8 @@ function resetMap() {
     currentScale = 1;
     previousScale = 1;
     // Subtract 2 pixels to account for borders
-    currentTranslate.x = ((containerRect.width - mapRect.width) / 2) - 2;
-    currentTranslate.y = ((containerRect.height - mapRect.height) / 2) - 2;
+    currentTranslate.x = (containerRect.width - mapRect.width) / 2 - 2;
+    currentTranslate.y = (containerRect.height - mapRect.height) / 2 - 2;
 
     applyTransform();
 }

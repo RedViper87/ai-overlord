@@ -180,64 +180,72 @@
                 </div>
             </div>
             <!-- Research Lab Section, initially hidden -->
-            <div id="researchLab" style="display: none;">
-                <h3>NeuraVista AI - Research Lab</h3>
-                <!-- Research AI Button -->
-                <button class="button-upgrades info-button" id="researchAIButton" onclick="researchAI()"
-                    data-tooltip="Improves processing power generation rate.">
-                    Research Neural Network Optimization <br />(1.000K Processing Power)
-                </button>
-                <span class="level-display" id="researchAILevelDisplay">Level 0</span>
-                <!-- Quantum Computing Button -->
-                <button class="button-upgrades info-button" id="quantumComputingButton"
-                    onclick="researchQuantumComputing()" data-tooltip="Doubles processing power generation rate.">
-                    Research Quantum Computing <br />(5.000K Processing Power)
-                </button>
-                <span class="level-display" id="quantumComputingLevelDisplay">Level 0</span>
-                <!-- Advanced Algorithms Button -->
-                <button class="button-upgrades info-button" id="advancedAlgorithmsButton"
-                    onclick="researchAdvancedAlgorithms()"
-                    data-tooltip="Unlocks High-Efficiency Auto-Gatherers. Each level doubles manual resource gathering efficiency.">
-                    Research Advanced Algorithms <br />(8.000K Processing Power)
-                </button>
-                <span class="level-display" id="advancedAlgorithmsLevelDisplay">Level 0</span>
-                <!-- Global Network Integration Button -->
-                <button class="button-upgrades info-button" id="globalNetworkButton" onclick="researchGlobalNetwork()"
-                    data-tooltip="Unlocks Global AI Network.">
-                    Research Global Network Integration <br />(120.000M Processing Power)
-                </button>
+            <div class="centered-row">
+                <div id="researchLab" style="display: none;">
+                    <h3>Research Lab</h3>
+                    <!-- Research AI Button -->
+                    <button class="button-upgrades info-button" id="researchAIButton" onclick="researchAI()"
+                        data-tooltip="Improves processing power generation rate.">
+                        Research Neural Network Optimization <br />(1.000K Processing Power)
+                    </button>
+                    <span class="level-display" id="researchAILevelDisplay">Level 0</span>
+                    <!-- Quantum Computing Button -->
+                    <button class="button-upgrades info-button" id="quantumComputingButton"
+                        onclick="researchQuantumComputing()" data-tooltip="Doubles processing power generation rate.">
+                        Research Quantum Computing <br />(5.000K Processing Power)
+                    </button>
+                    <span class="level-display" id="quantumComputingLevelDisplay">Level 0</span>
+                    <!-- Advanced Algorithms Button -->
+                    <button class="button-upgrades info-button" id="advancedAlgorithmsButton"
+                        onclick="researchAdvancedAlgorithms()"
+                        data-tooltip="Unlocks High-Efficiency Auto-Gatherers. Each level doubles manual resource gathering efficiency.">
+                        Research Advanced Algorithms <br />(8.000K Processing Power)
+                    </button>
+                    <span class="level-display" id="advancedAlgorithmsLevelDisplay">Level 0</span>
+                    <!-- Global Network Integration Button -->
+                    <button class="button-upgrades info-button" id="globalNetworkButton"
+                        onclick="researchGlobalNetwork()" data-tooltip="Unlocks Global AI Network.">
+                        Research Global Network Integration <br />(120.000M Processing Power)
+                    </button>
+                </div>
+                <img id="researchLabImage" src="images/research-lab-image.png" width="281.8" height="281.8"
+                    style="border-radius: 10px; border: 2px solid #000; display: none;">
             </div>
             <!-- Quantum Computing Center Section, initially hidden -->
-            <div id="quantumComputingCenter" style="display: none;">
-                <h3>Quantum Horizons - Quantum Computing Center</h3>
-                <!-- Quantum Algorithms Button -->
-                <button class="button-upgrades info-button" id="quantumAlgorithmsButton"
-                    onclick="quantumAlgorithmsDevelopmentAndTesting()"
-                    data-tooltip="Increases resource gathering speed.">
-                    Quantum Algorithms Development and Testing <br />(10.000M Resources, 20.000M Processing Power)
-                </button>
-                <span class="level-display" id="quantumAlgorithmsLevelDisplay">Level 0</span>
-                <!-- Quantum Information Button -->
-                <button class="button-upgrades info-button" id="quantumInfoButton"
-                    onclick="researchQuantumInformationTheory()" data-tooltip="Increases processing power rate.">
-                    Research Quantum Information Theory <br />(15.000M Resources, 30.000M Processing Power)
-                </button>
-                <span class="level-display" id="quantumInfoLevelDisplay">Level 0</span>
-                <!-- Quantum Cryptography Button -->
-                <button class="button-upgrades info-button" id="quantumCryptoButton"
-                    onclick="researchCryptographyAndSecurity()"
-                    data-tooltip="Unlocks new cryptocurrency. Doubles production rate with each additional level researched.">
-                    Cryptography and Security Research <br />(25.000M Resources, 50.000M Processing Power)
-                </button>
-                <span class="level-display" id="quantumCryptoLevelDisplay">Level 0</span>
-                <!-- Quantum Material Button -->
-                <button class="button-upgrades info-button" id="quantumMaterialButton" onclick="discoverNewMaterial()"
-                    data-tooltip="Discover a brand new material.">
-                    New Material Discovery <br />(100.000B Resources, 250.000B Processing Power)
-                </button>
+            <div class="centered-row">
+                <div id="quantumComputingCenter" style="display: none;">
+                    <h3>Quantum Computing Center</h3>
+                    <!-- Quantum Algorithms Button -->
+                    <button class="button-upgrades info-button" id="quantumAlgorithmsButton"
+                        onclick="quantumAlgorithmsDevelopmentAndTesting()"
+                        data-tooltip="Increases resource gathering speed.">
+                        Quantum Algorithms Development and Testing <br />(10.000M Resources, 20.000M Processing Power)
+                    </button>
+                    <span class="level-display" id="quantumAlgorithmsLevelDisplay">Level 0</span>
+                    <!-- Quantum Information Button -->
+                    <button class="button-upgrades info-button" id="quantumInfoButton"
+                        onclick="researchQuantumInformationTheory()" data-tooltip="Increases processing power rate.">
+                        Research Quantum Information Theory <br />(15.000M Resources, 30.000M Processing Power)
+                    </button>
+                    <span class="level-display" id="quantumInfoLevelDisplay">Level 0</span>
+                    <!-- Quantum Cryptography Button -->
+                    <button class="button-upgrades info-button" id="quantumCryptoButton"
+                        onclick="researchCryptographyAndSecurity()"
+                        data-tooltip="Unlocks new cryptocurrency. Doubles production rate with each additional level researched.">
+                        Cryptography and Security Research <br />(25.000M Resources, 50.000M Processing Power)
+                    </button>
+                    <span class="level-display" id="quantumCryptoLevelDisplay">Level 0</span>
+                    <!-- Quantum Material Button -->
+                    <button class="button-upgrades info-button" id="quantumMaterialButton"
+                        onclick="discoverNewMaterial()" data-tooltip="Discover a brand new material.">
+                        New Material Discovery <br />(100.000B Resources, 250.000B Processing Power)
+                    </button>
+                </div>
+                <img id="quantumComputingCenterImage" src="images/quantum-computing-center-image.png" width="281.8"
+                    height="281.8" style="border-radius: 10px; border: 2px solid #000; display: none;">
             </div>
             <!-- Global AI Network Section, initially hidden -->
-            <div id="globalAiNetwork" style="display: block;">
+            <div id="globalAiNetwork" style="display: none;">
                 <h3>🤖Global AI Network🤖</h3>
                 <div class="zoom-controls">
                     <button id="reset-map">Reset Map Position</button>
