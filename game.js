@@ -658,7 +658,7 @@ function researchGlobalNetwork() {
         globalAiNetworkActivated = true;
         processingPower -= globalNetworkPrice;
         document.getElementById("globalNetworkButton").innerText =
-            "Global AI Network Activated.";
+            "Global AI Network Activated";
         document.getElementById("globalAiNetwork").style.display = "block"; // Unlock Global AI Network
         document.getElementById("info-box").style.display = "block";
         line3 = document.getElementById("line-3");
@@ -1055,7 +1055,7 @@ function formatNumber(num) {
 function discoverNewMaterial() {
     if (!newMaterialDiscovered) {
         document.getElementById("quantumMaterialButton").innerText =
-            "New Material Discovered.";
+            "New Material Discovered";
         alert(`You just discovered the new material Quantarion! Nice!
         ---------------------------------------------------------------------
         Quantarion is a groundbreaking material recently discovered at the Quantum Horizons Institute's cutting-edge quantum computing center. This novel substance promises to revolutionize multiple technological fields, from quantum computing and energy storage to telecommunications and beyond.`);
