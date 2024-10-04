@@ -41,7 +41,7 @@
                         <div class="music-player-container">
                             <h2 id="trackName"><!-- Track Name injected here --></h2>
                             <!-- Toggle Music -->
-                            <div class="flex-row" style="margin-bottom: 20px;">
+                            <div class="flex-row" style="margin-bottom: 10px;">
                                 <button id="prev-track-button">
                                     <img id src="images/track-prev.svg" width="32" height="32">
                                 </button>
@@ -49,6 +49,15 @@
                                 <button id="next-track-button">
                                     <img src="images/track-next.svg" width="32" height="32">
                                 </button><br />
+                            </div>
+                            <!-- Toggle Shuffle Music -->
+                            <div class="centered-row shuffler">
+                                <label class="small-switch">
+                                    <input type="checkbox" onclick="toggleShuffleMusic()" />
+                                    <span class="small-slider round"></span>
+                                </label>
+                                <div class="small-spacer"></div>
+                                <span class="small-toggle-title">Shuffle Music?</span>
                             </div>
                             <!-- Add a volume slider -->
                             <label for="volume-slider" style="font-weight: bold;">Volume:</label>

@@ -30,9 +30,11 @@ const trackNames = [
     "Pixel Avenue",
     "Pipeline Pulse",
 ];
-let currentTrackIndex = Math.floor(Math.random() * tracks.length);
+let currentTrackIndex = Math.floor((Math.random() * tracks.length) % tracks.length);
+console.log("currentTrackIndex: " + currentTrackIndex);
 // Set the initial track
 backgroundMusic.src = tracks[currentTrackIndex];
+let musicShuffled = false;
 
 // Initial state flags
 let firstResource = true;
@@ -172,13 +174,31 @@ function toggleMusic() {
     }
 }
 
+// Function to toggle shuffling of music
+function toggleShuffleMusic() {
+    if (musicShuffled) {
+        musicShuffled = false;
+    } else {
+        musicShuffled = true;
+    }
+}
+
 // Function to go back to previous track
 function prevTrack() {
     pauseMusic();
-    currentTrackIndex = (currentTrackIndex - 1) % tracks.length;
+    if (musicShuffled) {
+        let previousTrackIndex = currentTrackIndex;
+        currentTrackIndex = Math.floor((Math.random() * tracks.length) % tracks.length);
+        if (currentTrackIndex == previousTrackIndex) {
+            nextTrack();
+        }
+    } else {
+        currentTrackIndex = (currentTrackIndex - 1) % tracks.length;
+    }
     if (currentTrackIndex < 0) {
         currentTrackIndex += tracks.length;
     }
+    console.log("currentTrackIndex: " + currentTrackIndex);
     backgroundMusic.src = tracks[currentTrackIndex];
     playMusic();
 }
@@ -186,7 +206,16 @@ function prevTrack() {
 // Function to go to next track
 function nextTrack() {
     pauseMusic();
-    currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+    if (musicShuffled) {
+        let previousTrackIndex = currentTrackIndex;
+        currentTrackIndex = Math.floor((Math.random() * tracks.length) % tracks.length);
+        if (currentTrackIndex == previousTrackIndex) {
+            nextTrack();
+        }
+    } else {
+        currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+    }
+    console.log("currentTrackIndex: " + currentTrackIndex);
     backgroundMusic.src = tracks[currentTrackIndex];
     playMusic();
 }
@@ -1129,7 +1158,16 @@ function startGame() {
 
     // Attach event listener to handle track end event
     backgroundMusic.addEventListener("ended", function () {
-        currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+        if (musicShuffled) {
+            let previousTrackIndex = currentTrackIndex;
+            currentTrackIndex = Math.floor((Math.random() * tracks.length) % tracks.length);
+            if (currentTrackIndex == previousTrackIndex) {
+                nextTrack();
+            }
+        } else {
+            currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+        }
+        console.log("currentTrackIndex: " + currentTrackIndex);
         backgroundMusic.src = tracks[currentTrackIndex];
         playMusic();
     });
