@@ -21,14 +21,26 @@ const tracks = [
     "sounds/stellar-echoes-music.mp3",
     "sounds/pixel-avenue-music.mp3",
     "sounds/pipeline-pulse-music.mp3",
+    "sounds/digital-aurora-music.mp3",
+    "sounds/quantum-flux-music.mp3",
+    "sounds/gritcore-pulse-music.mp3",
+    "sounds/cyberpulse-drive-music.mp3",
+    "sounds/neon-sunset-music.mp3",
+    "sounds/echoes-of-the-foundry-music.mp3"
 ];
 const trackNames = [
-    "Synth Life",
-    "Pulsewave Odyssey",
-    "Steel Resonance",
-    "Stellar Echoes",
-    "Pixel Avenue",
-    "Pipeline Pulse",
+    "1) Synth Life",
+    "2) Pulsewave Odyssey",
+    "3) Steel Resonance",
+    "4) Stellar Echoes",
+    "5) Pixel Avenue",
+    "6) Pipeline Pulse",
+    "7) Digital Aurora",
+    "8) Quantum Flux",
+    "9) Gritcore Pulse",
+    "10) Cyberpulse Drive",
+    "11) Neon Sunset",
+    "12) Echoes of the Foundry"
 ];
 let currentTrackIndex = Math.floor((Math.random() * tracks.length) % tracks.length);
 console.log("currentTrackIndex: " + currentTrackIndex);
