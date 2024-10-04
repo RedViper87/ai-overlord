@@ -44,7 +44,7 @@ let firstQuantumComputingCenter = true;
 let firstQuantumCrypto = true;
 
 // Resource variables
-let resources = 0;
+let resources = 99999999999999;
 let currentRes = 0;
 let previousRes = 0;
 let resPerSec = 0;
@@ -70,7 +70,7 @@ let glitchEffectEnabled = true;
 let glitchInterval;
 
 // Processing power variables
-let processingPower = 0;
+let processingPower = 99999999999999;
 let processingPowerPerSec = 100;
 let processingPowerUnlocked = false;
 let currentProcessingPower = 0;
@@ -391,33 +391,33 @@ function setButtonColors() {
 
     // Research AI Button
     document.getElementById("researchAIButton").style.backgroundColor =
-        processingPower < researchAIPrice ? "#777" : "#3380FF";
+        processingPower < researchAIPrice ? "#777" : "#9999FF";
 
     // Quantum Computing Button
     document.getElementById("quantumComputingButton").style.backgroundColor =
-        processingPower < quantumComputingPrice ? "#777" : "#32CD32";
+        processingPower < quantumComputingPrice ? "#777" : "#33BAFF";
 
     // Advanced Algorithms Button
     document.getElementById("advancedAlgorithmsButton").style.backgroundColor =
-        processingPower < advancedAlgorithmsPrice ? "#777" : "#00FFC5";
+        processingPower < advancedAlgorithmsPrice ? "#777" : "#FF33BA";
 
     // Global Network Integration Button
     document.getElementById("globalNetworkButton").style.backgroundColor =
-        processingPower < globalNetworkPrice ? "#777" : "#FF4500";
+        processingPower < globalNetworkPrice ? "#777" : "#FF3333";
 
     // High-Efficiency Auto-Gatherer Button
     document.getElementById(
         "highEfficiencyGathererButton"
     ).style.backgroundColor =
         resources < highEfficiencyGathererPriceRes ||
-        processingPower < highEfficiencyGathererPricePP
+            processingPower < highEfficiencyGathererPricePP
             ? "#777"
             : "#00FF7F";
 
     // Quantum Algorithms Button
     document.getElementById("quantumAlgorithmsButton").style.backgroundColor =
         resources < quantumAlgorithmsPriceRes ||
-        processingPower < quantumAlgorithmsPricePP
+            processingPower < quantumAlgorithmsPricePP
             ? "#777"
             : "#BA55D3";
 
@@ -430,14 +430,14 @@ function setButtonColors() {
     // Quantum Cryptography Button
     document.getElementById("quantumCryptoButton").style.backgroundColor =
         resources < quantumCryptoPriceRes ||
-        processingPower < quantumCryptoPricePP
+            processingPower < quantumCryptoPricePP
             ? "#777"
             : "#E8E0F8";
 
     // Quantum Material Button
     document.getElementById("quantumMaterialButton").style.backgroundColor =
         resources < quantumMaterialPriceRes ||
-        processingPower < quantumMaterialPricePP
+            processingPower < quantumMaterialPricePP
             ? "#777"
             : "#D4AF37";
 }
@@ -1193,10 +1193,6 @@ function startGame() {
     window.addEventListener("resize", () => {
         applyTransform();
     });
-
-    window.addEventListener("resize", () => {
-        applyTransform();
-    });
 }
 
 // Set intervals for updating resources and processing power, then start the game
@@ -1222,22 +1218,10 @@ let lastTranslate = { x: 0, y: 0 };
 
 // Function to initialize Zoom and Pan
 function initializeZoomAndPan() {
-    const zoomInBtn = document.getElementById("zoom-in");
-    const zoomOutBtn = document.getElementById("zoom-out");
-    const panUpBtn = document.getElementById("pan-up");
-    const panDownBtn = document.getElementById("pan-down");
-    const panLeftBtn = document.getElementById("pan-left");
-    const panRightBtn = document.getElementById("pan-right");
     const resetMapBtn = document.getElementById("reset-map");
     const worldMap = document.getElementById("world-map");
     const mapContainer = document.querySelector(".global-ai-network-map");
 
-    zoomInBtn.addEventListener("click", zoomIn);
-    zoomOutBtn.addEventListener("click", zoomOut);
-    panUpBtn.addEventListener("click", () => pan("up"));
-    panDownBtn.addEventListener("click", () => pan("down"));
-    panLeftBtn.addEventListener("click", () => pan("left"));
-    panRightBtn.addEventListener("click", () => pan("right"));
     resetMapBtn.addEventListener("click", resetMap);
     mapContainer.addEventListener("wheel", handleWheelZoom);
 
@@ -1491,7 +1475,7 @@ function handleWheelZoom(event) {
     event.preventDefault();
 
     const delta = -Math.sign(event.deltaY);
-    const zoomAmount = delta * 0.1; // Adjust zoom sensitivity as needed
+    const zoomAmount = delta * 1; // Adjust zoom sensitivity as needed
 
     let newScale = currentScale + zoomAmount;
     newScale = Math.min(Math.max(newScale, minScale), maxScale);

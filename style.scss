@@ -211,12 +211,12 @@ h1.ai-overlord-title {
 
 // Variables for consistent color usage
 $researchLab-primary: #1abc9c; // Turquoise for creativity and growth
-$researchLab-gradient: linear-gradient(45deg, #0047ab, #ff4500);
+$researchLab-gradient: linear-gradient(45deg, #000080, #8B0000);
 
 $quantumCenter-primary: #9b59b6; // Purple for technology and sophistication
 $quantumCenter-gradient: linear-gradient(45deg, #4b0082, #bf00ff);
 
-$globalAiNetwork-gradient: linear-gradient(45deg, #00ffff, #ff0000);
+$globalAiNetwork-gradient: linear-gradient(45deg, #008080, #FFA500);
 
 // Styles for Research Lab Header
 #researchLab {
@@ -353,7 +353,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #00ffff, #ff0000);
     max-width: 1200px;
     height: 495px; // Set a fixed height for the container
     margin: 0 auto;
-    background-color: #e0f7fa;
+    background-color: #a3a3a3;
     border: 2px solid $purple;
     border-radius: 10px;
     overflow: hidden; // Hide overflow when panning
@@ -372,7 +372,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #00ffff, #ff0000);
 
             &:hover,
             &.active {
-                fill: $globalAiNetwork-primary;
+                fill: #ff7300;
                 cursor: pointer;
             }
         }
