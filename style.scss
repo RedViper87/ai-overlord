@@ -216,7 +216,7 @@ $researchLab-gradient: linear-gradient(45deg, #000080, #8B0000);
 $quantumCenter-primary: #9b59b6; // Purple for technology and sophistication
 $quantumCenter-gradient: linear-gradient(45deg, #4b0082, #bf00ff);
 
-$globalAiNetwork-gradient: linear-gradient(45deg, #008080, #FFA500);
+$globalAiNetwork-gradient: linear-gradient(45deg, #007BFF, #FFA500);
 
 // Styles for Research Lab Header
 #researchLab {
@@ -354,7 +354,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #008080, #FFA500);
     height: 495px; // Set a fixed height for the container
     margin: 0 auto;
     background-color: #a3a3a3;
-    border: 2px solid $purple;
+    border: 2px solid #333;
     border-radius: 10px;
     overflow: hidden; // Hide overflow when panning
 

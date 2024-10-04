@@ -219,7 +219,7 @@ h1.ai-overlord-title {
 #globalAiNetwork h3 {
   margin-top: 0;
   color: #fff;
-  background: linear-gradient(45deg, #008080, #FFA500);
+  background: linear-gradient(45deg, #007BFF, #FFA500);
   padding: 12px 24px;
   border-radius: 10px;
   font-family: "Space Grotesk", sans-serif;
@@ -263,7 +263,7 @@ h1.ai-overlord-title {
   height: 495px;
   margin: 0 auto;
   background-color: #a3a3a3;
-  border: 2px solid #d700ff;
+  border: 2px solid #333;
   border-radius: 10px;
   overflow: hidden; }
   .global-ai-network-map #world-map {

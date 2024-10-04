@@ -1506,19 +1506,9 @@ function resetMap() {
 
     currentScale = 1;
     previousScale = 1;
-
-    // Center the map if it's smaller than the container
-    if (mapRect.width < containerRect.width) {
-        currentTranslate.x = (containerRect.width - mapRect.width) / 2;
-    } else {
-        currentTranslate.x = 0;
-    }
-
-    if (mapRect.height < containerRect.height) {
-        currentTranslate.y = (containerRect.height - mapRect.height) / 2;
-    } else {
-        currentTranslate.y = 0;
-    }
+    // Subtract 2 pixels to account for borders
+    currentTranslate.x = ((containerRect.width - mapRect.width) / 2) - 2;
+    currentTranslate.y = ((containerRect.height - mapRect.height) / 2) - 2;
 
     applyTransform();
 }
