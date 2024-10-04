@@ -15,20 +15,20 @@ const volumeSlider = document.getElementById("volume-slider");
 backgroundMusic.volume = volumeSlider.value;
 // Background music tracks
 const tracks = [
-    "sounds/synthwave-background-music.mp3",
-    "sounds/electronic-wave.mp3",
-    "sounds/industrial-dubstep.mp3",
-    "sounds/futuristic-synth-ambient.mp3",
-    "sounds/retro-wave.mp3",
-    "sounds/industrial-wave.mp3",
+    "sounds/synth-life-music.mp3",
+    "sounds/pulsewave-odyssey-music.mp3",
+    "sounds/steel-resonance-music.mp3",
+    "sounds/stellar-echoes-music.mp3",
+    "sounds/pixel-avenue-music.mp3",
+    "sounds/pipeline-pulse-music.mp3",
 ];
 const trackNames = [
-    "Synth Wave",
-    "Electronic Wave",
-    "Industrial Dubstep",
-    "Futuristic Synth Wave",
-    "Retro Wave",
-    "Industrial Wave",
+    "Synth Life",
+    "Pulsewave Odyssey",
+    "Steel Resonance",
+    "Stellar Echoes",
+    "Pixel Avenue",
+    "Pipeline Pulse",
 ];
 let currentTrackIndex = Math.floor(Math.random() * tracks.length);
 // Set the initial track
@@ -398,21 +398,21 @@ function setButtonColors() {
     // Research AI Button
     document.getElementById("researchAIButton").style.backgroundColor =
         processingPower < researchAIPrice &&
-        researchAILevel < researchAIMaxLevel
+            researchAILevel < researchAIMaxLevel
             ? "#777"
             : "#9999FF";
 
     // Quantum Computing Button
     document.getElementById("quantumComputingButton").style.backgroundColor =
         processingPower < quantumComputingPrice &&
-        quantumComputingLevel < quantumComputingMaxLevel
+            quantumComputingLevel < quantumComputingMaxLevel
             ? "#777"
             : "#33BAFF";
 
     // Advanced Algorithms Button
     document.getElementById("advancedAlgorithmsButton").style.backgroundColor =
         processingPower < advancedAlgorithmsPrice &&
-        advancedAlgorithmsLevel < advancedAlgorithmsMaxLevel
+            advancedAlgorithmsLevel < advancedAlgorithmsMaxLevel
             ? "#777"
             : "#FF33BA";
 
@@ -427,39 +427,39 @@ function setButtonColors() {
         "highEfficiencyGathererButton"
     ).style.backgroundColor =
         resources < highEfficiencyGathererPriceRes ||
-        processingPower < highEfficiencyGathererPricePP
+            processingPower < highEfficiencyGathererPricePP
             ? "#777"
             : "#00FF7F";
 
     // Quantum Algorithms Button
     document.getElementById("quantumAlgorithmsButton").style.backgroundColor =
         quantumAlgorithmsLevel < quantumAlgorithmsMaxLevel &&
-        (resources < quantumAlgorithmsPriceRes ||
-            processingPower < quantumAlgorithmsPricePP)
+            (resources < quantumAlgorithmsPriceRes ||
+                processingPower < quantumAlgorithmsPricePP)
             ? "#777"
             : "#BA55D3";
 
     // Quantum Information Button
     document.getElementById("quantumInfoButton").style.backgroundColor =
         quantumInfoLevel < quantumInfoMaxLevel &&
-        (resources < quantumInfoPriceRes ||
-            processingPower < quantumInfoPricePP)
+            (resources < quantumInfoPriceRes ||
+                processingPower < quantumInfoPricePP)
             ? "#777"
             : "#6AA1FF";
 
     // Quantum Cryptography Button
     document.getElementById("quantumCryptoButton").style.backgroundColor =
         quantumCryptoLevel < quantumCryptoMaxLevel &&
-        (resources < quantumCryptoPriceRes ||
-            processingPower < quantumCryptoPricePP)
+            (resources < quantumCryptoPriceRes ||
+                processingPower < quantumCryptoPricePP)
             ? "#777"
             : "#E8E0F8";
 
     // Quantum Material Button
     document.getElementById("quantumMaterialButton").style.backgroundColor =
         !newMaterialDiscovered &&
-        (resources < quantumMaterialPriceRes ||
-            processingPower < quantumMaterialPricePP)
+            (resources < quantumMaterialPriceRes ||
+                processingPower < quantumMaterialPricePP)
             ? "#777"
             : "#D4AF37";
 }
