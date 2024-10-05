@@ -39,7 +39,7 @@
                     </div>
                     <div class="centered-row">
                         <div class="music-player-container">
-                            <h2 id="trackName" style="margin-top: -10px; margin-bottom: -5px;"><!-- Track Name injected here --></h2>
+                            <h2 id="trackName"><!-- Track Name injected here --></h2>
                             <!-- Toggle Music -->
                             <div class="flex-row" style="margin-bottom: 10px; transform: scale(0.8);">
                                 <button id="prev-track-button">
@@ -60,8 +60,8 @@
                                 <span class="small-toggle-title">Shuffle Music?</span>
                             </div>
                             <!-- Add a volume slider -->
-                            <label for="volume-slider" style="font-weight: bold; margin-bottom: 5px;">Volume:</label>
-                            <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.2">
+                            <label for="volume-slider" id="volumeLabel" style="font-weight: bold; margin-bottom: 5px; -webkit-text-stroke: 1px black;">Volume:</label>
+                            <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.3">
                         </div>
                     </div>
                     <div class="centered-row">

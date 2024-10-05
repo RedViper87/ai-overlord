@@ -112,7 +112,7 @@ const quantumComputingMaxLevel = 10;
 let quantumComputingPrice = 5000;
 
 let advancedAlgorithmsLevel = 0;
-const advancedAlgorithmsMaxLevel = 10;
+const advancedAlgorithmsMaxLevel = 20;
 let advancedAlgorithmsPrice = 8000;
 
 let globalNetworkPrice = 120000000;
@@ -937,7 +937,7 @@ function researchAI() {
     ) {
         processingPower -= researchAIPrice;
         researchAILevel++;
-        researchAIPrice = Math.round(researchAIPrice * 1.1);
+        researchAIPrice = Math.round(researchAIPrice * 1.25);
         processingPowerPerSec = Math.round(processingPowerPerSec * 1.1);
         document.getElementById(
             "researchAIButton"
