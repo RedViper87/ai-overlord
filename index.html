@@ -39,9 +39,9 @@
                     </div>
                     <div class="centered-row">
                         <div class="music-player-container">
-                            <h2 id="trackName"><!-- Track Name injected here --></h2>
+                            <h2 id="trackName" style="margin-top: -10px; margin-bottom: -5px;"><!-- Track Name injected here --></h2>
                             <!-- Toggle Music -->
-                            <div class="flex-row" style="margin-bottom: 10px;">
+                            <div class="flex-row" style="margin-bottom: 10px; transform: scale(0.8);">
                                 <button id="prev-track-button">
                                     <img id src="images/track-prev.svg" width="32" height="32">
                                 </button>
@@ -60,7 +60,7 @@
                                 <span class="small-toggle-title">Shuffle Music?</span>
                             </div>
                             <!-- Add a volume slider -->
-                            <label for="volume-slider" style="font-weight: bold;">Volume:</label>
+                            <label for="volume-slider" style="font-weight: bold; margin-bottom: 5px;">Volume:</label>
                             <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.2">
                         </div>
                     </div>
@@ -217,7 +217,7 @@
                         Research Global Network Integration <br />(120.000M Processing Power)
                     </button>
                 </div>
-                <img id="researchLabImage" src="images/research-lab-image.png" width="284.8" height="284.8"
+                <img id="researchLabImage" src="images/research-lab-image.png" width="288.8" height="288.8"
                     style="border-radius: 10px; border: 2px solid #000; display: none; margin-top: 20px;">
             </div>
             <!-- Quantum Computing Center Section, initially hidden -->
@@ -250,13 +250,13 @@
                         New Material Discovery <br />(100.000B Resources, 250.000B Processing Power)
                     </button>
                 </div>
-                <img id="quantumComputingCenterImage" src="images/quantum-computing-center-image.png" width="284.8"
-                    height="284.8" style="border-radius: 10px; border: 2px solid #000; display: none; margin-top: 20px;">
+                <img id="quantumComputingCenterImage" src="images/quantum-computing-center-image.png" width="288.8"
+                    height="288.8" style="border-radius: 10px; border: 2px solid #000; display: none; margin-top: 20px;">
             </div>
             <!-- Global AI Network Section, initially hidden -->
             <div id="globalAiNetwork" style="display: none;">
                 <h3>🤖Global AI Network🤖</h3>
-                <div class="zoom-controls">
+                <div class="map-controls">
                     <button id="reset-map">Reset Map Position</button>
                 </div>
                 <div class="global-ai-network-map">

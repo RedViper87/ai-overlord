@@ -17,7 +17,7 @@ body {
 #devPow,
 #devVip {
   background-color: white;
-  border-radius: 10px;
+  border-radius: 5px;
   display: inline-block;
   width: 140px;
   height: 20px;
@@ -142,7 +142,8 @@ h1.ai-overlord-title {
 
 #viperCoinBar {
   display: flex;
-  justify-content: space-between; }
+  justify-content: space-between;
+  margin-top: 2px; }
 
 #viperCoinCounter {
   font-size: 1.5em; }
@@ -166,6 +167,7 @@ h1.ai-overlord-title {
   color: #fff;
   background: linear-gradient(45deg, #000080, #8b0000);
   padding: 12px 24px;
+  border: 2px solid white;
   border-radius: 10px;
   font-family: "Space Grotesk", sans-serif;
   font-size: 1.8em;
@@ -195,6 +197,7 @@ h1.ai-overlord-title {
   color: #fff;
   background: linear-gradient(45deg, #4b0082, #bf00ff);
   padding: 12px 24px;
+  border: 2px solid white;
   border-radius: 10px;
   font-family: "Space Grotesk", sans-serif;
   font-size: 1.8em;
@@ -224,6 +227,7 @@ h1.ai-overlord-title {
   color: #fff;
   background: linear-gradient(45deg, #007bff, #ffa500);
   padding: 12px 24px;
+  border: 2px solid white;
   border-radius: 10px;
   font-family: "Space Grotesk", sans-serif;
   font-size: 1.8em;
@@ -238,12 +242,12 @@ h1.ai-overlord-title {
   width: 80%;
   margin-bottom: 10px; }
 
-/* Zoom Controls Styling */
-.zoom-controls {
+/* Map Controls Styling */
+.map-controls {
   display: flex;
   justify-content: center;
   margin-bottom: 10px; }
-  .zoom-controls button {
+  .map-controls button {
     background-color: #fff;
     border: 2px solid #000;
     border-radius: 5px;
@@ -252,10 +256,10 @@ h1.ai-overlord-title {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s; }
-    .zoom-controls button:hover {
+    .map-controls button:hover {
       background-color: #ddd;
       transform: scale(1.05); }
-    .zoom-controls button:active {
+    .map-controls button:active {
       background-color: #ccc;
       transform: scale(0.95); }
 
@@ -897,15 +901,17 @@ input:checked + .small-slider:before {
   background: linear-gradient(135deg, #0e0b16, #6a0572, #a1610d, #ff2e63, #ffaaaa);
   border: 2px solid #fff;
   border-radius: 15px;
-  margin-top: 60px;
-  margin-bottom: 60px;
+  margin-top: 40px;
+  margin-bottom: 40px;
   padding: 20px 30px;
   box-shadow: 0 0 20px #e445e9;
   font-size: 1.5em;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 25%; }
+  width: 30%;
+  transform: scale(1);
+  transform-origin: center center; }
 
 /* Volume Slider Styling */
 #volume-slider {
