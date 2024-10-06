@@ -118,6 +118,14 @@ h1.ai-overlord-title {
   margin-bottom: 30px;
   padding: 10px 0; }
 
+.bottom-shadow {
+  background-color: #2f2f2f;
+  width: 960px;
+  padding: 20px;
+  margin: 30px auto;
+  /* Bottom-only box-shadow */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5); }
+
 #autoGathererCounter,
 #optimizationsCounter,
 #highEfficiencyGathererCounter {
@@ -514,6 +522,7 @@ h1.ai-overlord-title {
 .major-upgrades {
   height: 100%;
   width: 75%;
+  margin-right: 20px;
   padding: 0.6em 2em;
   border: none;
   outline: none;
