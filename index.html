@@ -74,7 +74,7 @@
                             </div>
                             <!-- Volume slider -->
                             <label for="volume-slider" id="volumeLabel">Volume:</label>
-                            <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.1">
+                            <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.0">
                         </div>
                     </div>
                     <div class="centered-row">
@@ -104,35 +104,38 @@
         <!-- Stage 1: Initial gameplay stage -->
         <div id="stage1" class="stage active">
             <h2 class="stage-1-title">Stage 1: Rise to Power</h2><br />
-            <!-- Resource Gathering Button -->
-            <button class="button-gather-res" id="resourceButton" onclick="addResource()">
-                Gather Resources (x1)
-            </button>
-            <!-- Resource Multiplier Button, initially hidden -->
-            <button class="button-upgrades info-button" id="resourceIncreaseButton" style="display: none;"
-                data-tooltip="Increase the amount of resources you gather manually" onclick="increaseResModifier()">
-                Resource Multiplier (500 Resources)
-            </button>
-            <hr />
-            <!-- Display for resource count and resources per second -->
-            <div id="resourceBar">
-                <span id="resourceCounter">0 Resources🔗</span>
-                <span id="resPerSec" style="display: none;">0 Resources/sec</span>
-            </div>
-            <!-- Display for processing power count and processing power per second -->
-            <div id="processingPowerBar">
-                <span id="processingPowerCounter" style="display: none;">0 Processing Power ⚙️</span>
-                <span id="processingPowerPerSec" style="display: none;">0 Processing Power/sec</span>
-            </div>
-            <!-- Display for viper coin counter and rate -->
-            <div id="viperCoinBar">
-                <div class="flex-row">
-                    <span id="viperCoinCounter" style="display: none;">0 ViperCoin</span>
-                    <div class="crypto-icon" id="cryptoIcon" style="display: none;"></div>
+            <div class="sticky-section">
+                <!-- Resource Gathering Button -->
+                <button class="button-gather-res" id="resourceButton" onclick="addResource()">
+                    Gather Resources (x1)
+                </button>
+                <!-- Resource Multiplier Button, initially hidden -->
+                <button class="button-upgrades info-button" id="resourceIncreaseButton" style="display: none;"
+                    data-tooltip="Increase the amount of resources you gather manually" onclick="increaseResModifier()">
+                    Resource Multiplier (500 Resources)
+                </button>
+                <hr />
+                <!-- Display for resource count and resources per second -->
+                <div id="resourceBar">
+                    <span id="resourceCounter">0 Resources🔗</span>
+                    <span id="resPerSec" style="display: none;">0 Resources/sec</span>
                 </div>
-                <span id="viperCoinPerSec" style="display: none;">0 ViperCoin/sec</span>
+                <!-- Display for processing power count and processing power per second -->
+                <div id="processingPowerBar">
+                    <span id="processingPowerCounter" style="display: none;">0 Processing Power ⚙️</span>
+                    <span id="processingPowerPerSec" style="display: none;">0 Processing Power/sec</span>
+                </div>
+                <!-- Display for viper coin counter and rate -->
+                <div id="viperCoinBar">
+                    <div class="flex-row">
+                        <span id="viperCoinCounter" style="display: none;">0 ViperCoin</span>
+                        <div class="crypto-icon" id="cryptoIcon" style="display: none;"></div>
+                    </div>
+                    <span id="viperCoinPerSec" style="display: none;">0 ViperCoin/sec</span>
+                </div>
+                <hr />
             </div>
-            <hr />
+            
             <!-- Upgrades Section -->
             <div class="flex-row">
                 <div class="left-group">

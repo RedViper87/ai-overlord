@@ -37,6 +37,7 @@ body {
 
 /* NORMAL STUFF */
 h2.stage-1-title {
+  margin-bottom: 0px;
   font-family: "Courier New", Courier, monospace;
   font-size: 2.5em;
   color: #ff85c1;
@@ -70,6 +71,8 @@ h2.stage-1-title {
       padding: 5px; } }
 
 h1.ai-overlord-title {
+  margin-top: 0px;
+  margin-bottom: 0px;
   font-family: "Courier New", Courier, monospace;
   font-size: 4rem;
   color: #ff85c1;
@@ -102,6 +105,16 @@ h1.ai-overlord-title {
     h1.ai-overlord-title {
       font-size: 2.5rem;
       padding: 5px; } }
+
+.sticky-section {
+  position: -webkit-sticky;
+  /* For Safari */
+  position: sticky;
+  background-color: #333;
+  top: 0;
+  z-index: 10;
+  margin-bottom: 30px;
+  padding: 10px 0; }
 
 #autoGathererCounter,
 #optimizationsCounter,
@@ -365,6 +378,8 @@ h1.ai-overlord-title {
   * .eaeu - for members of Eurasian Economic Union
   */
 .crt-container {
+  margin-top: 30px;
+  margin-bottom: -20px;
   display: flex;
   align-items: center;
   justify-content: center; }
@@ -421,7 +436,8 @@ h1.ai-overlord-title {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  z-index: 9; }
   .button-upgrades:hover {
     transform: scale(1.02);
     box-shadow: #000 4px 4px 0 0; }
@@ -598,7 +614,8 @@ h1.ai-overlord-title {
 
 /* TOOLTIP STUFF */
 .info-button {
-  position: relative; }
+  position: relative;
+  z-index: 9; }
 
 .info-button::after {
   content: attr(data-tooltip);
@@ -642,7 +659,7 @@ h1.ai-overlord-title {
   height: 100%;
   width: 0;
   position: fixed;
-  z-index: 1;
+  z-index: 15;
   left: 0;
   top: 0;
   background-color: black;
@@ -688,7 +705,7 @@ h1.ai-overlord-title {
   height: 30px;
   position: relative;
   cursor: pointer;
-  margin-top: 40px; }
+  margin-top: 20px; }
 
 .hamburger::before,
 .hamburger::after,
@@ -804,8 +821,8 @@ input:checked + .small-slider:before {
   background: linear-gradient(135deg, #0e0b16, #6a0572, #a1610d, #ff2e63, #ffaaaa);
   border: 2px solid #fff;
   border-radius: 15px;
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin-top: 30px;
+  margin-bottom: 30px;
   padding: 20px 30px;
   box-shadow: 0 0 20px #e445e9;
   font-size: 1.5em;

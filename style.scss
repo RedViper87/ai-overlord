@@ -54,6 +54,7 @@ $glow-color: #ff85c1;
 $globalAiNetwork-primary: #00ffff; // Bright Cyan for connectivity and clarity
 
 h2.stage-1-title {
+    margin-bottom: 0px;
     font-family: "Courier New", Courier, monospace;
     font-size: 2.5em;
     color: $pink-red;
@@ -93,6 +94,8 @@ h2.stage-1-title {
 }
 
 h1.ai-overlord-title {
+    margin-top: 0px;
+    margin-bottom: 0px;
     font-family: "Courier New", Courier, monospace;
     font-size: 4rem;
     color: $pink-red;
@@ -137,6 +140,16 @@ h1.ai-overlord-title {
         font-size: 2.5rem;
         padding: 5px;
     }
+}
+
+.sticky-section {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    background-color: #333;
+    top: 0;
+    z-index: 10;
+    margin-bottom: 30px;
+    padding: 10px 0;
 }
 
 #autoGathererCounter,
@@ -483,6 +496,8 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
   */
 
 .crt-container {
+    margin-top: 30px;
+    margin-bottom: -20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -544,6 +559,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
     -webkit-user-select: none;
     touch-action: manipulation;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    z-index: 9;
 
     &:hover {
         transform: scale(1.02);
@@ -777,6 +793,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 /* TOOLTIP STUFF */
 .info-button {
     position: relative;
+    z-index: 9;
 }
 
 .info-button::after {
@@ -828,7 +845,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 1;
+    z-index: 15;
     left: 0;
     top: 0;
     background-color: rgb(0, 0, 0);
@@ -882,7 +899,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
     height: 30px;
     position: relative;
     cursor: pointer;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .hamburger::before,
@@ -1023,8 +1040,8 @@ input:checked + .small-slider:before {
     );
     border: 2px solid #fff;
     border-radius: 15px;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 30px;
+    margin-bottom: 30px;
     padding: 20px 30px;
     box-shadow: 0 0 20px #e445e9;
     font-size: 1.5em;
