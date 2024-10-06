@@ -103,36 +103,39 @@
 
         <!-- Stage 1: Initial gameplay stage -->
         <div id="stage1" class="stage active">
-            <h2 class="stage-1-title">Stage 1: Rise to Power</h2><br />
-            <!-- Resource Gathering Button -->
-            <button class="button-gather-res" id="resourceButton" onclick="addResource()">
-                Gather Resources (x1)
-            </button>
-            <!-- Resource Multiplier Button, initially hidden -->
-            <button class="button-upgrades info-button" id="resourceIncreaseButton" style="display: none;"
-                data-tooltip="Increase the amount of resources you gather manually" onclick="increaseResModifier()">
-                Resource Multiplier (500 Resources)
-            </button>
-            <hr />
-            <!-- Display for resource count and resources per second -->
-            <div id="resourceBar">
-                <span id="resourceCounter">0 Resources🔗</span>
-                <span id="resPerSec" style="display: none;">0 Resources/sec</span>
-            </div>
-            <!-- Display for processing power count and processing power per second -->
-            <div id="processingPowerBar">
-                <span id="processingPowerCounter" style="display: none;">0 Processing Power ⚙️</span>
-                <span id="processingPowerPerSec" style="display: none;">0 Processing Power/sec</span>
-            </div>
-            <!-- Display for viper coin counter and rate -->
-            <div id="viperCoinBar">
-                <div class="flex-row">
-                    <span id="viperCoinCounter" style="display: none;">0 ViperCoin</span>
-                    <div class="crypto-icon" id="cryptoIcon" style="display: none;"></div>
+            <div class="sticky-section bottom-shadow">
+                <h2 class="stage-1-title">Stage 1: Rise to Power</h2><br />
+                <!-- Resource Gathering Button -->
+                <button class="button-gather-res" id="resourceButton" onclick="addResource()">
+                    Gather Resources (x1)
+                </button>
+                <!-- Resource Multiplier Button, initially hidden -->
+                <button class="button-upgrades info-button" id="resourceIncreaseButton" style="display: none;"
+                    data-tooltip="Increase the amount of resources you gather manually" onclick="increaseResModifier()">
+                    Resource Multiplier (500 Resources)
+                </button>
+                <hr />
+                <!-- Display for resource count and resources per second -->
+                <div id="resourceBar">
+                    <span id="resourceCounter">0 Resources🔗</span>
+                    <span id="resPerSec" style="display: none;">0 Resources/sec</span>
                 </div>
-                <span id="viperCoinPerSec" style="display: none;">0 ViperCoin/sec</span>
+                <!-- Display for processing power count and processing power per second -->
+                <div id="processingPowerBar">
+                    <span id="processingPowerCounter" style="display: none;">0 Processing Power ⚙️</span>
+                    <span id="processingPowerPerSec" style="display: none;">0 Processing Power/sec</span>
+                </div>
+                <!-- Display for viper coin counter and rate -->
+                <div id="viperCoinBar">
+                    <div class="flex-row">
+                        <span id="viperCoinCounter" style="display: none;">0 ViperCoin</span>
+                        <div class="crypto-icon" id="cryptoIcon" style="display: none;"></div>
+                    </div>
+                    <span id="viperCoinPerSec" style="display: none;">0 ViperCoin/sec</span>
+                </div>
+                <hr />
             </div>
-            <hr />
+            
             <!-- Upgrades Section -->
             <div class="flex-row">
                 <div class="left-group">
@@ -5493,6 +5496,7 @@
                                 d="m 2737.92,782.766 c -0.12,-0.1 0.18,-0.08 -0.11,-0.14 -0.16,-0.03 -0.27,0.139 0.1,0.203" />
                         </g>
                     </svg>
+                    <img src="images/failure-screen.png" class="map-overlay glitch" style="border-radius: 5px;">
                     <div id="info-box" class="info-box hidden">
                         <h2 id="country-name">Country Name</h2>
                         <p id="country-pop">Country Population</p>
