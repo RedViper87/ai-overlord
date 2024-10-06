@@ -1018,9 +1018,9 @@ function discoverNewMaterial() {
         newMaterialDiscovered = true;
         document.getElementById("quantumMaterialButton").innerText =
             "New Material Discovered";
-        alert(`You just discovered the new material Quantarion! Nice!
+        alert(`You just discovered the new material Quantum Flux! Nice!
         ---------------------------------------------------------------------
-        Quantarion is a groundbreaking material recently discovered at the Quantum Horizons Institute's cutting-edge quantum computing center. This novel substance promises to revolutionize multiple technological fields, from quantum computing and energy storage to telecommunications and beyond.`);
+        Quantum Flux is a groundbreaking material recently discovered at the Quantum Horizons Institute's cutting-edge quantum computing center. This novel substance promises to revolutionize multiple technological fields, from quantum computing and energy storage to telecommunications and beyond.`);
     }
 }
 
