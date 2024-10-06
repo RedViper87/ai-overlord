@@ -123,7 +123,7 @@ let firstHighEfficiencyGatherer = true;
 // Quantum Computing Center variables
 const quantumComputingCenterPrice = 2000000;
 let quantumComputingCenterBuilt = false;
-const processingPowerBoostFactor = 3; // Processing power multiplier factor
+const processingPowerBoostFactor = 3;
 
 let quantumAlgorithmsLevel = 0;
 const quantumAlgorithmsMaxLevel = 10;
@@ -131,7 +131,7 @@ let quantumAlgorithmsPriceRes = 20000000; // 20.00M
 let quantumAlgorithmsPricePP = 10000000; // 10.00M
 const quantumAlgorithmsBoost = 250;
 
-// New variable to track multiplier based on quantumAlgorithmsLevel
+// Variable to track multiplier based on quantumAlgorithmsLevel
 let quantumAlgorithmsMultiplier = 1;
 
 let quantumInfoLevel = 0;
@@ -229,7 +229,7 @@ function toggleShuffleMusic() {
         musicShuffled = true;
     }
 }
-/* Basic Functions */
+/* Main Functions */
 function addResource() {
     if (firstResource) {
         firstResource = false;
