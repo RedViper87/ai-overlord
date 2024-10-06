@@ -1031,10 +1031,10 @@ function formatTime(seconds) {
     }
 
     if (hours >= 1 || days >= 1) {
-        timeComponents.push(`${hours}`);
+        timeComponents.push(`${hours < 10 ? '0' : ''}${hours}`);
     }
 
-    timeComponents.push(`${minutes}:${secs < 10 ? '0' : ''}${secs}`);
+    timeComponents.push(`${minutes < 10 ? '0' : ''}${minutes}:${secs < 10 ? '0' : ''}${secs}`);
 
     return timeComponents.join(':');
 }
