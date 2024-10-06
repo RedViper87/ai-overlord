@@ -127,8 +127,8 @@ const processingPowerBoostFactor = 3; // Processing power multiplier factor
 
 let quantumAlgorithmsLevel = 0;
 const quantumAlgorithmsMaxLevel = 10;
-let quantumAlgorithmsPriceRes = 10000000; // 10.00M
-let quantumAlgorithmsPricePP = 20000000; // 20.00M
+let quantumAlgorithmsPriceRes = 20000000; // 20.00M
+let quantumAlgorithmsPricePP = 10000000; // 10.00M
 const quantumAlgorithmsBoost = 250;
 
 // New variable to track multiplier based on quantumAlgorithmsLevel
