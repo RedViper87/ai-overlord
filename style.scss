@@ -5,7 +5,7 @@
 .dev-tools {
     background-color: #000;
     border: 1px solid red;
-    border-radius: 10px;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -188,7 +188,7 @@ h1.ai-overlord-title {
 #viperCoinBar {
     display: flex;
     justify-content: space-between;
-    margin-top: 2px;
+    margin-top: 4px;
 }
 
 #viperCoinCounter {
@@ -232,7 +232,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
         font-family: "Space Grotesk", sans-serif;
         font-size: 1.8em;
         text-align: center;
-        box-shadow: 0 4px 8px white;
+        box-shadow: 0 4px 8px rgba(255, 255, 255, 0.5);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
 
         // Hover effect for interactivity
@@ -271,7 +271,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
         font-family: "Space Grotesk", sans-serif;
         font-size: 1.8em;
         text-align: center;
-        box-shadow: 0 4px 8px white;
+        box-shadow: 0 4px 8px rgba(255, 255, 255, 0.5);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
 
         // Hover effect for interactivity
@@ -310,7 +310,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
         font-family: "Space Grotesk", sans-serif;
         font-size: 1.8em;
         text-align: center;
-        box-shadow: 0 4px 8px white;
+        box-shadow: 0 4px 8px rgba(255, 255, 255, 0.5);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
 
         // Hover effect for interactivity
@@ -604,6 +604,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
     display: inline-block;
     font-weight: 600;
     font-size: 18px;
+    align-items: center;
     margin: 5px;
     padding: 0 18px;
     line-height: 30px;
@@ -642,7 +643,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 
     // Hover effect for interactivity
     &:hover {
-        transform: scale(1.05);
+        transform: scale(1.02);
         box-shadow: #000 4px 4px 0 0;
     }
 }
@@ -656,6 +657,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
     transform: translate(2px, 2px);
 }
 
+#music-toggle-button,
 #prev-track-button,
 #next-track-button {
     img {
@@ -666,8 +668,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 
 @media (min-width: 768px) {
     .button-gather-res,
-    .button-upgrades,
-    #music-toggle-button {
+    .button-upgrades {
         min-width: 120px;
         padding: 0 15px;
     }
@@ -722,7 +723,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 
 .major-upgrades {
     height: 100%;
-    width: 100%;
+    width: 75%;
     padding: 0.6em 2em;
     border: none;
     outline: none;
@@ -734,6 +735,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
+    transition: transform 0.2s ease;
 }
 
 .major-upgrades:before {
@@ -762,6 +764,11 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
     animation: glowing-button 20s linear infinite;
     transition: opacity 0.3s ease-in-out;
     border-radius: 10px;
+}
+
+.major-upgrades:hover {
+    transform: scale(1.05);
+    transform-origin: center center;
 }
 
 @keyframes glowing-button {
@@ -831,6 +838,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
     width: 100%;
     height: 15px;
     background-color: #ddd;
+    border: 2px solid black;
     border-radius: 5px;
     overflow: hidden;
     margin-top: 5px;
@@ -838,13 +846,21 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 }
 
 .progress-fill {
+    border-right: 1px solid black;
+    border-radius: 2px;
     height: 100%;
     background-color: #4caf50;
-    /* Green color for progress */
     width: 0;
-    /* Initial width */
     transition: width 0.3s ease;
-    /* Smooth transition effect */
+}
+
+.music-progress-fill {
+    border-right: 1px solid black;
+    border-radius: 2px;
+    height: 100%;
+    background: linear-gradient(135deg, #0b112e, #3859ec, #00eeff, #a9f8fd);
+    width: 0;
+    transition: width 0.3s ease;
 }
 
 .level-display {
@@ -889,9 +905,9 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 }
 
 .small-toggle-title {
+    font-family: 'Courier New', Courier, monospace;
     font-size: 1.25em;
     font-weight: bold;
-    color: black !important;
 }
 
 .spacer {
@@ -1141,19 +1157,36 @@ input:checked + .small-slider:before {
     flex-direction: column;
     align-items: center;
     width: 30%;
-    transform: scale(1);
+    transform: scale(0.85);
     transform-origin: center center;
 
     h2 {
         font-family: 'Courier New', Courier, monospace;
-        -webkit-text-stroke: 2px black;
-        margin-top: -10px;
-        margin-bottom: -5px;
+        margin-top: -5px;
+        margin-bottom: -10px;
     }
     #volumeLabel {
         font-family: 'Courier New', Courier, monospace;
-        -webkit-text-stroke: 2px black;
+        font-size: 16;
+        font-weight: bold;
+        margin-bottom: 5px;
     }
+}
+
+.progress-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+    width: 100%;
+}
+
+#current-time,
+#total-time {
+    width: 50px;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 24px;
+
 }
 
 /* Volume Slider Styling */
@@ -1268,8 +1301,8 @@ $crt-overscan-width: 2.66667em;
     position: relative;
     margin: $crt-margin;
     min-height: 250px;
-    max-width: 800px;
-    min-width: 800px;
+    max-width: 700px;
+    min-width: 700px;
     box-shadow: inset 0 0 1px 0.66667em #000;
     border-radius: $crt-border-radius;
     background: #1d1d1d;
@@ -1315,7 +1348,7 @@ $crt-overscan-width: 2.66667em;
     position: relative;
     margin: $crt-bezel-width;
     min-height: 210px;
-    min-width: 720px;
+    min-width: 620px;
     border-radius: $crt-border-radius;
     box-shadow: 0 0 1px 3px rgba(10, 10, 10, 0.7);
     background: $crt-bg-color;

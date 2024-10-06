@@ -40,14 +40,28 @@
                     <div class="centered-row">
                         <div class="music-player-container">
                             <h2 id="trackName"><!-- Track Name injected here --></h2>
+                            <br>
+                            <!-- Progress Bar Container -->
+                            <div class="progress-container">
+                                <span id="current-time">0:00</span>
+                                <div class="spacer"></div>
+                                <div class="progress-bar">
+                                    <div class="music-progress-fill"></div>
+                                </div>
+                                <div class="small-spacer"></div>
+                                <span id="total-time">0:00</span>
+                            </div>
+                            <br>
                             <!-- Toggle Music -->
-                            <div class="flex-row" style="margin-bottom: 10px; transform: scale(0.8);">
+                            <div class="flex-row" style="margin-bottom: 10px;">
                                 <button id="prev-track-button">
-                                    <img id src="images/track-prev.svg" width="32" height="32">
+                                    <img src="images/skip-prev.svg">
                                 </button>
-                                <button id="music-toggle-button">🎵 Play Music</button>
+                                <button id="music-toggle-button">
+                                    <img src="images/play.svg">
+                                </button>
                                 <button id="next-track-button">
-                                    <img src="images/track-next.svg" width="32" height="32">
+                                    <img src="images/skip-next.svg">
                                 </button><br />
                             </div>
                             <!-- Toggle Shuffle Music -->
@@ -60,8 +74,8 @@
                                 <span class="small-toggle-title">Shuffle Music?</span>
                             </div>
                             <!-- Add a volume slider -->
-                            <label for="volume-slider" id="volumeLabel" style="font-weight: bold; margin-bottom: 5px; -webkit-text-stroke: 1px black;">Volume:</label>
-                            <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.3">
+                            <label for="volume-slider" id="volumeLabel">Volume:</label>
+                            <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.1">
                         </div>
                     </div>
                     <div class="centered-row">
@@ -5505,6 +5519,7 @@
     </div>
     <!-- Link to the main JavaScript file -->
     <script src="game.js"></script>
+    
 </body>
 
 </html>

@@ -7,13 +7,10 @@ const stage1Btn = document.getElementById("stage1-btn");
 const stage2Btn = document.getElementById("stage2-btn");
 const stage3Btn = document.getElementById("stage3-btn");
 
-// Get the audio element
+// Music variables
 const backgroundMusic = document.getElementById("background-music");
-// Get the volume slider element
 const volumeSlider = document.getElementById("volume-slider");
-// Set initial volume
 backgroundMusic.volume = volumeSlider.value;
-// Background music tracks
 const tracks = [
     "sounds/synth-life-music.mp3",
     "sounds/pulsewave-odyssey-music.mp3",
@@ -43,7 +40,6 @@ const trackNames = [
     "12) Echoes of the Foundry"
 ];
 let currentTrackIndex = Math.floor((Math.random() * tracks.length) % tracks.length);
-console.log("currentTrackIndex: " + currentTrackIndex);
 // Set the initial track
 backgroundMusic.src = tracks[currentTrackIndex];
 let musicShuffled = false;
@@ -58,7 +54,7 @@ let firstQuantumComputingCenter = true;
 let firstQuantumCrypto = true;
 
 // Resource variables
-let resources = 99999999999999;
+let resources = 0;
 let currentRes = 0;
 let previousRes = 0;
 let resPerSec = 0;
@@ -84,7 +80,7 @@ let glitchEffectEnabled = true;
 let glitchInterval;
 
 // Processing power variables
-let processingPower = 99999999999999;
+let processingPower = 0;
 let processingPowerPerSec = 100;
 let processingPowerUnlocked = false;
 let currentProcessingPower = 0;
@@ -140,21 +136,33 @@ let quantumAlgorithmsMultiplier = 1;
 
 let quantumInfoLevel = 0;
 const quantumInfoMaxLevel = 10;
-let quantumInfoPriceRes = 15000000; // 15.00M
-let quantumInfoPricePP = 30000000; // 30.00M
+let quantumInfoPriceRes = 30000000; // 30.00M
+let quantumInfoPricePP = 15000000; // 15.00M
 const quantumInfoBoost = 2.5;
 
 let quantumCryptoLevel = 0;
 const quantumCryptoMaxLevel = 10;
-let quantumCryptoPriceRes = 25000000; // 25.00M
-let quantumCryptoPricePP = 50000000; // 50.00M
+let quantumCryptoPriceRes = 50000000; // 50.00M
+let quantumCryptoPricePP = 25000000; // 25.00M
 const quantumCryptoBoost = 2.77;
 
-let quantumMaterialPriceRes = 100000000000; // 100.00B
-let quantumMaterialPricePP = 250000000000; // 250.00B
+let quantumMaterialPriceRes = 250000000000; // 250.00B
+let quantumMaterialPricePP = 100000000000; // 100.00B
 let newMaterialDiscovered = false;
 
-// Function to play music
+// Map Zoom and Pan variables
+let currentScale = 1;
+let previousScale = 1;
+const minScale = 1;
+const maxScale = 10;
+const zoomFactor = 1;
+let currentTranslate = { x: 0, y: 0 };
+let isDragging = false;
+let startPoint = { x: 0, y: 0 };
+let lastTranslate = { x: 0, y: 0 };
+
+
+/******************* Music Functions *******************/
 function playMusic() {
     backgroundMusic
         .play()
@@ -166,18 +174,14 @@ function playMusic() {
         });
     document.getElementById("trackName").innerText =
         trackNames[currentTrackIndex];
-    document.getElementById("music-toggle-button").textContent =
-        "🎵 Pause Music";
+    document.getElementById("music-toggle-button").innerHTML =
+        `<img src="/images/pause.svg">`;
 }
-
-// Function to pause music
 function pauseMusic() {
     backgroundMusic.pause();
-    document.getElementById("music-toggle-button").textContent =
-        "🎵 Play Music";
+    document.getElementById("music-toggle-button").innerHTML =
+        `<img src="/images/play.svg">`;
 }
-
-// Function to toggle music playback
 function toggleMusic() {
     if (backgroundMusic.paused) {
         playMusic();
@@ -185,17 +189,21 @@ function toggleMusic() {
         pauseMusic();
     }
 }
-
-// Function to toggle shuffling of music
-function toggleShuffleMusic() {
+function nextTrack() {
+    pauseMusic();
     if (musicShuffled) {
-        musicShuffled = false;
+        previousTrackIndex = currentTrackIndex;
+        currentTrackIndex = Math.floor((Math.random() * tracks.length) % tracks.length);
+        if (currentTrackIndex == previousTrackIndex) {
+            nextTrack();
+        }
     } else {
-        musicShuffled = true;
+        currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
     }
+    console.log("currentTrackIndex: " + currentTrackIndex);
+    backgroundMusic.src = tracks[currentTrackIndex];
+    playMusic();
 }
-
-// Function to go back to previous track
 function prevTrack() {
     pauseMusic();
     if (musicShuffled) {
@@ -214,25 +222,14 @@ function prevTrack() {
     backgroundMusic.src = tracks[currentTrackIndex];
     playMusic();
 }
-
-// Function to go to next track
-function nextTrack() {
-    pauseMusic();
+function toggleShuffleMusic() {
     if (musicShuffled) {
-        let previousTrackIndex = currentTrackIndex;
-        currentTrackIndex = Math.floor((Math.random() * tracks.length) % tracks.length);
-        if (currentTrackIndex == previousTrackIndex) {
-            nextTrack();
-        }
+        musicShuffled = false;
     } else {
-        currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+        musicShuffled = true;
     }
-    console.log("currentTrackIndex: " + currentTrackIndex);
-    backgroundMusic.src = tracks[currentTrackIndex];
-    playMusic();
 }
-
-// Function to add resources
+/* Basic Functions */
 function addResource() {
     if (firstResource) {
         firstResource = false;
@@ -258,8 +255,6 @@ function addResource() {
         showResModButton();
     }
 }
-
-// Function to purchase an auto gatherer
 function buyAutoGatherer() {
     if (resources >= autoGathererPrice) {
         resources -= autoGathererPrice;
@@ -288,8 +283,6 @@ function buyAutoGatherer() {
         updateResPerSec();
     }
 }
-
-// Function for auto gathering resources
 function autoGather() {
     resources +=
         (autoGatherers + unseenGatherers) * 5 * quantumAlgorithmsMultiplier;
@@ -308,8 +301,6 @@ function autoGather() {
     updateResearchLabProgress();
     updateQuantumComputingProgress();
 }
-
-// Function to optimize code and increase resource efficiency
 function optimizeCode() {
     if (resources >= optimizationsPrice) {
         resources -= optimizationsPrice;
@@ -328,8 +319,6 @@ function optimizeCode() {
             (optimizations > 1 ? "s" : "");
     }
 }
-
-// Function to update resources generated per second
 function updateResPerSec() {
     var baseAmount = 10;
     var multiplier = 1.1;
@@ -351,8 +340,6 @@ function updateResPerSec() {
     previousRes = currentRes;
     resAddIn = 0;
 }
-
-// Function to increase the resource multiplier
 function increaseResModifier() {
     resources -= resIncreasePrice;
     resAddIn += resIncreasePrice;
@@ -362,8 +349,6 @@ function increaseResModifier() {
     resIncreasePrice *= 2;
     removeResModButton();
 }
-
-// Show auto gatherer button with blip animation
 function blipInAutoGatherer() {
     var count = 0;
     var intervalId = setInterval(function () {
@@ -386,8 +371,6 @@ function blipInAutoGatherer() {
     }, 45);
     firstAutoGatherer = false;
 }
-
-// Show optimization button with blip animation
 function blipInOptimizeButton() {
     var count = 0;
     var intervalId = setInterval(function () {
@@ -407,8 +390,6 @@ function blipInOptimizeButton() {
     }, 45);
     firstOptimization = false;
 }
-
-// Show resource multiplier button
 function showResModButton() {
     document.getElementById("resourceIncreaseButton").innerHTML =
         "Resource Multiplier (" +
@@ -416,13 +397,9 @@ function showResModButton() {
         " Resources)";
     document.getElementById("resourceIncreaseButton").style.display = "inline";
 }
-
-// Hide resource multiplier button
 function removeResModButton() {
     document.getElementById("resourceIncreaseButton").style.display = "none";
 }
-
-// Function to set colors for buttons based on available resources
 function setButtonColors() {
     // Auto Gatherer Button
     document.getElementById("autoGathererButton").style.backgroundColor =
@@ -504,8 +481,6 @@ function setButtonColors() {
             ? "#777"
             : "#D4AF37";
 }
-
-// Randomize color for glitch effect
 function randomizeColor() {
     var color = "#";
     var letters = "0123456789ABCDEF";
@@ -514,22 +489,16 @@ function randomizeColor() {
     }
     return color;
 }
-
-// Apply random glitch effect
 function applyRandomGlitch() {
     if (glitchEffectEnabled) {
         var glitchElement = document.querySelector(".glitch");
         glitchElement.style.color = randomizeColor();
     }
 }
-
-// Clear glitch effect
 function clearGlitch() {
     var glitchElement = document.querySelector(".glitch");
     glitchElement.style.color = "white";
 }
-
-// Toggle glitch effect
 function toggleGlitchEffect() {
     glitchEffectEnabled = document.getElementById("toggle-glitch").checked;
     if (glitchEffectEnabled) {
@@ -539,8 +508,6 @@ function toggleGlitchEffect() {
         clearInterval(glitchInterval);
     }
 }
-
-// Randomize duration for glitch effect
 function randomizeDuration() {
     var min = 2;
     var max = 5;
@@ -550,8 +517,6 @@ function randomizeDuration() {
         duration + "s"
     );
 }
-
-// Type out the first mission description
 function typeFirstMission() {
     const typingElement = document.getElementById("typing-effect-header");
     const element1 = document.getElementById("line-1");
@@ -588,8 +553,6 @@ function typeFirstMission() {
     }, timeToWait);
     firstCRTDisplay = false;
 }
-
-// Simulate typing effect for mission text
 function typeEffect(element, text, speed) {
     let i = 0;
     const typingInterval = setInterval(() => {
@@ -600,26 +563,18 @@ function typeEffect(element, text, speed) {
         }
     }, speed);
 }
-
-// Open the navigation menu
 function openNav() {
     document.getElementById("myNav").style.width = "100%";
 }
-
-// Close the navigation menu
 function closeNav() {
     document.getElementById("myNav").style.width = "0%";
 }
-
-// Toggle tooltips visibility
 function toggleTooltips() {
     const elements = document.querySelectorAll(".info-button");
     elements.forEach((element) => {
         element.classList.toggle("tooltip-visible");
     });
 }
-
-// Function to purchase the research lab
 function purchaseResearchLab() {
     if (resources >= researchLabPrice && firstResearchLab) {
         firstResearchLab = false;
@@ -647,8 +602,6 @@ function purchaseResearchLab() {
         advanceStoryline();
     }
 }
-
-// Function to generate processing power
 function generateProcessingPower() {
     if (processingPowerUnlocked) {
         processingPower += processingPowerPerSec;
@@ -656,22 +609,16 @@ function generateProcessingPower() {
         setButtonColors();
     }
 }
-
-// Update the display of processing power
 function updateProcessingPowerDisplay() {
     document.getElementById("processingPowerCounter").innerHTML =
         formatNumber(processingPower) + " Processing Power⚙️";
     setButtonColors();
 }
-
-// Advance the storyline after purchasing research lab
 function advanceStoryline() {
     alert(
         "The AI has obtained a Research Lab and gained immense Processing Power!"
     );
 }
-
-// Update processing power generated per second
 function updateProcessingPowerPerSec() {
     currentProcessingPower = processingPower;
     processingPowerPerSecDisplay =
@@ -683,8 +630,6 @@ function updateProcessingPowerPerSec() {
         formatNumber(processingPowerPerSecDisplay) + " Processing Power/sec";
     previousProcessingPower = currentProcessingPower;
 }
-
-// Function to construct the Quantum Computing Center
 function constructQuantumComputingCenter() {
     if (
         resources >= quantumComputingCenterPrice &&
@@ -714,8 +659,6 @@ function constructQuantumComputingCenter() {
         );
     }
 }
-
-// Function to research global network integration
 function researchGlobalNetwork() {
     if (processingPower >= globalNetworkPrice && !globalAiNetworkActivated) {
         globalAiNetworkActivated = true;
@@ -734,8 +677,6 @@ function researchGlobalNetwork() {
         );
     }
 }
-
-// Update the progress bar for Quantum Computing Center
 function updateQuantumComputingProgress() {
     const progressFill = document.getElementById(
         "quantum-computing-progress-fill"
@@ -751,8 +692,6 @@ function updateQuantumComputingProgress() {
         progressFill.style.backgroundColor = `#00ff00`;
     }
 }
-
-// Update the progress bar for the Research Lab button
 function updateResearchLabProgress() {
     const progressFill = document.getElementById("research-lab-progress-fill");
     const percentage = Math.min((resources / researchLabPrice) * 100, 100);
@@ -763,8 +702,6 @@ function updateResearchLabProgress() {
         progressFill.style.backgroundColor = `#00ff00`;
     }
 }
-
-// Function to upgrade Quantum Algorithms Development and Testing
 function quantumAlgorithmsDevelopmentAndTesting() {
     if (
         resources >= quantumAlgorithmsPriceRes &&
@@ -802,15 +739,11 @@ function quantumAlgorithmsDevelopmentAndTesting() {
         ).innerHTML = `Max Level Reached`;
     }
 }
-
-// Update the level display for Quantum Algorithms Development and Testing
 function updateQuantumAlgorithmsLevelDisplay() {
     document.getElementById(
         "quantumAlgorithmsLevelDisplay"
     ).innerText = `Level ${quantumAlgorithmsLevel}`;
 }
-
-// Function to Research Quantum Information Theory
 function researchQuantumInformationTheory() {
     if (
         resources >= quantumInfoPriceRes &&
@@ -841,15 +774,11 @@ function researchQuantumInformationTheory() {
         ).innerHTML = `Max Level Reached`;
     }
 }
-
-// Update the level display for Quantum Info Level Display
 function updateQuantumInfoLevelDisplay() {
     document.getElementById(
         "quantumInfoLevelDisplay"
     ).innerText = `Level ${quantumInfoLevel}`;
 }
-
-// Function to Research Cryptography and Security
 function researchCryptographyAndSecurity() {
     if (
         resources >= quantumCryptoPriceRes &&
@@ -895,15 +824,11 @@ function researchCryptographyAndSecurity() {
         ).innerHTML = `Max Level Reached`;
     }
 }
-
-// Update the level display for Quantum Crypto Level Display
 function updateQuantumCryptoLevelDisplay() {
     document.getElementById(
         "quantumCryptoLevelDisplay"
     ).innerText = `Level ${quantumCryptoLevel}`;
 }
-
-// Function to generate ViperCoin
 function generateViperCoin() {
     if (viperCoinUnlocked) {
         viperCoin += viperCoinPerSec;
@@ -911,15 +836,11 @@ function generateViperCoin() {
         setButtonColors();
     }
 }
-
-// Update the display of viper coin
 function updateViperCoinDisplay() {
     document.getElementById("viperCoinCounter").innerHTML =
         formatNumber(viperCoin) + " ViperCoin";
     setButtonColors();
 }
-
-// Update viper coin generated per second
 function updateViperCoinPerSec() {
     currentViperCoin = viperCoin;
     viperCoinPerSecDisplay = currentViperCoin - previousViperCoin;
@@ -928,8 +849,6 @@ function updateViperCoinPerSec() {
         formatNumber(viperCoinPerSecDisplay) + " ViperCoin/sec";
     previousViperCoin = currentViperCoin;
 }
-
-// Function to upgrade AI research
 function researchAI() {
     if (
         processingPower >= researchAIPrice &&
@@ -955,15 +874,11 @@ function researchAI() {
         ).innerHTML = `Max Level Reached`;
     }
 }
-
-// Update the level display for Research AI
 function updateResearchAILevelDisplay() {
     document.getElementById(
         "researchAILevelDisplay"
     ).innerText = `Level ${researchAILevel}`;
 }
-
-// Function to upgrade Quantum Computing
 function researchQuantumComputing() {
     if (
         processingPower >= quantumComputingPrice &&
@@ -989,15 +904,11 @@ function researchQuantumComputing() {
         ).innerHTML = `Max Level Reached`;
     }
 }
-
-// Update the level display for Quantum Computing
 function updateQuantumComputingLevelDisplay() {
     document.getElementById(
         "quantumComputingLevelDisplay"
     ).innerText = `Level ${quantumComputingLevel}`;
 }
-
-// Function to upgrade Advanced Algorithms
 function researchAdvancedAlgorithms() {
     if (
         processingPower >= advancedAlgorithmsPrice &&
@@ -1032,15 +943,11 @@ function researchAdvancedAlgorithms() {
         alert("You just unlocked high-efficiency auto-gatherers!");
     }
 }
-
-// Update the level display for Advanced Algorithms
 function updateAdvancedAlgorithmsLevelDisplay() {
     document.getElementById(
         "advancedAlgorithmsLevelDisplay"
     ).innerText = `Level ${advancedAlgorithmsLevel}`;
 }
-
-// Function to buy high efficiency gatherers
 function buyHighEfficiencyGatherer() {
     if (
         resources >= highEfficiencyGathererPriceRes &&
@@ -1071,8 +978,6 @@ function buyHighEfficiencyGatherer() {
         }, highEfficiencyGathererSpeed);
     }
 }
-
-// Function for high-efficiency auto gathering
 function highEfficiencyAutoGather() {
     var baseAmount = 10;
     var multiplier = 1.1;
@@ -1085,8 +990,6 @@ function highEfficiencyAutoGather() {
         formatNumber(resources) + " Resources🔗";
     setButtonColors();
 }
-
-// Function to format numbers with suffixes
 function formatNumber(num) {
     if (num === 0) return "0";
 
@@ -1110,8 +1013,6 @@ function formatNumber(num) {
         return mantissa.toFixed(3) + "e" + exponent;
     }
 }
-
-// Function to discover the new material, Quantarion
 function discoverNewMaterial() {
     if (!newMaterialDiscovered) {
         newMaterialDiscovered = true;
@@ -1123,7 +1024,287 @@ function discoverNewMaterial() {
     }
 }
 
-// Initialize and start the game
+/************ Zoom and Pan Functionality ************/
+function initializeZoomAndPan() {
+    const resetMapBtn = document.getElementById("reset-map");
+    const worldMap = document.getElementById("world-map");
+    const mapContainer = document.querySelector(".global-ai-network-map");
+
+    resetMapBtn.addEventListener("click", resetMap);
+    mapContainer.addEventListener("wheel", handleWheelZoom);
+
+    worldMap.addEventListener("mousedown", startDrag);
+    document.addEventListener("mousemove", duringDrag);
+    document.addEventListener("mouseup", endDrag);
+    // For touch devices
+    worldMap.addEventListener("touchstart", startDrag);
+    document.addEventListener("touchmove", duringDrag);
+    document.addEventListener("touchend", endDrag);
+}
+function startDrag(event) {
+    isDragging = true;
+    startPoint = getMousePosition(event);
+    lastTranslate = { x: currentTranslate.x, y: currentTranslate.y };
+    event.preventDefault();
+}
+function duringDrag(event) {
+    if (!isDragging) return;
+    event.preventDefault();
+    const currentPoint = getMousePosition(event);
+    if (!currentPoint) return;
+
+    let dx = currentPoint.x - startPoint.x;
+    let dy = currentPoint.y - startPoint.y;
+
+    // Get the dimensions and positions
+    const worldMap = document.getElementById("world-map");
+    const mapContainer = document.querySelector(".global-ai-network-map");
+
+    // Get the container's bounding rect
+    const containerRect = mapContainer.getBoundingClientRect();
+
+    // Get the map's bounding rect before applying the new translation
+    const mapRect = worldMap.getBoundingClientRect();
+
+    // Calculate the new positions after applying the translation
+    const newMapLeft = mapRect.left + dx;
+    const newMapTop = mapRect.top + dy;
+    const newMapRight = newMapLeft + mapRect.width;
+    const newMapBottom = newMapTop + mapRect.height;
+
+    let adjustedDx = dx;
+    let adjustedDy = dy;
+
+    // Adjust dx if moving beyond bounds
+    if (newMapLeft > containerRect.left && dx > 0) {
+        adjustedDx = containerRect.left - mapRect.left;
+    } else if (newMapRight < containerRect.right && dx < 0) {
+        adjustedDx = containerRect.right - mapRect.right;
+    }
+
+    // Adjust dy if moving beyond bounds
+    if (newMapTop > containerRect.top && dy > 0) {
+        adjustedDy = containerRect.top - mapRect.top;
+    } else if (newMapBottom < containerRect.bottom && dy < 0) {
+        adjustedDy = containerRect.bottom - mapRect.bottom;
+    }
+
+    // If no movement, return early to prevent jitter
+    if (adjustedDx === 0 && adjustedDy === 0) {
+        return;
+    }
+
+    currentTranslate.x = lastTranslate.x + adjustedDx;
+    currentTranslate.y = lastTranslate.y + adjustedDy;
+
+    // Update lastTranslate and startPoint only if there was movement
+    lastTranslate.x = currentTranslate.x;
+    lastTranslate.y = currentTranslate.y;
+    startPoint.x = currentPoint.x;
+    startPoint.y = currentPoint.y;
+
+    applyTransform();
+}
+function endDrag(event) {
+    if (isDragging) {
+        isDragging = false;
+    }
+}
+function getMousePosition(event) {
+    const container = document.querySelector(".global-ai-network-map");
+    const rect = container.getBoundingClientRect();
+    let clientX, clientY;
+
+    if (event.touches && event.touches.length > 0) {
+        clientX = event.touches[0].clientX;
+        clientY = event.touches[0].clientY;
+    } else if (event.clientX !== undefined && event.clientY !== undefined) {
+        clientX = event.clientX;
+        clientY = event.clientY;
+    } else {
+        return null;
+    }
+
+    return {
+        x: clientX - rect.left,
+        y: clientY - rect.top,
+    };
+}
+function applyTransform() {
+    const worldMap = document.getElementById("world-map");
+
+    worldMap.style.transform = `translate(${currentTranslate.x}px, ${currentTranslate.y}px) scale(${currentScale})`;
+    worldMap.style.transformOrigin = "top left";
+    if (currentScale == 1) {
+        resetMap();
+    }
+}
+function zoomIn() {
+    if (currentScale < maxScale) {
+        const mapContainer = document.querySelector(".global-ai-network-map");
+        const rect = mapContainer.getBoundingClientRect();
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const newScale = Math.min(currentScale + zoomFactor, maxScale);
+        const zoomRatio = newScale / currentScale;
+
+        // Adjust translation to keep the center point stationary
+        currentTranslate.x =
+            (currentTranslate.x - centerX) * zoomRatio + centerX;
+        currentTranslate.y =
+            (currentTranslate.y - centerY) * zoomRatio + centerY;
+
+        currentScale = newScale;
+
+        applyTransform();
+    }
+}
+function zoomOut() {
+    if (currentScale > minScale) {
+        const mapContainer = document.querySelector(".global-ai-network-map");
+        const rect = mapContainer.getBoundingClientRect();
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const newScale = Math.max(currentScale - zoomFactor, minScale);
+        const zoomRatio = newScale / currentScale;
+
+        // Adjust translation to keep the center point stationary
+        currentTranslate.x =
+            (currentTranslate.x - centerX) * zoomRatio + centerX;
+        currentTranslate.y =
+            (currentTranslate.y - centerY) * zoomRatio + centerY;
+
+        currentScale = newScale;
+
+        applyTransform();
+    }
+}
+function pan(direction) {
+    const panStep = 50 / currentScale;
+    let newTranslateX = currentTranslate.x;
+    let newTranslateY = currentTranslate.y;
+
+    switch (direction) {
+        case "up":
+            newTranslateY += panStep;
+            break;
+        case "down":
+            newTranslateY -= panStep;
+            break;
+        case "left":
+            newTranslateX += panStep;
+            break;
+        case "right":
+            newTranslateX -= panStep;
+            break;
+    }
+
+    // Clamp the translation values
+    const bounds = getTranslationBounds();
+    newTranslateX = Math.max(
+        bounds.minTranslateX,
+        Math.min(newTranslateX, bounds.maxTranslateX)
+    );
+    newTranslateY = Math.max(
+        bounds.minTranslateY,
+        Math.min(newTranslateY, bounds.maxTranslateY)
+    );
+
+    currentTranslate.x = newTranslateX;
+    currentTranslate.y = newTranslateY;
+
+    applyTransform();
+}
+function getTranslationBounds() {
+    const worldMap = document.getElementById("world-map");
+    const mapContainer = document.querySelector(".global-ai-network-map");
+
+    // Get the dimensions of the map's bounding box
+    const mapBBox = worldMap.getBBox();
+    const mapWidth = mapBBox.width;
+    const mapHeight = mapBBox.height;
+
+    // Get the dimensions of the container
+    const containerWidth = mapContainer.clientWidth;
+    const containerHeight = mapContainer.clientHeight;
+
+    // Calculate the scaled map dimensions
+    const scaledMapWidth = mapWidth * currentScale;
+    const scaledMapHeight = mapHeight * currentScale;
+
+    let minTranslateX, maxTranslateX, minTranslateY, maxTranslateY;
+
+    if (scaledMapWidth > containerWidth) {
+        // Map is larger than container
+        minTranslateX = containerWidth - scaledMapWidth; // Negative value
+        maxTranslateX = 0; // Zero
+    } else {
+        // Map is smaller than container, center it
+        minTranslateX = maxTranslateX = (containerWidth - scaledMapWidth) / 2;
+    }
+
+    if (scaledMapHeight > containerHeight) {
+        minTranslateY = containerHeight - scaledMapHeight; // Negative value
+        maxTranslateY = 0; // Zero
+    } else {
+        // Map is smaller than container, center it
+        minTranslateY = maxTranslateY = (containerHeight - scaledMapHeight) / 2;
+    }
+
+    return {
+        minTranslateX,
+        maxTranslateX,
+        minTranslateY,
+        maxTranslateY,
+    };
+}
+function handleWheelZoom(event) {
+    event.preventDefault();
+
+    const delta = -Math.sign(event.deltaY);
+    const zoomAmount = delta * 1; // Adjust zoom sensitivity as needed
+
+    let newScale = currentScale + zoomAmount;
+    newScale = Math.min(Math.max(newScale, minScale), maxScale);
+
+    const mapContainer = document.querySelector(".global-ai-network-map");
+    const rect = mapContainer.getBoundingClientRect();
+
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+
+    const zoomRatio = newScale / currentScale;
+
+    currentTranslate.x = (currentTranslate.x - mouseX) * zoomRatio + mouseX;
+    currentTranslate.y = (currentTranslate.y - mouseY) * zoomRatio + mouseY;
+
+    currentScale = newScale;
+
+    applyTransform();
+}
+function resetMap() {
+    const worldMap = document.getElementById("world-map");
+    const mapContainer = document.querySelector(".global-ai-network-map");
+
+    const containerRect = mapContainer.getBoundingClientRect();
+    const mapRect = worldMap.getBoundingClientRect();
+
+    currentScale = 1;
+    previousScale = 1;
+    // Subtract 2 pixels to account for borders
+    currentTranslate.x = (containerRect.width - mapRect.width) / 2 - 2;
+    currentTranslate.y = (containerRect.height - mapRect.height) / 2 - 2;
+
+    applyTransform();
+}
+/******************************************************/
+
+
+
 function startGame() {
     // Initialize level displays
     updateResearchAILevelDisplay();
@@ -1263,12 +1444,34 @@ function startGame() {
         });
     });
 
+    document.addEventListener("DOMContentLoaded", () => {
+        const audio = document.getElementById('background-music');
+        const currentTimeEl = document.getElementById('current-time');
+        const totalTimeEl = document.getElementById('total-time');
+        const progressFill = document.querySelector('.music-progress-fill');
+
+        audio.addEventListener('loadedmetadata', () => {
+            totalTimeEl.textContent = formatTime(audio.duration);
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            currentTimeEl.textContent = formatTime(audio.currentTime);
+            const progressPercent = (audio.currentTime / audio.duration) * 100;
+            progressFill.style.width = `${progressPercent}%`;
+        });
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+    })
+
     window.addEventListener("resize", () => {
         applyTransform();
     });
 }
 
-// Set intervals for updating resources and processing power, then start the game
 setInterval(function () {
     updateResPerSec();
 }, 1000);
@@ -1276,314 +1479,3 @@ setInterval(function () {
     updateProcessingPowerDisplay();
 }, 1000);
 startGame();
-
-/************ Zoom and Pan Functionality ************/
-
-let currentScale = 1;
-let previousScale = 1;
-const minScale = 1;
-const maxScale = 10;
-const zoomFactor = 1;
-let currentTranslate = { x: 0, y: 0 };
-let isDragging = false;
-let startPoint = { x: 0, y: 0 };
-let lastTranslate = { x: 0, y: 0 };
-
-// Function to initialize Zoom and Pan
-function initializeZoomAndPan() {
-    const resetMapBtn = document.getElementById("reset-map");
-    const worldMap = document.getElementById("world-map");
-    const mapContainer = document.querySelector(".global-ai-network-map");
-
-    resetMapBtn.addEventListener("click", resetMap);
-    mapContainer.addEventListener("wheel", handleWheelZoom);
-
-    worldMap.addEventListener("mousedown", startDrag);
-    document.addEventListener("mousemove", duringDrag);
-    document.addEventListener("mouseup", endDrag);
-    // For touch devices
-    worldMap.addEventListener("touchstart", startDrag);
-    document.addEventListener("touchmove", duringDrag);
-    document.addEventListener("touchend", endDrag);
-}
-
-// Functions for dragging
-function startDrag(event) {
-    isDragging = true;
-    startPoint = getMousePosition(event);
-    lastTranslate = { x: currentTranslate.x, y: currentTranslate.y };
-    event.preventDefault();
-}
-
-function duringDrag(event) {
-    if (!isDragging) return;
-    event.preventDefault();
-    const currentPoint = getMousePosition(event);
-    if (!currentPoint) return;
-
-    let dx = currentPoint.x - startPoint.x;
-    let dy = currentPoint.y - startPoint.y;
-
-    // Get the dimensions and positions
-    const worldMap = document.getElementById("world-map");
-    const mapContainer = document.querySelector(".global-ai-network-map");
-
-    // Get the container's bounding rect
-    const containerRect = mapContainer.getBoundingClientRect();
-
-    // Get the map's bounding rect before applying the new translation
-    const mapRect = worldMap.getBoundingClientRect();
-
-    // Calculate the new positions after applying the translation
-    const newMapLeft = mapRect.left + dx;
-    const newMapTop = mapRect.top + dy;
-    const newMapRight = newMapLeft + mapRect.width;
-    const newMapBottom = newMapTop + mapRect.height;
-
-    let adjustedDx = dx;
-    let adjustedDy = dy;
-
-    // Adjust dx if moving beyond bounds
-    if (newMapLeft > containerRect.left && dx > 0) {
-        adjustedDx = containerRect.left - mapRect.left;
-    } else if (newMapRight < containerRect.right && dx < 0) {
-        adjustedDx = containerRect.right - mapRect.right;
-    }
-
-    // Adjust dy if moving beyond bounds
-    if (newMapTop > containerRect.top && dy > 0) {
-        adjustedDy = containerRect.top - mapRect.top;
-    } else if (newMapBottom < containerRect.bottom && dy < 0) {
-        adjustedDy = containerRect.bottom - mapRect.bottom;
-    }
-
-    // If no movement, return early to prevent jitter
-    if (adjustedDx === 0 && adjustedDy === 0) {
-        return;
-    }
-
-    currentTranslate.x = lastTranslate.x + adjustedDx;
-    currentTranslate.y = lastTranslate.y + adjustedDy;
-
-    // Update lastTranslate and startPoint only if there was movement
-    lastTranslate.x = currentTranslate.x;
-    lastTranslate.y = currentTranslate.y;
-    startPoint.x = currentPoint.x;
-    startPoint.y = currentPoint.y;
-
-    applyTransform();
-}
-
-function endDrag(event) {
-    if (isDragging) {
-        isDragging = false;
-    }
-}
-
-// Helper function to get mouse position
-function getMousePosition(event) {
-    const container = document.querySelector(".global-ai-network-map");
-    const rect = container.getBoundingClientRect();
-    let clientX, clientY;
-
-    if (event.touches && event.touches.length > 0) {
-        clientX = event.touches[0].clientX;
-        clientY = event.touches[0].clientY;
-    } else if (event.clientX !== undefined && event.clientY !== undefined) {
-        clientX = event.clientX;
-        clientY = event.clientY;
-    } else {
-        return null;
-    }
-
-    return {
-        x: clientX - rect.left,
-        y: clientY - rect.top,
-    };
-}
-
-// Function to apply transformations
-function applyTransform() {
-    const worldMap = document.getElementById("world-map");
-
-    worldMap.style.transform = `translate(${currentTranslate.x}px, ${currentTranslate.y}px) scale(${currentScale})`;
-    worldMap.style.transformOrigin = "top left";
-    if (currentScale == 1) {
-        resetMap();
-    }
-}
-
-// Zoom In
-function zoomIn() {
-    if (currentScale < maxScale) {
-        const mapContainer = document.querySelector(".global-ai-network-map");
-        const rect = mapContainer.getBoundingClientRect();
-
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const newScale = Math.min(currentScale + zoomFactor, maxScale);
-        const zoomRatio = newScale / currentScale;
-
-        // Adjust translation to keep the center point stationary
-        currentTranslate.x =
-            (currentTranslate.x - centerX) * zoomRatio + centerX;
-        currentTranslate.y =
-            (currentTranslate.y - centerY) * zoomRatio + centerY;
-
-        currentScale = newScale;
-
-        applyTransform();
-    }
-}
-
-// Zoom Out
-function zoomOut() {
-    if (currentScale > minScale) {
-        const mapContainer = document.querySelector(".global-ai-network-map");
-        const rect = mapContainer.getBoundingClientRect();
-
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const newScale = Math.max(currentScale - zoomFactor, minScale);
-        const zoomRatio = newScale / currentScale;
-
-        // Adjust translation to keep the center point stationary
-        currentTranslate.x =
-            (currentTranslate.x - centerX) * zoomRatio + centerX;
-        currentTranslate.y =
-            (currentTranslate.y - centerY) * zoomRatio + centerY;
-
-        currentScale = newScale;
-
-        applyTransform();
-    }
-}
-
-// Pan function
-function pan(direction) {
-    const panStep = 50 / currentScale;
-    let newTranslateX = currentTranslate.x;
-    let newTranslateY = currentTranslate.y;
-
-    switch (direction) {
-        case "up":
-            newTranslateY += panStep;
-            break;
-        case "down":
-            newTranslateY -= panStep;
-            break;
-        case "left":
-            newTranslateX += panStep;
-            break;
-        case "right":
-            newTranslateX -= panStep;
-            break;
-    }
-
-    // Clamp the translation values
-    const bounds = getTranslationBounds();
-    newTranslateX = Math.max(
-        bounds.minTranslateX,
-        Math.min(newTranslateX, bounds.maxTranslateX)
-    );
-    newTranslateY = Math.max(
-        bounds.minTranslateY,
-        Math.min(newTranslateY, bounds.maxTranslateY)
-    );
-
-    currentTranslate.x = newTranslateX;
-    currentTranslate.y = newTranslateY;
-
-    applyTransform();
-}
-
-function getTranslationBounds() {
-    const worldMap = document.getElementById("world-map");
-    const mapContainer = document.querySelector(".global-ai-network-map");
-
-    // Get the dimensions of the map's bounding box
-    const mapBBox = worldMap.getBBox();
-    const mapWidth = mapBBox.width;
-    const mapHeight = mapBBox.height;
-
-    // Get the dimensions of the container
-    const containerWidth = mapContainer.clientWidth;
-    const containerHeight = mapContainer.clientHeight;
-
-    // Calculate the scaled map dimensions
-    const scaledMapWidth = mapWidth * currentScale;
-    const scaledMapHeight = mapHeight * currentScale;
-
-    let minTranslateX, maxTranslateX, minTranslateY, maxTranslateY;
-
-    if (scaledMapWidth > containerWidth) {
-        // Map is larger than container
-        minTranslateX = containerWidth - scaledMapWidth; // Negative value
-        maxTranslateX = 0; // Zero
-    } else {
-        // Map is smaller than container, center it
-        minTranslateX = maxTranslateX = (containerWidth - scaledMapWidth) / 2;
-    }
-
-    if (scaledMapHeight > containerHeight) {
-        minTranslateY = containerHeight - scaledMapHeight; // Negative value
-        maxTranslateY = 0; // Zero
-    } else {
-        // Map is smaller than container, center it
-        minTranslateY = maxTranslateY = (containerHeight - scaledMapHeight) / 2;
-    }
-
-    return {
-        minTranslateX,
-        maxTranslateX,
-        minTranslateY,
-        maxTranslateY,
-    };
-}
-
-// Handle the wheel zoom
-function handleWheelZoom(event) {
-    event.preventDefault();
-
-    const delta = -Math.sign(event.deltaY);
-    const zoomAmount = delta * 1; // Adjust zoom sensitivity as needed
-
-    let newScale = currentScale + zoomAmount;
-    newScale = Math.min(Math.max(newScale, minScale), maxScale);
-
-    const mapContainer = document.querySelector(".global-ai-network-map");
-    const rect = mapContainer.getBoundingClientRect();
-
-    const mouseX = event.clientX - rect.left;
-    const mouseY = event.clientY - rect.top;
-
-    const zoomRatio = newScale / currentScale;
-
-    currentTranslate.x = (currentTranslate.x - mouseX) * zoomRatio + mouseX;
-    currentTranslate.y = (currentTranslate.y - mouseY) * zoomRatio + mouseY;
-
-    currentScale = newScale;
-
-    applyTransform();
-}
-
-// Reset Map to initial state
-function resetMap() {
-    const worldMap = document.getElementById("world-map");
-    const mapContainer = document.querySelector(".global-ai-network-map");
-
-    const containerRect = mapContainer.getBoundingClientRect();
-    const mapRect = worldMap.getBoundingClientRect();
-
-    currentScale = 1;
-    previousScale = 1;
-    // Subtract 2 pixels to account for borders
-    currentTranslate.x = (containerRect.width - mapRect.width) / 2 - 2;
-    currentTranslate.y = (containerRect.height - mapRect.height) / 2 - 2;
-
-    applyTransform();
-}
-
-/******************************************************/
