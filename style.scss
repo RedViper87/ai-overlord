@@ -224,6 +224,19 @@ h1.ai-overlord-title {
     margin-left: auto;
 }
 
+#stageBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#stage-timer {
+    font-size: 3.5em;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    margin-left: auto;
+    -webkit-text-stroke: 2px black;
+}
+
 #researchLab {
     margin-top: 20px;
     padding: 10px;
@@ -858,6 +871,10 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 
 .small-spacer {
     width: 10px;
+}
+
+.big-spacer {
+    width: 300px;
 }
 
 /* HAMBURGER MENU STUFF */
