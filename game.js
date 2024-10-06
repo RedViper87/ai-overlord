@@ -44,6 +44,8 @@ let currentTrackIndex = Math.floor((Math.random() * tracks.length) % tracks.leng
 backgroundMusic.src = tracks[currentTrackIndex];
 let musicShuffled = false;
 
+let stageTimeInSec = 0;
+
 // Initial state flags
 let firstResource = true;
 let firstAutoGatherer = true;
@@ -54,7 +56,7 @@ let firstQuantumComputingCenter = true;
 let firstQuantumCrypto = true;
 
 // Resource variables
-let resources = 999999999999;
+let resources = 0;
 let currentRes = 0;
 let previousRes = 0;
 let resPerSec = 0;
@@ -80,7 +82,7 @@ let glitchEffectEnabled = true;
 let glitchInterval;
 
 // Processing power variables
-let processingPower = 999999999999;
+let processingPower = 0;
 let processingPowerPerSec = 100;
 let processingPowerUnlocked = false;
 let currentProcessingPower = 0;
@@ -234,6 +236,7 @@ function addResource() {
     if (firstResource) {
         firstResource = false;
         playMusic(); // Start bg music the first time the player gathers a resource
+        startStageTimer();
     }
     resources += resIncrement * resModifier;
     resources = Math.max(resources, 0);
@@ -1013,6 +1016,28 @@ function formatNumber(num) {
         return mantissa.toFixed(3) + "e" + exponent;
     }
 }
+function formatTime(seconds) {
+    const days = Math.floor(seconds / 86400);
+    seconds %= 86400;
+    const hours = Math.floor(seconds / 3600);
+    seconds %= 3600;
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+
+    let timeComponents = [];
+
+    if (days >= 1) {
+        timeComponents.push(`${days}d`);
+    }
+
+    if (hours >= 1 || days >= 1) {
+        timeComponents.push(`${hours}`);
+    }
+
+    timeComponents.push(`${minutes}:${secs < 10 ? '0' : ''}${secs}`);
+
+    return timeComponents.join(':');
+}
 function discoverNewMaterial() {
     if (!newMaterialDiscovered) {
         newMaterialDiscovered = true;
@@ -1301,6 +1326,16 @@ function resetMap() {
 
     applyTransform();
 }
+function startStageTimer() {
+    setInterval(function () {
+        updateStageTimer();
+    }, 1000);
+}
+function updateStageTimer() {
+    let stageTimer = document.getElementById("stage-timer");
+    stageTimeInSec++;
+    stageTimer.innerHTML = `${formatTime(stageTimeInSec)}`;
+}
 /******************************************************/
 
 
@@ -1459,12 +1494,6 @@ function startGame() {
             const progressPercent = (audio.currentTime / audio.duration) * 100;
             progressFill.style.width = `${progressPercent}%`;
         });
-
-        function formatTime(seconds) {
-            const minutes = Math.floor(seconds / 60);
-            const secs = Math.floor(seconds % 60);
-            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
-        }
     })
 
     window.addEventListener("resize", () => {
