@@ -106,11 +106,11 @@
             <div class="sticky-section bottom-shadow">
                 <div id="stageBar">
                     <h2 class="stage-1-title">Stage 1: Rise to Power</h2>
-                    <span id="stage-timer">0:00</span>
+                    <span id="stage-timer">00:00</span>
                 </div>
                 <br />
                 <!-- Resource Gathering Button -->
-                <button class="button-gather-res" id="resourceButton" onclick="addResource()">
+                <button class="button-gather-res" id="resourceButton" onclick="addResource(); increaseClickCount();">
                     Gather Resources (x1)
                 </button>
                 <!-- Resource Multiplier Button, initially hidden -->
@@ -144,7 +144,7 @@
             <div class="flex-row">
                 <div class="left-group">
                     <!-- Auto Gatherer Button, initially hidden -->
-                    <button class="button-upgrades info-button" id="autoGathererButton" style="display: none;"
+                    <button class="button-upgrades info-button" id="autoGathererButton" style="display: none; margin-top: 10px;"
                         data-tooltip="Gathers resources automatically" onclick="buyAutoGatherer()">
                         Buy Auto Gatherer (50 Resources)
                     </button>
