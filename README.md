@@ -81,7 +81,7 @@ Please ensure your code follows our coding standards and includes appropriate do
 
 ## License
 
-AI Overlord is licensed under the MIT License. See `LICENSE` for more information.
+AI Overlord is licensed under the General Public License. See `LICENSE` for more information.
 
 ---
 
