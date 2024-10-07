@@ -18,24 +18,41 @@ body {
     user-select: none;
 }
 
-#devRes,
-#devPow,
-#devVip {
-    background-color: white;
-    border-radius: 5px;
-    display: inline-block;
-    width: 140px;
-    height: 20px;
-    border: 1px solid black;
-    padding: 5px;
-    color: gray;
-    text-align: center;
+.dev-button {
+    background: linear-gradient(135deg, #6a0572, #a1610d);
+    border: 2px solid white;
+    border-radius: 8px;
+    color: #fff;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-family: 'Space Grotesk', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    outline: none;
 
-    &:empty {
-        &:before {
-            content: attr(data-placeholder);
-            color: gray;
-        }
+    &:hover:not(:disabled) {
+        background: linear-gradient(135deg, #a1610d, #6a0572);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    &:active:not(:disabled) {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    &:focus:not(:disabled) {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(106, 5, 114, 0.5);
+    }
+
+    &:disabled {
+        background: #cccccc;
+        color: #666666;
+        cursor: not-allowed;
+        box-shadow: none;
+        transform: translateY(0);
     }
 }
 

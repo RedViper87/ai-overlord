@@ -45,6 +45,7 @@ backgroundMusic.src = tracks[currentTrackIndex];
 let musicShuffled = false;
 
 // Stats variables
+let stageTimer = document.getElementById("stage-timer");
 let stageTimeInSec = 0;
 let clickCount = 0;
 let totalResGain = 0;
@@ -1338,7 +1339,6 @@ function startStageTimer() {
     }, 1000);
 }
 function updateStageTimer() {
-    let stageTimer = document.getElementById("stage-timer");
     stageTimeInSec++;
     stageTimer.innerHTML = `${formatTime(stageTimeInSec)}`;
 }
@@ -1466,49 +1466,34 @@ function startGame() {
     // Developer tools for adding resources, processing power, and viper coin
     document
         .getElementById("devRes")
-        .addEventListener("keydown", function (event) {
-            if (event.key === "Enter") {
-                var value = parseInt(this.innerText);
-                if (!isNaN(value)) {
-                    resources += value;
-                    document.getElementById("resourceCounter").innerHTML =
-                        formatNumber(resources) + " Resources🔗";
-                    this.innerText = "";
-                }
-                event.preventDefault();
-            }
+        .addEventListener("click", function () {
+            var value = 999999999999;
+            resources += value;
+            document.getElementById("resourceCounter").innerHTML =
+                formatNumber(resources) + " Resources🔗";
+            this.disabled = true;
         });
 
     document
         .getElementById("devPow")
-        .addEventListener("keydown", function (event) {
-            if (event.key === "Enter") {
-                var value = parseInt(this.innerText);
-                if (!isNaN(value)) {
-                    processingPower += value;
-                    document.getElementById(
-                        "processingPowerCounter"
-                    ).innerHTML =
-                        formatNumber(processingPower) + " Processing Power⚙️";
-                    this.innerText = "";
-                }
-                event.preventDefault();
-            }
+        .addEventListener("click", function () {
+            var value = 999999999999;
+            processingPower += value;
+            document.getElementById(
+                "processingPowerCounter"
+            ).innerHTML =
+                formatNumber(processingPower) + " Processing Power⚙️";
+            this.disabled = true;
         });
 
     document
         .getElementById("devVip")
-        .addEventListener("keydown", function (event) {
-            if (event.key === "Enter") {
-                var value = parseInt(this.innerText);
-                if (!isNaN(value)) {
-                    viperCoin += value;
-                    document.getElementById("viperCoinCounter").innerHTML =
-                        formatNumber(viperCoin) + " ViperCoin";
-                    this.innerText = "";
-                }
-                event.preventDefault();
-            }
+        .addEventListener("click", function () {
+            var value = 999999999;
+            viperCoin += value;
+            document.getElementById("viperCoinCounter").innerHTML =
+                formatNumber(viperCoin) + " ViperCoin";
+            this.disabled = true;
         });
 
     // Initialize Zoom and Pan functionality
