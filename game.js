@@ -682,6 +682,9 @@ function researchGlobalNetwork() {
         updateQuantumComputingLevelDisplay();
         setButtonColors();
         issueGlobalNetworkAlert();
+        if (newMaterialDiscovered) {
+            issueEndStage1Alert();
+        }
     }
 }
 function updateQuantumComputingProgress() {
@@ -1053,6 +1056,9 @@ function discoverNewMaterial() {
         newMaterialDiscovered = true;
         document.getElementById("quantumMaterialButton").innerText = "New Material Discovered";
         issueNewMaterialAlert();
+        if (globalAiNetworkActivated) {
+            issueEndStage1Alert();
+        }
     }
 }
 
@@ -1394,6 +1400,63 @@ function issueNewMaterialAlert() {
     Swal.fire({
         title: "You just discovered the new material Quantum Flux!",
         text: "Quantum Flux is a groundbreaking material recently discovered at the Quantum Horizons Institute's cutting-edge quantum computing center. This novel substance promises to revolutionize multiple technological fields, from quantum computing and energy storage to telecommunications and beyond.",
+        icon: "success",
+        confirmButtonText: "Continue",
+        allowOutsideClick: false
+    });
+}
+function issueEndStage1Alert() {
+    Swal.fire({
+        title: "Congratulations on completing Stage 1! Well done!",
+        html: `<div class="centered-row"><table>
+                <tbody>
+                    <tr>
+                        <th scope="row">Completion Time</th>
+                        <td>${formatTime(stageTimeInSec)}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Clicks to Gather Resources</th>
+                        <td>${formatNumber(clickCount)}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Total Resources Gained</th>
+                        <td>${formatNumber(totalResGain)}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Final Resources/sec</th>
+                        <td>${formatNumber(resPerSec)} Resources/sec</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Total Processing Power Gained</th>
+                        <td>${formatNumber(totalPowGain)}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Final Processing Power/sec</th>
+                        <td>${formatNumber(processingPowerPerSecDisplay)}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Total ViperCoin Gained</th>
+                        <td>${formatNumber(viperCoin)}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Final ViperCoin/sec</th>
+                        <td>${formatNumber(viperCoinPerSecDisplay)}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Total Auto Gatherers Bought</th>
+                        <td>${formatNumber(autoGatherers)}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Total Code Optimizations Bought</th>
+                        <td>${formatNumber(optimizations)}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Total High-Efficiency Auto Gatherers Bought</th>
+                        <td>${formatNumber(highEfficiencyGatherers)}</td>
+                    </tr>
+                </tbody>
+            </table></div>`,
+        width: "1200px",
         icon: "success",
         confirmButtonText: "Continue",
         allowOutsideClick: false
