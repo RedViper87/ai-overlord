@@ -44,7 +44,12 @@ let currentTrackIndex = Math.floor((Math.random() * tracks.length) % tracks.leng
 backgroundMusic.src = tracks[currentTrackIndex];
 let musicShuffled = false;
 
+// Stats variables
 let stageTimeInSec = 0;
+let clickCount = 0;
+let totalResGain = 0;
+let totalPowGain = 0;
+let totalVipGain = 0;
 
 // Initial state flags
 let firstResource = true;
@@ -238,8 +243,9 @@ function addResource() {
         playMusic(); // Start bg music the first time the player gathers a resource
         startStageTimer();
     }
-    resources += resIncrement * resModifier;
-    resources = Math.max(resources, 0);
+    const gain = resIncrement * resModifier;
+    resources += gain;
+    totalResGain += gain;
     if (resources >= 1000 && firstCRTDisplay) {
         typeFirstMission();
     }
@@ -287,8 +293,10 @@ function buyAutoGatherer() {
     }
 }
 function autoGather() {
-    resources +=
+    const gain =
         (autoGatherers + unseenGatherers) * 5 * quantumAlgorithmsMultiplier;
+    resources += gain;
+    totalResGain += gain;
     if (resources >= 1000 && firstCRTDisplay) {
         typeFirstMission();
     }
@@ -608,6 +616,7 @@ function purchaseResearchLab() {
 function generateProcessingPower() {
     if (processingPowerUnlocked) {
         processingPower += processingPowerPerSec;
+        totalPowGain += processingPowerPerSec;
         updateProcessingPowerDisplay();
         setButtonColors();
     }
@@ -835,6 +844,7 @@ function updateQuantumCryptoLevelDisplay() {
 function generateViperCoin() {
     if (viperCoinUnlocked) {
         viperCoin += viperCoinPerSec;
+        totalVipGain += viperCoinPerSec;
         updateViperCoinDisplay();
         setButtonColors();
     }
@@ -982,13 +992,14 @@ function buyHighEfficiencyGatherer() {
     }
 }
 function highEfficiencyAutoGather() {
-    var baseAmount = 10;
-    var multiplier = 1.1;
-    var totalGain =
+    let baseAmount = 10;
+    let multiplier = 1.1;
+    const totalGain =
         baseAmount *
         Math.pow(multiplier, highEfficiencyGatherers - 1) *
         quantumAlgorithmsMultiplier;
     resources += totalGain;
+    totalResGain += totalGain;
     document.getElementById("resourceCounter").innerHTML =
         formatNumber(resources) + " Resources🔗";
     setButtonColors();
@@ -1335,6 +1346,9 @@ function updateStageTimer() {
     let stageTimer = document.getElementById("stage-timer");
     stageTimeInSec++;
     stageTimer.innerHTML = `${formatTime(stageTimeInSec)}`;
+}
+function increaseClickCount() {
+    clickCount++;
 }
 /******************************************************/
 
