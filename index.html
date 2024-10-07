@@ -6,9 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Overlord</title>
+    <link rel="stylesheet" href="@sweetalert2/theme-dark/dark.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" />
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" type="image/x-icon" href="images/ai-overlord-favicon_32.ico" />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -42,12 +43,13 @@
                             <br>
                             <!-- Progress Bar Container -->
                             <div class="progress-container">
-                                <span id="current-time">0:00</span>
+                                <span id="current-time" style="margin-right: 10px;">0:00</span>
+                                <div class="spacer"></div>
                                 <div class="spacer"></div>
                                 <div class="progress-bar">
                                     <div class="music-progress-fill"></div>
                                 </div>
-                                <div class="small-spacer"></div>
+                                <div class="spacer"></div>
                                 <span id="total-time">0:00</span>
                             </div>
                             <br>
@@ -5527,6 +5529,7 @@
     </div>
     <!-- Link to the main JavaScript file -->
     <script src="game.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     
 </body>
 

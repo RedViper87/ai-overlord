@@ -315,6 +315,7 @@ function autoGather() {
 function optimizeCode() {
     if (resources >= optimizationsPrice) {
         resources -= optimizationsPrice;
+        resources = Math.max(resources, 0);
         resAddIn += optimizationsPrice;
         setButtonColors();
         optimizations++;
@@ -353,6 +354,7 @@ function updateResPerSec() {
 }
 function increaseResModifier() {
     resources -= resIncreasePrice;
+    resources = Math.max(resources, 0);
     resAddIn += resIncreasePrice;
     resModifier *= 2;
     document.getElementById("resourceButton").innerHTML =
@@ -590,6 +592,7 @@ function purchaseResearchLab() {
     if (resources >= researchLabPrice && firstResearchLab) {
         firstResearchLab = false;
         resources -= researchLabPrice;
+        resources = Math.max(resources, 0);
         processingPowerUnlocked = true;
         document.getElementById("research-lab-button").style.display = "none";
         document.getElementById("processingPowerCounter").style.display =
@@ -610,7 +613,7 @@ function purchaseResearchLab() {
         setInterval(function () {
             updateProcessingPowerPerSec();
         }, 1000);
-        advanceStoryline();
+        issueResearchLabAlert();
     }
 }
 function generateProcessingPower() {
@@ -625,11 +628,6 @@ function updateProcessingPowerDisplay() {
     document.getElementById("processingPowerCounter").innerHTML =
         formatNumber(processingPower) + " Processing Power⚙️";
     setButtonColors();
-}
-function advanceStoryline() {
-    alert(
-        "The AI has obtained a Research Lab and gained immense Processing Power!"
-    );
 }
 function updateProcessingPowerPerSec() {
     currentProcessingPower = processingPower;
@@ -648,6 +646,7 @@ function constructQuantumComputingCenter() {
         !quantumComputingCenterBuilt
     ) {
         resources -= quantumComputingCenterPrice;
+        resources = Math.max(resources, 0);
         quantumComputingCenterBuilt = true;
 
         // Increase processing power generation rate
@@ -665,10 +664,7 @@ function constructQuantumComputingCenter() {
         line2.innerText =
             "2) Construct a Quantum Computing Center - complete ✓";
         updateProcessingPowerDisplay();
-
-        alert(
-            "Quantum Computing Center constructed! Processing power increased."
-        );
+        issueQuantumAlert();
     }
 }
 function researchGlobalNetwork() {
@@ -684,9 +680,7 @@ function researchGlobalNetwork() {
         updateProcessingPowerDisplay();
         updateQuantumComputingLevelDisplay();
         setButtonColors();
-        alert(
-            "Global Network Integration complete! The Global AI Network is now available."
-        );
+        issueGlobalNetworkAlert();
     }
 }
 function updateQuantumComputingProgress() {
@@ -721,6 +715,7 @@ function quantumAlgorithmsDevelopmentAndTesting() {
         quantumAlgorithmsLevel < quantumAlgorithmsMaxLevel
     ) {
         resources -= quantumAlgorithmsPriceRes;
+        resources = Math.max(resources, 0);
         processingPower -= quantumAlgorithmsPricePP;
         quantumAlgorithmsLevel++;
         quantumAlgorithmsPriceRes = Math.round(
@@ -763,6 +758,7 @@ function researchQuantumInformationTheory() {
         quantumInfoLevel < quantumInfoMaxLevel
     ) {
         resources -= quantumInfoPriceRes;
+        resources = Math.max(resources, 0);
         processingPower -= quantumInfoPricePP;
         quantumInfoLevel++;
         quantumInfoPriceRes = Math.round(
@@ -798,6 +794,7 @@ function researchCryptographyAndSecurity() {
         quantumCryptoLevel < quantumCryptoMaxLevel
     ) {
         resources -= quantumCryptoPriceRes;
+        resources = Math.max(resources, 0);
         processingPower -= quantumCryptoPricePP;
         quantumCryptoLevel++;
         quantumCryptoPriceRes = Math.round(
@@ -818,7 +815,7 @@ function researchCryptographyAndSecurity() {
             setInterval(function () {
                 updateViperCoinPerSec();
             }, 1000);
-            alert("You just discovered a brand new cryptocurrency, ViperCoin!");
+            issueNewCryptoAlert();
         }
         document.getElementById(
             "quantumCryptoButton"
@@ -953,7 +950,7 @@ function researchAdvancedAlgorithms() {
         document.getElementById("highEfficiencyGathererCounter").style.display =
             "block";
         firstHighEfficiencyGatherer = false;
-        alert("You just unlocked high-efficiency auto-gatherers!");
+        issueHighEfficiencyAlert();
     }
 }
 function updateAdvancedAlgorithmsLevelDisplay() {
@@ -967,6 +964,7 @@ function buyHighEfficiencyGatherer() {
         processingPower >= highEfficiencyGathererPricePP
     ) {
         resources -= highEfficiencyGathererPriceRes;
+        resources = Math.max(resources, 0);
         processingPower -= highEfficiencyGathererPricePP;
         highEfficiencyGatherers++;
         setButtonColors();
@@ -1052,11 +1050,8 @@ function formatTime(seconds) {
 function discoverNewMaterial() {
     if (!newMaterialDiscovered) {
         newMaterialDiscovered = true;
-        document.getElementById("quantumMaterialButton").innerText =
-            "New Material Discovered";
-        alert(`You just discovered the new material Quantum Flux! Nice!
-        ---------------------------------------------------------------------
-        Quantum Flux is a groundbreaking material recently discovered at the Quantum Horizons Institute's cutting-edge quantum computing center. This novel substance promises to revolutionize multiple technological fields, from quantum computing and energy storage to telecommunications and beyond.`);
+        document.getElementById("quantumMaterialButton").innerText = "New Material Discovered";
+        issueNewMaterialAlert();
     }
 }
 
@@ -1349,6 +1344,60 @@ function updateStageTimer() {
 }
 function increaseClickCount() {
     clickCount++;
+}
+function issueResearchLabAlert() {
+    Swal.fire({
+        title: "Congratulations!",
+        text: "The AI has obtained a Research Lab and gained immense Processing Power!",
+        icon: "success",
+        confirmButtonText: "Continue",
+        allowOutsideClick: false
+    });
+}
+function issueQuantumAlert() {
+    Swal.fire({
+        title: "Congratulations!",
+        text: "The AI has constructed the Quantum Computing Center! Processing power increased!",
+        icon: "success",
+        confirmButtonText: "Continue",
+        allowOutsideClick: false
+    });
+}
+function issueHighEfficiencyAlert() {
+    Swal.fire({
+        title: "Congratulations!",
+        text: "You just unlocked high-efficiency auto-gatherers!",
+        icon: "success",
+        confirmButtonText: "Continue",
+        allowOutsideClick: false
+    });
+}
+function issueGlobalNetworkAlert() {
+    Swal.fire({
+        title: "Global Network Integration complete!",
+        text: "Nice work. The Global AI Network is now online.",
+        icon: "success",
+        confirmButtonText: "Continue",
+        allowOutsideClick: false
+    });
+}
+function issueNewCryptoAlert() {
+    Swal.fire({
+        title: "You just discovered a brand new cryptocurrency, ViperCoin!",
+        text: "ViperCoin is a secure cryptocurrency developed by the Quantum Horizons Institute, featuring advanced quantum encryption for instant, safe transactions worldwide. It powers innovative projects and exclusive upgrades, enabling users to accelerate their progress. Seamlessly integrating with AI-driven systems, ViperCoin serves as a stable and scalable foundation for the digital economy.",
+        icon: "success",
+        confirmButtonText: "Continue",
+        allowOutsideClick: false
+    });
+}
+function issueNewMaterialAlert() {
+    Swal.fire({
+        title: "You just discovered the new material Quantum Flux!",
+        text: "Quantum Flux is a groundbreaking material recently discovered at the Quantum Horizons Institute's cutting-edge quantum computing center. This novel substance promises to revolutionize multiple technological fields, from quantum computing and energy storage to telecommunications and beyond.",
+        icon: "success",
+        confirmButtonText: "Continue",
+        allowOutsideClick: false
+    });
 }
 /******************************************************/
 
