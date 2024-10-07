@@ -184,8 +184,7 @@ h1.ai-overlord-title {
   font-size: 3em;
   font-family: 'Courier New', Courier, monospace;
   font-weight: bold;
-  margin-left: auto;
-  -webkit-text-stroke: 2px black; }
+  margin-left: auto; }
 
 #researchLab {
   margin-top: 20px;
