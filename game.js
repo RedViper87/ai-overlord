@@ -23,7 +23,13 @@ const tracks = [
     "sounds/gritcore-pulse-music.mp3",
     "sounds/cyberpulse-drive-music.mp3",
     "sounds/neon-sunset-music.mp3",
-    "sounds/echoes-of-the-foundry-music.mp3"
+    "sounds/echoes-of-the-foundry-music.mp3",
+    "sounds/electric-vibes-music.mp3",
+    "sounds/circuit-dreams-music.mp3",
+    "sounds/metallic-mayhem-music.mp3",
+    "sounds/neon-horizons-music.mp3",
+    "sounds/midnight-mirage-music.mp3",
+    "sounds/iron-veins-music.mp3"
 ];
 const trackNames = [
     "1) Synth Life",
@@ -37,7 +43,13 @@ const trackNames = [
     "9) Gritcore Pulse",
     "10) Cyberpulse Drive",
     "11) Neon Sunset",
-    "12) Echoes of the Foundry"
+    "12) Echoes of the Foundry",
+    "13) Electric Vibes",
+    "14) Circuit Dreams",
+    "15) Metallic Mayhem",
+    "16) Neon Horizons",
+    "17) Midnight Mirage",
+    "18) Iron Veins"
 ];
 let currentTrackIndex = Math.floor((Math.random() * tracks.length) % tracks.length);
 // Set the initial track
@@ -162,7 +174,7 @@ let newMaterialDiscovered = false;
 let currentScale = 1;
 let previousScale = 1;
 const minScale = 1;
-const maxScale = 10;
+const maxScale = 50;
 const zoomFactor = 1;
 let currentTranslate = { x: 0, y: 0 };
 let isDragging = false;
@@ -1408,7 +1420,7 @@ function issueNewMaterialAlert() {
 function issueEndStage1Alert() {
     Swal.fire({
         title: "Congratulations on completing Stage 1! Well done!",
-        html: `<div class="centered-row"><table>
+        html: `<div class="centered-row stage-1-table"><table>
                 <tbody>
                     <tr>
                         <th scope="row">Completion Time</th>
@@ -1458,9 +1470,18 @@ function issueEndStage1Alert() {
             </table></div>`,
         width: "1200px",
         icon: "success",
+        iconColor: "#0000cc",
+        background: "#a4d4f5",
         confirmButtonText: "Continue",
+        confirmButtonColor: "#0000cc",
         allowOutsideClick: false
     });
+
+    stage1.classList.remove("active");
+    stage2.classList.add("active");
+    pauseMusic();
+    backgroundMusic.src = "sounds/applause-cheer.mp3";
+    playMusic();
 }
 /******************************************************/
 
@@ -1530,7 +1551,7 @@ function startGame() {
     document
         .getElementById("devRes")
         .addEventListener("click", function () {
-            var value = 999999999999;
+            var value = 9999999999999;
             resources += value;
             document.getElementById("resourceCounter").innerHTML =
                 formatNumber(resources) + " Resources🔗";
@@ -1540,7 +1561,7 @@ function startGame() {
     document
         .getElementById("devPow")
         .addEventListener("click", function () {
-            var value = 999999999999;
+            var value = 9999999999999;
             processingPower += value;
             document.getElementById(
                 "processingPowerCounter"
@@ -1552,7 +1573,7 @@ function startGame() {
     document
         .getElementById("devVip")
         .addEventListener("click", function () {
-            var value = 999999999;
+            var value = 9999999999;
             viperCoin += value;
             document.getElementById("viperCoinCounter").innerHTML =
                 formatNumber(viperCoin) + " ViperCoin";

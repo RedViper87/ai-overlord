@@ -79,7 +79,7 @@
                             <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.1">
                         </div>
                     </div>
-                    <div class="centered-row">
+                    <div class="centered-row" style="transform: scale(0.85);">
                         <!-- Toggle Tooltips Option -->
                         <label class="switch">
                             <input type="checkbox" checked onclick="toggleTooltips()" />
@@ -88,7 +88,7 @@
                         <div class="spacer"></div>
                         <span class="toggle-title">Toggle Tooltips</span>
                     </div>
-                    <div class="centered-row">
+                    <div class="centered-row" style="transform: scale(0.85);">
                         <!-- Toggle Glitch Effect Option -->
                         <label class="switch">
                             <input type="checkbox" id="toggle-glitch" checked onclick="toggleGlitchEffect()" />
@@ -98,28 +98,33 @@
                         <span class="toggle-title">Toggle Glitch Effect</span>
                     </div>
                 </div>
-                <!-- Hamburger Icon to open the menu -->
-                <span class="hamburger" onclick="openNav()"><span></span></span>
+
             </div>
         </div>
 
         <!-- Stage 1: Initial gameplay stage -->
         <div id="stage1" class="stage active">
-            <div class="sticky-section bottom-shadow">
+            <div class="sticky-section">
                 <div id="stageBar">
                     <h2 class="stage-1-title">Stage 1: Rise to Power</h2>
-                    <span id="stage-timer">00:00</span>
+                    <!-- Hamburger Icon to open the menu -->
+                    <span class="hamburger" onclick="openNav()"><span></span></span>
                 </div>
+                <span id="stage-timer">00:00</span>
                 <br />
-                <!-- Resource Gathering Button -->
-                <button class="button-gather-res" id="resourceButton" onclick="addResource(); increaseClickCount();">
-                    Gather Resources (x1)
-                </button>
-                <!-- Resource Multiplier Button, initially hidden -->
-                <button class="button-upgrades info-button" id="resourceIncreaseButton" style="display: none;"
-                    data-tooltip="Increase the amount of resources you gather manually" onclick="increaseResModifier()">
-                    Resource Multiplier (500 Resources)
-                </button>
+                <div class="flex-row">
+                    <!-- Resource Gathering Button -->
+                    <button class="button-gather-res" id="resourceButton"
+                        onclick="addResource(); increaseClickCount();">
+                        Gather Resources (x1)
+                    </button>
+                    <!-- Resource Multiplier Button, initially hidden -->
+                    <button class="button-upgrades info-button" id="resourceIncreaseButton" style="display: none;"
+                        data-tooltip="Increase the amount of resources you gather manually"
+                        onclick="increaseResModifier()">
+                        Resource Multiplier (500 Resources)
+                    </button>
+                </div>
                 <hr />
                 <!-- Display for resource count and resources per second -->
                 <div id="resourceBar">
@@ -133,7 +138,7 @@
                 </div>
                 <!-- Display for viper coin counter and rate -->
                 <div id="viperCoinBar">
-                    <div class="flex-row">
+                    <div class="flex-row" style="justify-content: center; align-items: center; margin-top: 2px;">
                         <span id="viperCoinCounter" style="display: none;">0 ViperCoin</span>
                         <div class="crypto-icon" id="cryptoIcon" style="display: none;"></div>
                     </div>
@@ -141,13 +146,14 @@
                 </div>
                 <hr />
             </div>
-            
+
             <!-- Upgrades Section -->
             <div class="flex-row">
                 <div class="left-group">
                     <!-- Auto Gatherer Button, initially hidden -->
-                    <button class="button-upgrades info-button" id="autoGathererButton" style="display: none; margin-top: 10px;"
-                        data-tooltip="Gathers resources automatically" onclick="buyAutoGatherer()">
+                    <button class="button-upgrades info-button" id="autoGathererButton"
+                        style="display: none; margin-top: 10px;" data-tooltip="Gathers resources automatically"
+                        onclick="buyAutoGatherer()">
                         Buy Auto Gatherer (50 Resources)
                     </button>
                     <span id="autoGathererCounter" style="display: none;">0 Auto Gatherers</span><br />
@@ -239,7 +245,7 @@
                         Research Global Network Integration <br />(120.000M Processing Power)
                     </button>
                 </div>
-                <img id="researchLabImage" src="images/research-lab-image.png" width="288.8" height="288.8"
+                <img id="researchLabImage" src="images/research-lab-image.png" width="410" height="410"
                     style="border-radius: 10px; border: 2px solid #000; display: none; margin-top: 20px;">
             </div>
             <!-- Quantum Computing Center Section, initially hidden -->
@@ -272,8 +278,9 @@
                         New Material Discovery <br />(250.000B Resources, 100.000B Processing Power)
                     </button>
                 </div>
-                <img id="quantumComputingCenterImage" src="images/quantum-computing-center-image.png" width="288.8"
-                    height="288.8" style="border-radius: 10px; border: 2px solid #000; display: none; margin-top: 20px;">
+                <img id="quantumComputingCenterImage" src="images/quantum-computing-center-image.png" width="410"
+                    height="410"
+                    style="border-radius: 10px; border: 2px solid #000; display: none; margin-top: 20px; margin-bottom: 20px;">
             </div>
             <!-- Global AI Network Section, initially hidden -->
             <div id="globalAiNetwork" style="display: none;">
@@ -5220,7 +5227,7 @@
                         </g>
                         <g id="sx">
                             <title>Sint Maarten (Dutch Part)</title>
-                            <path id="sx-" class="landxx sx country" data-name="Sint Maarten (Dutch Part)"
+                            <path id="sx-" class="landxx coastxx sx" data-name="Sint Maarten (Dutch Part)"
                                 data-pop="N/A"
                                 d="m 826.82,542.35 c -0.135,0.385 -0.213,0.131 -0.277,0.236 -0.05,0.08 -0.194,-0.08 -0.288,-0.129 -0.09,-0.05 0.02,-0.113 -0.05,-0.171" />
                         </g>
@@ -5407,8 +5414,7 @@
                         </g>
                         <g id="vg">
                             <title>Virgin Islands, British</title>
-                            <g id="vg-" class="landxx coastxx vg country" data-name="Virgin Islands, British"
-                                data-pop="N/A">
+                            <g id="vg-" class="landxx coastxx vg" data-name="Virgin Islands, British" data-pop="N/A">
                                 <path id="path5522"
                                     d="m 813.126,540.126 c -0.24,-0.1 -0.48,-0.192 -0.72,-0.288 0.698,-0.319 0.939,-0.223 0.72,0.288" />
                                 <path id="path5524"
@@ -5530,7 +5536,7 @@
     <!-- Link to the main JavaScript file -->
     <script src="game.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    
+
 </body>
 
 </html>
