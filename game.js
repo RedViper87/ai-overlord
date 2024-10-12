@@ -748,7 +748,7 @@ function quantumAlgorithmsDevelopmentAndTesting() {
             "quantumAlgorithmsButton"
         ).innerHTML = `Quantum Algorithms Development and Testing <br />(${formatNumber(
             quantumAlgorithmsPriceRes
-        )} Resources, ${formatNumber(
+        )} Resources & ${formatNumber(
             quantumAlgorithmsPricePP
         )} Processing Power)`;
         updateProcessingPowerDisplay();
@@ -786,7 +786,7 @@ function researchQuantumInformationTheory() {
             "quantumInfoButton"
         ).innerHTML = `Research Quantum Information Theory <br />(${formatNumber(
             quantumInfoPriceRes
-        )} Resources, ${formatNumber(quantumInfoPricePP)} Processing Power)`;
+        )} Resources & ${formatNumber(quantumInfoPricePP)} Processing Power)`;
         updateProcessingPowerDisplay();
         setButtonColors();
         updateQuantumInfoLevelDisplay();
@@ -837,7 +837,7 @@ function researchCryptographyAndSecurity() {
             "quantumCryptoButton"
         ).innerHTML = `Cryptography and Security Research <br />(${formatNumber(
             quantumCryptoPriceRes
-        )} Resources, ${formatNumber(quantumCryptoPricePP)} Processing Power)`;
+        )} Resources & ${formatNumber(quantumCryptoPricePP)} Processing Power)`;
         updateProcessingPowerDisplay();
         setButtonColors();
         updateQuantumCryptoLevelDisplay();
@@ -993,7 +993,7 @@ function buyHighEfficiencyGatherer() {
         document.getElementById("highEfficiencyGathererButton").innerHTML =
             "Buy High-Efficiency Auto-Gatherer <br />(" +
             formatNumber(highEfficiencyGathererPriceRes) +
-            " Resources, " +
+            " Resources & " +
             formatNumber(highEfficiencyGathererPricePP) +
             " Processing Power)";
         document.getElementById("highEfficiencyGathererCounter").innerHTML =
@@ -1023,23 +1023,15 @@ function formatNumber(num) {
 
     var absNum = Math.abs(num);
     var exponent = Math.floor(Math.log10(absNum));
-    var mantissa = absNum / Math.pow(10, exponent);
 
     if (exponent < 3) {
         return num.toString();
     }
 
-    var units = ["", "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc"];
-
-    var tier = Math.floor(exponent / 3);
-
-    if (tier < units.length) {
-        var unit = units[tier];
-        var scaled = num / Math.pow(10, tier * 3);
-        return scaled.toFixed(3) + unit;
-    } else {
-        return mantissa.toFixed(3) + "e" + exponent;
-    }
+    return formatBigNumber(num);
+}
+function formatBigNumber(amount) {
+    return amount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 function formatTime(seconds) {
     const days = Math.floor(seconds / 86400);
@@ -1368,8 +1360,10 @@ function issueResearchLabAlert() {
         title: "Congratulations!",
         text: "The AI has obtained a Research Lab and gained immense Processing Power!",
         icon: "success",
+        iconColor: "#00cc00",
+        background: "#eeeeee",
         confirmButtonText: "Continue",
-        allowOutsideClick: false
+        allowOutsideClick: false,
     });
 }
 function issueQuantumAlert() {
@@ -1377,6 +1371,8 @@ function issueQuantumAlert() {
         title: "Congratulations!",
         text: "The AI has constructed the Quantum Computing Center! Processing power increased!",
         icon: "success",
+        iconColor: "#00cc00",
+        background: "#eeeeee",
         confirmButtonText: "Continue",
         allowOutsideClick: false
     });
@@ -1386,6 +1382,8 @@ function issueHighEfficiencyAlert() {
         title: "Congratulations!",
         text: "You just unlocked high-efficiency auto-gatherers!",
         icon: "success",
+        iconColor: "#00cc00",
+        background: "#eeeeee",
         confirmButtonText: "Continue",
         allowOutsideClick: false
     });
@@ -1395,6 +1393,8 @@ function issueGlobalNetworkAlert() {
         title: "Global Network Integration complete!",
         text: "Nice work. The Global AI Network is now online.",
         icon: "success",
+        iconColor: "#00cc00",
+        background: "#eeeeee",
         confirmButtonText: "Continue",
         allowOutsideClick: false
     });
@@ -1404,6 +1404,8 @@ function issueNewCryptoAlert() {
         title: "You just discovered a brand new cryptocurrency, ViperCoin!",
         text: "ViperCoin is a secure cryptocurrency developed by the Quantum Horizons Institute, featuring advanced quantum encryption for instant, safe transactions worldwide. It powers innovative projects and exclusive upgrades, enabling users to accelerate their progress. Seamlessly integrating with AI-driven systems, ViperCoin serves as a stable and scalable foundation for the digital economy.",
         icon: "success",
+        iconColor: "#00cc00",
+        background: "#eeeeee",
         confirmButtonText: "Continue",
         allowOutsideClick: false
     });
@@ -1413,6 +1415,8 @@ function issueNewMaterialAlert() {
         title: "You just discovered the new material Quantum Flux!",
         text: "Quantum Flux is a groundbreaking material recently discovered at the Quantum Horizons Institute's cutting-edge quantum computing center. This novel substance promises to revolutionize multiple technological fields, from quantum computing and energy storage to telecommunications and beyond.",
         icon: "success",
+        iconColor: "#00cc00",
+        background: "#eeeeee",
         confirmButtonText: "Continue",
         allowOutsideClick: false
     });
@@ -1588,6 +1592,11 @@ function startGame() {
         const infoBox = document.getElementById("info-box");
         const countryName = document.getElementById("country-name");
         const countryPop = document.getElementById("country-pop");
+        const audio = document.getElementById('background-music');
+        const currentTimeEl = document.getElementById('current-time');
+        const totalTimeEl = document.getElementById('total-time');
+        const progressFill = document.querySelector('.music-progress-fill');
+        const overlay = document.getElementById("myNav");
 
         countries.forEach((country) => {
             country.addEventListener("mouseenter", () => {
@@ -1609,13 +1618,6 @@ function startGame() {
                 // alert(`You clicked on ${country.getAttribute("data-name")}`);
             });
         });
-    });
-
-    document.addEventListener("DOMContentLoaded", () => {
-        const audio = document.getElementById('background-music');
-        const currentTimeEl = document.getElementById('current-time');
-        const totalTimeEl = document.getElementById('total-time');
-        const progressFill = document.querySelector('.music-progress-fill');
 
         audio.addEventListener('loadedmetadata', () => {
             totalTimeEl.textContent = formatTime(audio.duration);
@@ -1626,7 +1628,20 @@ function startGame() {
             const progressPercent = (audio.currentTime / audio.duration) * 100;
             progressFill.style.width = `${progressPercent}%`;
         });
-    })
+
+        overlay.addEventListener("click", function (event) {
+            if (event.target === overlay) {
+                closeNav();
+            }
+        });
+
+        var interactiveElements = overlay.querySelectorAll("button, input, select, textarea, a");
+        interactiveElements.forEach(function (element) {
+            element.addEventListener("click", function (event) {
+                event.stopPropagation();
+            });
+        });
+    });
 
     window.addEventListener("resize", () => {
         applyTransform();
