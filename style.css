@@ -15,8 +15,8 @@ body {
   background-color: #333333;
   color: #ffffff;
   -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  user-select: none;
 }
 
 .dev-button {
@@ -145,7 +145,8 @@ h1.ai-overlord-title:before {
   }
 }
 
-.sticky-section { /* For Safari */
+.sticky-section {
+  position: -webkit-sticky; /* For Safari */
   position: sticky;
   top: 0;
   z-index: 10;
@@ -524,7 +525,7 @@ h1.ai-overlord-title:before {
   text-align: center;
   text-decoration: none;
   -moz-user-select: none;
-       user-select: none;
+  user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -553,7 +554,7 @@ h1.ai-overlord-title:before {
   text-align: center;
   text-decoration: none;
   -moz-user-select: none;
-       user-select: none;
+  user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -648,7 +649,7 @@ h1.ai-overlord-title:before {
   z-index: 0;
   border-radius: 10px;
   -moz-user-select: none;
-       user-select: none;
+  user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
   transition: transform 0.2s ease;
@@ -932,6 +933,7 @@ h1.ai-overlord-title:before {
   right: 0;
   bottom: 0;
   background-color: #ccc;
+  -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
@@ -943,6 +945,7 @@ h1.ai-overlord-title:before {
   left: 4px;
   bottom: 4px;
   background-color: white;
+  -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
@@ -954,6 +957,7 @@ h1.ai-overlord-title:before {
   left: 2px;
   bottom: 2px;
   background-color: white;
+  -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
@@ -968,10 +972,14 @@ input:focus + .small-slider {
 }
 
 input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
 
 input:checked + .small-slider:before {
+  -webkit-transform: translateX(13px);
+  -ms-transform: translateX(13px);
   transform: translateX(13px);
 }
 
@@ -1040,7 +1048,7 @@ input:checked + .small-slider:before {
   width: 150px;
   margin-left: 10px;
   -moz-appearance: none;
-       appearance: none;
+  appearance: none;
   -webkit-appearance: none;
   width: 100%;
   height: 8px;
@@ -1261,4 +1269,6 @@ input:checked + .small-slider:before {
 .stage-1-table th,
 .stage-1-table td {
   transition: background-color 0.3s ease, border-color 0.3s ease;
-}/*# sourceMappingURL=style.css.map */
+}
+
+/*# sourceMappingURL=style.css.map */
