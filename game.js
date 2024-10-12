@@ -1446,7 +1446,7 @@ function issueEndStage1Alert() {
                     </tr>
                     <tr>
                         <th scope="row">Final Resources/sec</th>
-                        <td>${formatNumber(resPerSec)} Resources/sec</td>
+                        <td>${formatNumber(resPerSec)}</td>
                     </tr>
                     <tr>
                         <th scope="row">Total Processing Power Gained</th>
