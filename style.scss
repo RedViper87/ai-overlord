@@ -234,6 +234,40 @@ h1.ai-overlord-title {
     margin-left: auto;
 }
 
+#toggle-tooltips-row {
+    transform: scale(0.85);
+    min-width: 420px;
+    max-width: 420px;
+}
+
+#toggle-glitch-row {
+    transform: scale(0.85);
+    min-width: 420px;
+    max-width: 420px;
+}
+
+#viper-coin-counter-icon-row {
+    justify-content: center;
+    align-items: center;
+    margin-top: 2px;
+}
+
+#autoGathererButton {
+    margin-top: 10px;
+}
+
+#researchLabImage,
+#quantumComputingCenterImage {
+    border-radius: 10px;
+    border: 2px solid #000;
+    display: none;
+    margin-top: 20px;
+}
+
+#quantumComputingCenterImage {
+    margin-bottom: 20px;
+}
+
 #stage1 {
     width: 99.9%; // so that everything fits behind the sticky header
 }
@@ -811,16 +845,16 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 
 .progress-bar {
     width: 100%;
-    height: 13px;
+    height: 16px;
     background-color: #ddd;
     border: 2px solid black;
     border-radius: 5px;
     overflow: hidden;
-    margin-top: 5px;
     position: relative;
 }
 
-.progress-fill {
+.progress-fill,
+.music-progress-fill {
     border-right: 2px solid black;
     height: 100%;
     background-color: #4caf50;
@@ -829,11 +863,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 }
 
 .music-progress-fill {
-    border-right: 1px solid black;
-    height: 100%;
-    background: linear-gradient(135deg, #0b112e, #3859ec, #00eeff, #a9f8fd);
-    width: 0;
-    transition: width 0.3s ease;
+    background: linear-gradient(135deg, #0b112e, #3859ec, #00eeff);
 }
 
 .level-display {
@@ -1096,7 +1126,7 @@ input:checked+.small-slider:before {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 535px;
+    width: 700px;
     transform: scale(0.85);
     transform-origin: center center;
 
@@ -1117,13 +1147,13 @@ input:checked+.small-slider:before {
 .progress-container {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
     width: 100%;
 }
 
 #current-time,
 #total-time {
-    width: 50px;
+    width: auto;
     text-align: center;
     font-family: 'Courier New', Courier, monospace;
     font-size: 24px;
@@ -1136,12 +1166,10 @@ $slider-thumb-color: #780ca3;
 $slider-glow-color: rgba(120, 12, 163, 0.7);
 
 #volume-slider {
-    width: 150px;
-    margin-left: 10px;
+    width: 99%;
     -moz-appearance: none;
     appearance: none;
     -webkit-appearance: none;
-    width: 100%;
     height: 8px;
     border: #000 solid 1px;
     border-radius: 5px;
