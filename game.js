@@ -1423,7 +1423,7 @@ function issueNewMaterialAlert() {
 }
 function issueEndStage1Alert() {
     Swal.fire({
-        title: "Congratulations on completing Stage 1! Well done!",
+        title: "Congratulations on completing Stage 1! Stay tuned for Stages 2 & 3!",
         html: `<div class="centered-row stage-1-table"><table>
                 <tbody>
                     <tr>
