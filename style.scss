@@ -118,8 +118,8 @@ h2.stage-1-title {
 }
 
 h1.ai-overlord-title {
-    margin-top: 0px;
-    margin-bottom: 20px;
+    margin-top: -8px;
+    margin-bottom: -23px;
     font-family: "Courier New", Courier, monospace;
     font-size: 4rem;
     color: $pink-red;
@@ -180,6 +180,7 @@ h1.ai-overlord-title {
 #autoGathererCounter,
 #optimizationsCounter,
 #highEfficiencyGathererCounter {
+    margin-left: 10px;
     padding-top: 0.5em;
     font-family: "Courier New", Courier, monospace;
     font-size: 1em;
@@ -193,6 +194,7 @@ h1.ai-overlord-title {
 
 #resourceBar {
     display: flex;
+    align-items: flex-end;
     justify-content: space-between;
 }
 
@@ -207,6 +209,7 @@ h1.ai-overlord-title {
 
 #processingPowerBar {
     display: flex;
+    align-items: flex-end;
     justify-content: space-between;
 }
 
@@ -221,7 +224,7 @@ h1.ai-overlord-title {
 
 #viperCoinBar {
     display: flex;
-    align-items: flex-start;
+    align-items: flex-end;
     justify-content: space-between;
 }
 
@@ -250,6 +253,11 @@ h1.ai-overlord-title {
     justify-content: center;
     align-items: center;
     margin-top: 2px;
+}
+
+#title-row {
+    align-items: center;
+    justify-content: center;
 }
 
 #autoGathererButton {
@@ -683,8 +691,8 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 }
 
 .crypto-icon {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     background-image: url("images/vipercoin-icon.svg");
     background-size: cover;
     background-repeat: no-repeat;
