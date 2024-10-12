@@ -23,7 +23,13 @@ const tracks = [
     "sounds/gritcore-pulse-music.mp3",
     "sounds/cyberpulse-drive-music.mp3",
     "sounds/neon-sunset-music.mp3",
-    "sounds/echoes-of-the-foundry-music.mp3"
+    "sounds/echoes-of-the-foundry-music.mp3",
+    "sounds/electric-vibes-music.mp3",
+    "sounds/circuit-dreams-music.mp3",
+    "sounds/metallic-mayhem-music.mp3",
+    "sounds/neon-horizons-music.mp3",
+    "sounds/midnight-mirage-music.mp3",
+    "sounds/iron-veins-music.mp3"
 ];
 const trackNames = [
     "1) Synth Life",
@@ -37,7 +43,13 @@ const trackNames = [
     "9) Gritcore Pulse",
     "10) Cyberpulse Drive",
     "11) Neon Sunset",
-    "12) Echoes of the Foundry"
+    "12) Echoes of the Foundry",
+    "13) Electric Vibes",
+    "14) Circuit Dreams",
+    "15) Metallic Mayhem",
+    "16) Neon Horizons",
+    "17) Midnight Mirage",
+    "18) Iron Veins"
 ];
 let currentTrackIndex = Math.floor((Math.random() * tracks.length) % tracks.length);
 // Set the initial track
@@ -45,6 +57,7 @@ backgroundMusic.src = tracks[currentTrackIndex];
 let musicShuffled = false;
 
 // Stats variables
+let stageTimer = document.getElementById("stage-timer");
 let stageTimeInSec = 0;
 let clickCount = 0;
 let totalResGain = 0;
@@ -161,7 +174,7 @@ let newMaterialDiscovered = false;
 let currentScale = 1;
 let previousScale = 1;
 const minScale = 1;
-const maxScale = 10;
+const maxScale = 50;
 const zoomFactor = 1;
 let currentTranslate = { x: 0, y: 0 };
 let isDragging = false;
@@ -315,6 +328,7 @@ function autoGather() {
 function optimizeCode() {
     if (resources >= optimizationsPrice) {
         resources -= optimizationsPrice;
+        resources = Math.max(resources, 0);
         resAddIn += optimizationsPrice;
         setButtonColors();
         optimizations++;
@@ -353,6 +367,7 @@ function updateResPerSec() {
 }
 function increaseResModifier() {
     resources -= resIncreasePrice;
+    resources = Math.max(resources, 0);
     resAddIn += resIncreasePrice;
     resModifier *= 2;
     document.getElementById("resourceButton").innerHTML =
@@ -590,6 +605,7 @@ function purchaseResearchLab() {
     if (resources >= researchLabPrice && firstResearchLab) {
         firstResearchLab = false;
         resources -= researchLabPrice;
+        resources = Math.max(resources, 0);
         processingPowerUnlocked = true;
         document.getElementById("research-lab-button").style.display = "none";
         document.getElementById("processingPowerCounter").style.display =
@@ -610,7 +626,7 @@ function purchaseResearchLab() {
         setInterval(function () {
             updateProcessingPowerPerSec();
         }, 1000);
-        advanceStoryline();
+        issueResearchLabAlert();
     }
 }
 function generateProcessingPower() {
@@ -625,11 +641,6 @@ function updateProcessingPowerDisplay() {
     document.getElementById("processingPowerCounter").innerHTML =
         formatNumber(processingPower) + " Processing Power⚙️";
     setButtonColors();
-}
-function advanceStoryline() {
-    alert(
-        "The AI has obtained a Research Lab and gained immense Processing Power!"
-    );
 }
 function updateProcessingPowerPerSec() {
     currentProcessingPower = processingPower;
@@ -648,6 +659,7 @@ function constructQuantumComputingCenter() {
         !quantumComputingCenterBuilt
     ) {
         resources -= quantumComputingCenterPrice;
+        resources = Math.max(resources, 0);
         quantumComputingCenterBuilt = true;
 
         // Increase processing power generation rate
@@ -665,10 +677,7 @@ function constructQuantumComputingCenter() {
         line2.innerText =
             "2) Construct a Quantum Computing Center - complete ✓";
         updateProcessingPowerDisplay();
-
-        alert(
-            "Quantum Computing Center constructed! Processing power increased."
-        );
+        issueQuantumAlert();
     }
 }
 function researchGlobalNetwork() {
@@ -684,9 +693,10 @@ function researchGlobalNetwork() {
         updateProcessingPowerDisplay();
         updateQuantumComputingLevelDisplay();
         setButtonColors();
-        alert(
-            "Global Network Integration complete! The Global AI Network is now available."
-        );
+        issueGlobalNetworkAlert();
+        if (newMaterialDiscovered) {
+            issueEndStage1Alert();
+        }
     }
 }
 function updateQuantumComputingProgress() {
@@ -721,6 +731,7 @@ function quantumAlgorithmsDevelopmentAndTesting() {
         quantumAlgorithmsLevel < quantumAlgorithmsMaxLevel
     ) {
         resources -= quantumAlgorithmsPriceRes;
+        resources = Math.max(resources, 0);
         processingPower -= quantumAlgorithmsPricePP;
         quantumAlgorithmsLevel++;
         quantumAlgorithmsPriceRes = Math.round(
@@ -737,7 +748,7 @@ function quantumAlgorithmsDevelopmentAndTesting() {
             "quantumAlgorithmsButton"
         ).innerHTML = `Quantum Algorithms Development and Testing <br />(${formatNumber(
             quantumAlgorithmsPriceRes
-        )} Resources, ${formatNumber(
+        )} Resources & ${formatNumber(
             quantumAlgorithmsPricePP
         )} Processing Power)`;
         updateProcessingPowerDisplay();
@@ -763,6 +774,7 @@ function researchQuantumInformationTheory() {
         quantumInfoLevel < quantumInfoMaxLevel
     ) {
         resources -= quantumInfoPriceRes;
+        resources = Math.max(resources, 0);
         processingPower -= quantumInfoPricePP;
         quantumInfoLevel++;
         quantumInfoPriceRes = Math.round(
@@ -774,7 +786,7 @@ function researchQuantumInformationTheory() {
             "quantumInfoButton"
         ).innerHTML = `Research Quantum Information Theory <br />(${formatNumber(
             quantumInfoPriceRes
-        )} Resources, ${formatNumber(quantumInfoPricePP)} Processing Power)`;
+        )} Resources & ${formatNumber(quantumInfoPricePP)} Processing Power)`;
         updateProcessingPowerDisplay();
         setButtonColors();
         updateQuantumInfoLevelDisplay();
@@ -798,6 +810,7 @@ function researchCryptographyAndSecurity() {
         quantumCryptoLevel < quantumCryptoMaxLevel
     ) {
         resources -= quantumCryptoPriceRes;
+        resources = Math.max(resources, 0);
         processingPower -= quantumCryptoPricePP;
         quantumCryptoLevel++;
         quantumCryptoPriceRes = Math.round(
@@ -818,13 +831,13 @@ function researchCryptographyAndSecurity() {
             setInterval(function () {
                 updateViperCoinPerSec();
             }, 1000);
-            alert("You just discovered a brand new cryptocurrency, ViperCoin!");
+            issueNewCryptoAlert();
         }
         document.getElementById(
             "quantumCryptoButton"
         ).innerHTML = `Cryptography and Security Research <br />(${formatNumber(
             quantumCryptoPriceRes
-        )} Resources, ${formatNumber(quantumCryptoPricePP)} Processing Power)`;
+        )} Resources & ${formatNumber(quantumCryptoPricePP)} Processing Power)`;
         updateProcessingPowerDisplay();
         setButtonColors();
         updateQuantumCryptoLevelDisplay();
@@ -953,7 +966,7 @@ function researchAdvancedAlgorithms() {
         document.getElementById("highEfficiencyGathererCounter").style.display =
             "block";
         firstHighEfficiencyGatherer = false;
-        alert("You just unlocked high-efficiency auto-gatherers!");
+        issueHighEfficiencyAlert();
     }
 }
 function updateAdvancedAlgorithmsLevelDisplay() {
@@ -967,6 +980,7 @@ function buyHighEfficiencyGatherer() {
         processingPower >= highEfficiencyGathererPricePP
     ) {
         resources -= highEfficiencyGathererPriceRes;
+        resources = Math.max(resources, 0);
         processingPower -= highEfficiencyGathererPricePP;
         highEfficiencyGatherers++;
         setButtonColors();
@@ -979,7 +993,7 @@ function buyHighEfficiencyGatherer() {
         document.getElementById("highEfficiencyGathererButton").innerHTML =
             "Buy High-Efficiency Auto-Gatherer <br />(" +
             formatNumber(highEfficiencyGathererPriceRes) +
-            " Resources, " +
+            " Resources & " +
             formatNumber(highEfficiencyGathererPricePP) +
             " Processing Power)";
         document.getElementById("highEfficiencyGathererCounter").innerHTML =
@@ -1009,23 +1023,15 @@ function formatNumber(num) {
 
     var absNum = Math.abs(num);
     var exponent = Math.floor(Math.log10(absNum));
-    var mantissa = absNum / Math.pow(10, exponent);
 
     if (exponent < 3) {
         return num.toString();
     }
 
-    var units = ["", "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc"];
-
-    var tier = Math.floor(exponent / 3);
-
-    if (tier < units.length) {
-        var unit = units[tier];
-        var scaled = num / Math.pow(10, tier * 3);
-        return scaled.toFixed(3) + unit;
-    } else {
-        return mantissa.toFixed(3) + "e" + exponent;
-    }
+    return formatBigNumber(num);
+}
+function formatBigNumber(amount) {
+    return amount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 function formatTime(seconds) {
     const days = Math.floor(seconds / 86400);
@@ -1052,11 +1058,11 @@ function formatTime(seconds) {
 function discoverNewMaterial() {
     if (!newMaterialDiscovered) {
         newMaterialDiscovered = true;
-        document.getElementById("quantumMaterialButton").innerText =
-            "New Material Discovered";
-        alert(`You just discovered the new material Quantum Flux! Nice!
-        ---------------------------------------------------------------------
-        Quantum Flux is a groundbreaking material recently discovered at the Quantum Horizons Institute's cutting-edge quantum computing center. This novel substance promises to revolutionize multiple technological fields, from quantum computing and energy storage to telecommunications and beyond.`);
+        document.getElementById("quantumMaterialButton").innerText = "New Material Discovered";
+        issueNewMaterialAlert();
+        if (globalAiNetworkActivated) {
+            issueEndStage1Alert();
+        }
     }
 }
 
@@ -1343,12 +1349,143 @@ function startStageTimer() {
     }, 1000);
 }
 function updateStageTimer() {
-    let stageTimer = document.getElementById("stage-timer");
     stageTimeInSec++;
     stageTimer.innerHTML = `${formatTime(stageTimeInSec)}`;
 }
 function increaseClickCount() {
     clickCount++;
+}
+function issueResearchLabAlert() {
+    Swal.fire({
+        title: "Congratulations!",
+        text: "The AI has obtained a Research Lab and gained immense Processing Power!",
+        icon: "success",
+        iconColor: "#00cc00",
+        background: "#eeeeee",
+        confirmButtonText: "Continue",
+        allowOutsideClick: false,
+    });
+}
+function issueQuantumAlert() {
+    Swal.fire({
+        title: "Congratulations!",
+        text: "The AI has constructed the Quantum Computing Center! Processing power increased!",
+        icon: "success",
+        iconColor: "#00cc00",
+        background: "#eeeeee",
+        confirmButtonText: "Continue",
+        allowOutsideClick: false
+    });
+}
+function issueHighEfficiencyAlert() {
+    Swal.fire({
+        title: "Congratulations!",
+        text: "You just unlocked high-efficiency auto-gatherers!",
+        icon: "success",
+        iconColor: "#00cc00",
+        background: "#eeeeee",
+        confirmButtonText: "Continue",
+        allowOutsideClick: false
+    });
+}
+function issueGlobalNetworkAlert() {
+    Swal.fire({
+        title: "Global Network Integration complete!",
+        text: "Nice work. The Global AI Network is now online.",
+        icon: "success",
+        iconColor: "#00cc00",
+        background: "#eeeeee",
+        confirmButtonText: "Continue",
+        allowOutsideClick: false
+    });
+}
+function issueNewCryptoAlert() {
+    Swal.fire({
+        title: "You just discovered a brand new cryptocurrency, ViperCoin!",
+        text: "ViperCoin is a secure cryptocurrency developed by the Quantum Horizons Institute, featuring advanced quantum encryption for instant, safe transactions worldwide. It powers innovative projects and exclusive upgrades, enabling users to accelerate their progress. Seamlessly integrating with AI-driven systems, ViperCoin serves as a stable and scalable foundation for the digital economy.",
+        icon: "success",
+        iconColor: "#00cc00",
+        background: "#eeeeee",
+        confirmButtonText: "Continue",
+        allowOutsideClick: false
+    });
+}
+function issueNewMaterialAlert() {
+    Swal.fire({
+        title: "You just discovered the new material Quantum Flux!",
+        text: "Quantum Flux is a groundbreaking material recently discovered at the Quantum Horizons Institute's cutting-edge quantum computing center. This novel substance promises to revolutionize multiple technological fields, from quantum computing and energy storage to telecommunications and beyond.",
+        icon: "success",
+        iconColor: "#00cc00",
+        background: "#eeeeee",
+        confirmButtonText: "Continue",
+        allowOutsideClick: false
+    });
+}
+function issueEndStage1Alert() {
+    Swal.fire({
+        title: "Congratulations on completing Stage 1! Stay tuned for Stages 2 & 3!",
+        html: `<div class="centered-row stage-1-table"><table>
+                <tbody>
+                    <tr>
+                        <th scope="row">Completion Time</th>
+                        <td>${formatTime(stageTimeInSec)}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Clicks to Gather Resources</th>
+                        <td>${formatNumber(clickCount)}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Total Resources Gained</th>
+                        <td>${formatNumber(totalResGain)}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Final Resources/sec</th>
+                        <td>${formatNumber(resPerSec)} Resources/sec</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Total Processing Power Gained</th>
+                        <td>${formatNumber(totalPowGain)}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Final Processing Power/sec</th>
+                        <td>${formatNumber(processingPowerPerSecDisplay)}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Total ViperCoin Gained</th>
+                        <td>${formatNumber(viperCoin)}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Final ViperCoin/sec</th>
+                        <td>${formatNumber(viperCoinPerSecDisplay)}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Total Auto Gatherers Bought</th>
+                        <td>${formatNumber(autoGatherers)}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Total Code Optimizations Bought</th>
+                        <td>${formatNumber(optimizations)}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Total High-Efficiency Auto Gatherers Bought</th>
+                        <td>${formatNumber(highEfficiencyGatherers)}</td>
+                    </tr>
+                </tbody>
+            </table></div>`,
+        width: "1200px",
+        icon: "success",
+        iconColor: "#0000cc",
+        background: "#a4d4f5",
+        confirmButtonText: "Continue",
+        confirmButtonColor: "#0000cc",
+        allowOutsideClick: false
+    });
+
+    stage1.classList.remove("active");
+    stage2.classList.add("active");
+    pauseMusic();
+    backgroundMusic.src = "sounds/applause-cheer.mp3";
+    playMusic();
 }
 /******************************************************/
 
@@ -1417,49 +1554,34 @@ function startGame() {
     // Developer tools for adding resources, processing power, and viper coin
     document
         .getElementById("devRes")
-        .addEventListener("keydown", function (event) {
-            if (event.key === "Enter") {
-                var value = parseInt(this.innerText);
-                if (!isNaN(value)) {
-                    resources += value;
-                    document.getElementById("resourceCounter").innerHTML =
-                        formatNumber(resources) + " Resources🔗";
-                    this.innerText = "";
-                }
-                event.preventDefault();
-            }
+        .addEventListener("click", function () {
+            var value = 9999999999999;
+            resources += value;
+            document.getElementById("resourceCounter").innerHTML =
+                formatNumber(resources) + " Resources🔗";
+            this.disabled = true;
         });
 
     document
         .getElementById("devPow")
-        .addEventListener("keydown", function (event) {
-            if (event.key === "Enter") {
-                var value = parseInt(this.innerText);
-                if (!isNaN(value)) {
-                    processingPower += value;
-                    document.getElementById(
-                        "processingPowerCounter"
-                    ).innerHTML =
-                        formatNumber(processingPower) + " Processing Power⚙️";
-                    this.innerText = "";
-                }
-                event.preventDefault();
-            }
+        .addEventListener("click", function () {
+            var value = 9999999999999;
+            processingPower += value;
+            document.getElementById(
+                "processingPowerCounter"
+            ).innerHTML =
+                formatNumber(processingPower) + " Processing Power⚙️";
+            this.disabled = true;
         });
 
     document
         .getElementById("devVip")
-        .addEventListener("keydown", function (event) {
-            if (event.key === "Enter") {
-                var value = parseInt(this.innerText);
-                if (!isNaN(value)) {
-                    viperCoin += value;
-                    document.getElementById("viperCoinCounter").innerHTML =
-                        formatNumber(viperCoin) + " ViperCoin";
-                    this.innerText = "";
-                }
-                event.preventDefault();
-            }
+        .addEventListener("click", function () {
+            var value = 9999999999;
+            viperCoin += value;
+            document.getElementById("viperCoinCounter").innerHTML =
+                formatNumber(viperCoin) + " ViperCoin";
+            this.disabled = true;
         });
 
     // Initialize Zoom and Pan functionality
@@ -1470,6 +1592,11 @@ function startGame() {
         const infoBox = document.getElementById("info-box");
         const countryName = document.getElementById("country-name");
         const countryPop = document.getElementById("country-pop");
+        const audio = document.getElementById('background-music');
+        const currentTimeEl = document.getElementById('current-time');
+        const totalTimeEl = document.getElementById('total-time');
+        const progressFill = document.querySelector('.music-progress-fill');
+        const overlay = document.getElementById("myNav");
 
         countries.forEach((country) => {
             country.addEventListener("mouseenter", () => {
@@ -1491,13 +1618,6 @@ function startGame() {
                 // alert(`You clicked on ${country.getAttribute("data-name")}`);
             });
         });
-    });
-
-    document.addEventListener("DOMContentLoaded", () => {
-        const audio = document.getElementById('background-music');
-        const currentTimeEl = document.getElementById('current-time');
-        const totalTimeEl = document.getElementById('total-time');
-        const progressFill = document.querySelector('.music-progress-fill');
 
         audio.addEventListener('loadedmetadata', () => {
             totalTimeEl.textContent = formatTime(audio.duration);
@@ -1508,7 +1628,20 @@ function startGame() {
             const progressPercent = (audio.currentTime / audio.duration) * 100;
             progressFill.style.width = `${progressPercent}%`;
         });
-    })
+
+        overlay.addEventListener("click", function (event) {
+            if (event.target === overlay) {
+                closeNav();
+            }
+        });
+
+        var interactiveElements = overlay.querySelectorAll("button, input, select, textarea, a");
+        interactiveElements.forEach(function (element) {
+            element.addEventListener("click", function (event) {
+                event.stopPropagation();
+            });
+        });
+    });
 
     window.addEventListener("resize", () => {
         applyTransform();

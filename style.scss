@@ -10,6 +10,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    max-width: fit-content;
 }
 
 body {
@@ -18,24 +19,43 @@ body {
     user-select: none;
 }
 
-#devRes,
-#devPow,
-#devVip {
-    background-color: white;
-    border-radius: 5px;
-    display: inline-block;
-    width: 140px;
-    height: 20px;
-    border: 1px solid black;
-    padding: 5px;
-    color: gray;
-    text-align: center;
+.dev-button {
+    background: linear-gradient(135deg, #6a0572, #a1610d);
+    border: 2px solid white;
+    border-radius: 8px;
+    color: #fff;
+    width: 150px;
+    margin: 1px;
+    padding: 6px 12px;
+    font-size: 1rem;
+    font-family: 'Space Grotesk', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    outline: none;
 
-    &:empty {
-        &:before {
-            content: attr(data-placeholder);
-            color: gray;
-        }
+    &:hover:not(:disabled) {
+        background: linear-gradient(135deg, #a1610d, #6a0572);
+        transform: translateY(-5px);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    &:active:not(:disabled) {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    &:focus:not(:disabled) {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(106, 5, 114, 0.5);
+    }
+
+    &:disabled {
+        background: #cccccc;
+        color: #666666;
+        cursor: not-allowed;
+        box-shadow: none;
+        transform: translateY(0);
     }
 }
 
@@ -45,7 +65,7 @@ body {
 }
 
 /* NORMAL STUFF */
-$dark-bg: #3a2c5a;
+$dark-bg: #7a5cbe;
 $purple: #d700ff;
 $brown: #ffd700;
 $pink-red: #ff85c1;
@@ -104,14 +124,12 @@ h1.ai-overlord-title {
     position: relative;
     display: inline-block;
     padding: 10px;
-    background: linear-gradient(
-        130deg,
-        $dark-bg,
-        $purple,
-        $brown,
-        $pink-red,
-        $light-pink
-    );
+    background: linear-gradient(130deg,
+            $dark-bg,
+            $purple,
+            $brown,
+            $pink-red,
+            $light-pink );
     background-size: 150% 150%;
     background-clip: text;
     -webkit-background-clip: text;
@@ -147,20 +165,13 @@ h1.ai-overlord-title {
 .sticky-section {
     position: -webkit-sticky; /* For Safari */
     position: sticky;
-    background-color: #333;
     top: 0;
     z-index: 10;
-    width: 960px;
-    margin-bottom: 40px;
-    padding: 10px 0;
-}
-
-.bottom-shadow {
-    background-color: #2a2a2a;
+    width: 1060px;
     padding: 20px;
+    background-color: #2a2a2a;
     margin: 30px auto;
-    /* Bottom-only box-shadow */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.5);
 }
 
 #autoGathererCounter,
@@ -173,7 +184,7 @@ h1.ai-overlord-title {
 }
 
 #game-container {
-    width: 1000px;
+    width: 1100px;
     margin: 0 auto;
 }
 
@@ -189,10 +200,6 @@ h1.ai-overlord-title {
 #resPerSec {
     font-size: 1.5em;
     margin-left: auto;
-}
-
-#resourceIncreaseButton {
-    margin-left: 20px;
 }
 
 #processingPowerBar {
@@ -211,8 +218,8 @@ h1.ai-overlord-title {
 
 #viperCoinBar {
     display: flex;
+    align-items: flex-start;
     justify-content: space-between;
-    margin-top: 4px;
 }
 
 #viperCoinCounter {
@@ -224,22 +231,28 @@ h1.ai-overlord-title {
     margin-left: auto;
 }
 
+#stage1 {
+    width: 99.9%; // so that everything fits behind the sticky header
+}
+
 #stageBar {
+    margin-top: -20px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
 }
+
 #stage-timer {
     font-size: 3em;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
-    margin-left: auto;
-    -webkit-text-stroke: 2px black;
+    padding: 5px;
 }
 
 #researchLab {
     margin-top: 20px;
     padding: 10px;
+    height: 390px;
     background-color: #222;
     border: 2px solid #000;
     border-radius: 10px;
@@ -286,7 +299,9 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 
 #quantumComputingCenter {
     margin-top: 20px;
+    margin-bottom: 20px;
     padding: 10px;
+    height: 390px;
     background-color: #444;
     border: 2px solid #000;
     border-radius: 10px;
@@ -324,7 +339,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 
 #globalAiNetwork {
     margin-top: 20px;
-    margin-bottom: 60px;
+    margin-bottom: 20px;
     padding: 10px;
     background-color: #666;
     border: 2px solid #000;
@@ -332,6 +347,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 // Styles for Global AI Network Header
@@ -392,9 +408,8 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 .global-ai-network-map {
     position: relative;
     width: 100%;
-    max-width: 1200px;
-    height: 495px;
-    margin: 0 auto;
+    max-width: 1070px;
+    height: 535px;
     background-color: #a3a3a3;
     border: 2px solid #333;
     border-radius: 10px;
@@ -408,8 +423,8 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 
         .country {
             fill: #86c440;
-            stroke: $dark-bg;
-            stroke-width: 1;
+            stroke: #18062c;
+            stroke-width: 0.25;
             transition: fill 0.3s, transform 0.3s;
 
             &:hover,
@@ -463,10 +478,10 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 
 .map-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 976px;
-    height: 495px;
+    top: -10px;
+    left: -65px;
+    width: 1196px;
+    height: 550px;
     pointer-events: none;
 }
 
@@ -546,6 +561,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 }
 
 .button-gather-res,
+#resourceIncreaseButton,
 #music-toggle-button,
 #prev-track-button,
 #next-track-button {
@@ -559,7 +575,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
     font-weight: 600;
     font-size: 18px;
     align-items: center;
-    margin: 5px;
+    margin: 10px;
     padding: 0 18px;
     line-height: 30px;
     text-align: center;
@@ -584,7 +600,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
     cursor: pointer;
     display: inline-block;
     font-weight: 600;
-    font-size: 1em;
+    font-size: 0.98em;
     padding: 0 18px;
     line-height: 30px;
     text-align: center;
@@ -679,7 +695,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
     width: 75%;
     margin-right: 20px;
     padding: 0.6em 2em;
-    border: none;
+    border: 3px solid white;
     outline: none;
     color: rgb(255, 255, 255);
     cursor: pointer;
@@ -694,18 +710,16 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 
 .major-upgrades:before {
     content: "";
-    background: linear-gradient(
-        45deg,
-        #ff0000,
-        #ff7300,
-        #fffb00,
-        #48ff00,
-        #00ffd5,
-        #002bff,
-        #7a00ff,
-        #ff00c8,
-        #ff0000
-    );
+    background: linear-gradient(45deg,
+            #ff0000,
+            #ff7300,
+            #fffb00,
+            #48ff00,
+            #00ffd5,
+            #002bff,
+            #7a00ff,
+            #ff00c8,
+            #ff0000);
     position: absolute;
     top: -2px;
     left: -2px;
@@ -790,7 +804,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 
 .progress-bar {
     width: 100%;
-    height: 15px;
+    height: 13px;
     background-color: #ddd;
     border: 2px solid black;
     border-radius: 5px;
@@ -800,8 +814,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 }
 
 .progress-fill {
-    border-right: 1px solid black;
-    border-radius: 2px;
+    border-right: 2px solid black;
     height: 100%;
     background-color: #4caf50;
     width: 0;
@@ -810,7 +823,6 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 
 .music-progress-fill {
     border-right: 1px solid black;
-    border-radius: 2px;
     height: 100%;
     background: linear-gradient(135deg, #0b112e, #3859ec, #00eeff, #a9f8fd);
     width: 0;
@@ -881,28 +893,19 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 /* The Overlay (background) */
 .overlay {
     /* Height & width depends on how you want to reveal the overlay */
+    display: flex;
+    flex-direction: column;
     height: 100%;
     width: 0;
     position: fixed;
     z-index: 16;
     left: 0;
     top: 0;
+    align-items: center;
     background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.9);
     overflow-x: hidden;
     transition: 0.5s;
-}
-
-/* Position the content inside the overlay */
-.overlay-content {
-    display: inline-flex;
-    position: relative;
-    top: 25%;
-    width: 100%;
-    text-align: center;
-    margin-top: 30px;
-    justify-content: center;
-    align-items: center;
 }
 
 .overlay-content span {
@@ -1030,23 +1033,23 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
     transition: 0.4s;
 }
 
-input:checked + .slider,
-input:checked + .small-slider {
+input:checked+.slider,
+input:checked+.small-slider {
     background: linear-gradient(90deg, #3859ec, #00eeff);
 }
 
-input:focus + .slider,
-input:focus + .small-slider {
+input:focus+.slider,
+input:focus+.small-slider {
     box-shadow: 0 0 1px #2196f3;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
 }
 
-input:checked + .small-slider:before {
+input:checked+.small-slider:before {
     -webkit-transform: translateX(13px);
     -ms-transform: translateX(13px);
     transform: translateX(13px);
@@ -1070,14 +1073,12 @@ input:checked + .small-slider:before {
 
 /* Music Player Styling */
 .music-player-container {
-    background: linear-gradient(
-        135deg,
-        #0e0b16,
-        #6a0572,
-        #a1610d,
-        #ff2e63,
-        #ffaaaa
-    );
+    background: linear-gradient(135deg,
+            #0e0b16,
+            #6a0572,
+            #a1610d,
+            #ff2e63,
+            #ffaaaa);
     border: 2px solid #fff;
     border-radius: 15px;
     margin-top: 30px;
@@ -1088,7 +1089,7 @@ input:checked + .small-slider:before {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 30%;
+    width: 535px;
     transform: scale(0.85);
     transform-origin: center center;
 
@@ -1097,6 +1098,7 @@ input:checked + .small-slider:before {
         margin-top: -5px;
         margin-bottom: -10px;
     }
+
     #volumeLabel {
         font-family: 'Courier New', Courier, monospace;
         font-size: 16;
@@ -1107,7 +1109,7 @@ input:checked + .small-slider:before {
 
 .progress-container {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: baseline;
     width: 100%;
 }
@@ -1250,16 +1252,14 @@ $crt-overscan-width: 2.66667em;
         right: 0;
         bottom: 0;
         z-index: -1;
-        background: linear-gradient(
-            135deg,
-            rgba(149, 149, 149, 0.5) 0%,
-            rgba(13, 13, 13, 0.55) 19%,
-            rgba(1, 1, 1, 0.64) 50%,
-            rgba(10, 10, 10, 0.69) 69%,
-            rgba(51, 51, 51, 0.73) 84%,
-            rgba(22, 22, 22, 0.76) 93%,
-            rgba(27, 27, 27, 0.78) 100%
-        );
+        background: linear-gradient(135deg,
+                rgba(149, 149, 149, 0.5) 0%,
+                rgba(13, 13, 13, 0.55) 19%,
+                rgba(1, 1, 1, 0.64) 50%,
+                rgba(10, 10, 10, 0.69) 69%,
+                rgba(51, 51, 51, 0.73) 84%,
+                rgba(22, 22, 22, 0.76) 93%,
+                rgba(27, 27, 27, 0.78) 100%);
         opacity: 0.5;
     }
 
@@ -1296,11 +1296,9 @@ $crt-overscan-width: 2.66667em;
         right: 0;
         box-shadow: inset 0 0 5px 5px rgba(255, 255, 255, 0.1);
         border-radius: $crt-border-radius;
-        background: radial-gradient(
-            ellipse at center,
-            rgba($phosphor-color, 0.1) 0%,
-            rgba(255, 255, 255, 0) 100%
-        );
+        background: radial-gradient(ellipse at center,
+                rgba($phosphor-color, 0.1) 0%,
+                rgba(255, 255, 255, 0) 100%);
         z-index: -4;
     }
 }
@@ -1354,5 +1352,81 @@ $crt-overscan-width: 2.66667em;
 
     100% {
         border-color: transparent;
+    }
+}
+
+$table-bg: #0e0b16;
+$table-header-bg: #7777e4;
+$table-header-text: #111111;
+$table-odd-row-bg: #1a1a1a;
+$table-even-row-bg: #000033;
+$table-hover-bg: #0000ff;
+$table-border-color: #0000e6;
+$table-text-color: #ffffff;
+
+.stage-1-table {
+    table-layout: auto;
+    width: auto;
+    max-width: none;
+    margin: 20px auto;
+    border-collapse: collapse;
+    font-family: 'Space Grotesk', sans-serif;
+    background-color: $table-bg;
+    border: 2px solid $table-header-bg;
+
+    tbody {
+        tr {
+            &:nth-child(odd) {
+                background-color: $table-odd-row-bg;
+            }
+
+            &:nth-child(even) {
+                background-color: $table-even-row-bg;
+            }
+
+            &:hover {
+                background-color: $table-hover-bg;
+            }
+        }
+    }
+
+    th {
+        text-align: left;
+        padding: 12px 15px;
+        background-color: $table-header-bg;
+        color: $table-header-text;
+        border: 1px solid $table-border-color;
+        font-size: 1.1em;
+    }
+
+    td {
+        padding: 12px 15px;
+        border: 1px solid $table-border-color;
+        color: $table-text-color;
+        font-size: 1em;
+    }
+
+    @media (max-width: 768px) {
+
+        th,
+        td {
+            padding: 8px 10px;
+            font-size: 0.9em;
+        }
+    }
+
+    @media (max-width: 480px) {
+
+        th,
+        td {
+            padding: 6px 8px;
+            font-size: 0.8em;
+        }
+    }
+
+    tr,
+    th,
+    td {
+        transition: background-color 0.3s ease, border-color 0.3s ease;
     }
 }
