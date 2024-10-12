@@ -694,9 +694,6 @@ function researchGlobalNetwork() {
         updateQuantumComputingLevelDisplay();
         setButtonColors();
         issueGlobalNetworkAlert();
-        if (newMaterialDiscovered) {
-            issueEndStage1Alert();
-        }
     }
 }
 function updateQuantumComputingProgress() {
@@ -1060,9 +1057,6 @@ function discoverNewMaterial() {
         newMaterialDiscovered = true;
         document.getElementById("quantumMaterialButton").innerText = "New Material Discovered";
         issueNewMaterialAlert();
-        if (globalAiNetworkActivated) {
-            issueEndStage1Alert();
-        }
     }
 }
 
@@ -1397,6 +1391,12 @@ function issueGlobalNetworkAlert() {
         background: "#eeeeee",
         confirmButtonText: "Continue",
         allowOutsideClick: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            if (newMaterialDiscovered) {
+                issueEndStage1Alert();
+            }
+        }
     });
 }
 function issueNewCryptoAlert() {
@@ -1419,6 +1419,12 @@ function issueNewMaterialAlert() {
         background: "#eeeeee",
         confirmButtonText: "Continue",
         allowOutsideClick: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            if (globalAiNetworkActivated) {
+                issueEndStage1Alert();
+            }
+        }
     });
 }
 function issueEndStage1Alert() {
