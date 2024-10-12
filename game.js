@@ -350,7 +350,7 @@ function updateResPerSec() {
     var highEfficiencyGainPerSec = 0;
 
     if (highEfficiencyGatherers > 0) {
-        var intervalInSeconds = highEfficiencyGathererSpeed / 1000;
+        var intervalInSeconds = highEfficiencyGathererSpeed;
         var gainPerInterval =
             baseAmount * Math.pow(multiplier, highEfficiencyGatherers - 1);
         highEfficiencyGainPerSec = gainPerInterval / intervalInSeconds;
