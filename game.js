@@ -265,6 +265,8 @@ function addResource() {
     }
     document.getElementById("resourceCounter").innerHTML =
         formatNumber(resources) + " Resources🔗";
+    document.getElementById("resourceCounter-2").innerHTML =
+        formatNumber(resources) + " Resources🔗";
     updateResearchLabProgress();
     updateQuantumComputingProgress();
     setButtonColors();
@@ -320,6 +322,8 @@ function autoGather() {
     }
     document.getElementById("resourceCounter").innerHTML =
         formatNumber(resources) + " Resources🔗";
+    document.getElementById("resourceCounter-2").innerHTML =
+        formatNumber(resources) + " Resources🔗";
     if (resources >= optimizationsPrice && firstOptimization) {
         blipInOptimizeButton();
     }
@@ -362,6 +366,8 @@ function updateResPerSec() {
     resPerSec = parseFloat(resPerSec.toFixed(3));
 
     document.getElementById("resPerSec").innerHTML =
+        formatNumber(resPerSec) + " Resources/sec";
+    document.getElementById("resPerSec-2").innerHTML =
         formatNumber(resPerSec) + " Resources/sec";
     previousRes = currentRes;
     resAddIn = 0;
@@ -641,6 +647,8 @@ function generateProcessingPower() {
 function updateProcessingPowerDisplay() {
     document.getElementById("processingPowerCounter").innerHTML =
         formatNumber(processingPower) + " Processing Power⚙️";
+    document.getElementById("processingPowerCounter-2").innerHTML =
+        formatNumber(processingPower) + " Processing Power⚙️";
     setButtonColors();
 }
 function updateProcessingPowerPerSec() {
@@ -651,6 +659,8 @@ function updateProcessingPowerPerSec() {
         processingPowerPerSecDisplay.toFixed(3)
     );
     document.getElementById("processingPowerPerSec").innerHTML =
+        formatNumber(processingPowerPerSecDisplay) + " Processing Power/sec";
+    document.getElementById("processingPowerPerSec-2").innerHTML =
         formatNumber(processingPowerPerSecDisplay) + " Processing Power/sec";
     previousProcessingPower = currentProcessingPower;
 }
@@ -863,6 +873,8 @@ function generateViperCoin() {
 function updateViperCoinDisplay() {
     document.getElementById("viperCoinCounter").innerHTML =
         formatNumber(viperCoin) + " ViperCoin";
+    document.getElementById("viperCoinCounter-2").innerHTML =
+        formatNumber(viperCoin) + " ViperCoin";
     setButtonColors();
 }
 function updateViperCoinPerSec() {
@@ -870,6 +882,8 @@ function updateViperCoinPerSec() {
     viperCoinPerSecDisplay = currentViperCoin - previousViperCoin;
     viperCoinPerSecDisplay = parseFloat(viperCoinPerSecDisplay.toFixed(3));
     document.getElementById("viperCoinPerSec").innerHTML =
+        formatNumber(viperCoinPerSecDisplay) + " ViperCoin/sec";
+    document.getElementById("viperCoinPerSec-2").innerHTML =
         formatNumber(viperCoinPerSecDisplay) + " ViperCoin/sec";
     previousViperCoin = currentViperCoin;
 }
@@ -1013,6 +1027,8 @@ function highEfficiencyAutoGather() {
     resources += totalGain;
     totalResGain += totalGain;
     document.getElementById("resourceCounter").innerHTML =
+        formatNumber(resources) + " Resources🔗";
+    document.getElementById("resourceCounter-2").innerHTML =
         formatNumber(resources) + " Resources🔗";
     setButtonColors();
 }
@@ -1504,9 +1520,6 @@ function initializeStage2() {
     stage2.classList.add("active");
     document.getElementById("globalAiNetwork-real").style.display = "block";
     initializeZoomAndPan();
-
-    let stageTimer2 = document.getElementById("stage-timer-2");
-    stageTimer2 = stageTimer;
 }
 
 function startGame() {
@@ -1577,6 +1590,8 @@ function startGame() {
             resources += value;
             document.getElementById("resourceCounter").innerHTML =
                 formatNumber(resources) + " Resources🔗";
+            document.getElementById("resourceCounter-2").innerHTML =
+                formatNumber(resources) + " Resources🔗";
             this.disabled = true;
         });
 
@@ -1585,9 +1600,9 @@ function startGame() {
         .addEventListener("click", function () {
             var value = 9999999999999;
             processingPower += value;
-            document.getElementById(
-                "processingPowerCounter"
-            ).innerHTML =
+            document.getElementById("processingPowerCounter").innerHTML =
+                formatNumber(processingPower) + " Processing Power⚙️";
+            document.getElementById("processingPowerCounter-2").innerHTML =
                 formatNumber(processingPower) + " Processing Power⚙️";
             this.disabled = true;
         });
@@ -1598,6 +1613,8 @@ function startGame() {
             var value = 9999999999;
             viperCoin += value;
             document.getElementById("viperCoinCounter").innerHTML =
+                formatNumber(viperCoin) + " ViperCoin";
+            document.getElementById("viperCoinCounter-2").innerHTML =
                 formatNumber(viperCoin) + " ViperCoin";
             this.disabled = true;
         });
