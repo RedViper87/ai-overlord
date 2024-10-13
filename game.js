@@ -58,6 +58,7 @@ let musicShuffled = false;
 
 // Stats variables
 let stageTimer = document.getElementById("stage-timer");
+let stageTimer2 = document.getElementById("stage-timer-2");
 let stageTimeInSec = 0;
 let clickCount = 0;
 let totalResGain = 0;
@@ -264,6 +265,8 @@ function addResource() {
     }
     document.getElementById("resourceCounter").innerHTML =
         formatNumber(resources) + " Resources🔗";
+    document.getElementById("resourceCounter-2").innerHTML =
+        formatNumber(resources) + " Resources🔗";
     updateResearchLabProgress();
     updateQuantumComputingProgress();
     setButtonColors();
@@ -319,6 +322,8 @@ function autoGather() {
     }
     document.getElementById("resourceCounter").innerHTML =
         formatNumber(resources) + " Resources🔗";
+    document.getElementById("resourceCounter-2").innerHTML =
+        formatNumber(resources) + " Resources🔗";
     if (resources >= optimizationsPrice && firstOptimization) {
         blipInOptimizeButton();
     }
@@ -361,6 +366,8 @@ function updateResPerSec() {
     resPerSec = parseFloat(resPerSec.toFixed(3));
 
     document.getElementById("resPerSec").innerHTML =
+        formatNumber(resPerSec) + " Resources/sec";
+    document.getElementById("resPerSec-2").innerHTML =
         formatNumber(resPerSec) + " Resources/sec";
     previousRes = currentRes;
     resAddIn = 0;
@@ -640,6 +647,8 @@ function generateProcessingPower() {
 function updateProcessingPowerDisplay() {
     document.getElementById("processingPowerCounter").innerHTML =
         formatNumber(processingPower) + " Processing Power⚙️";
+    document.getElementById("processingPowerCounter-2").innerHTML =
+        formatNumber(processingPower) + " Processing Power⚙️";
     setButtonColors();
 }
 function updateProcessingPowerPerSec() {
@@ -650,6 +659,8 @@ function updateProcessingPowerPerSec() {
         processingPowerPerSecDisplay.toFixed(3)
     );
     document.getElementById("processingPowerPerSec").innerHTML =
+        formatNumber(processingPowerPerSecDisplay) + " Processing Power/sec";
+    document.getElementById("processingPowerPerSec-2").innerHTML =
         formatNumber(processingPowerPerSecDisplay) + " Processing Power/sec";
     previousProcessingPower = currentProcessingPower;
 }
@@ -862,6 +873,8 @@ function generateViperCoin() {
 function updateViperCoinDisplay() {
     document.getElementById("viperCoinCounter").innerHTML =
         formatNumber(viperCoin) + " ViperCoin";
+    document.getElementById("viperCoinCounter-2").innerHTML =
+        formatNumber(viperCoin) + " ViperCoin";
     setButtonColors();
 }
 function updateViperCoinPerSec() {
@@ -869,6 +882,8 @@ function updateViperCoinPerSec() {
     viperCoinPerSecDisplay = currentViperCoin - previousViperCoin;
     viperCoinPerSecDisplay = parseFloat(viperCoinPerSecDisplay.toFixed(3));
     document.getElementById("viperCoinPerSec").innerHTML =
+        formatNumber(viperCoinPerSecDisplay) + " ViperCoin/sec";
+    document.getElementById("viperCoinPerSec-2").innerHTML =
         formatNumber(viperCoinPerSecDisplay) + " ViperCoin/sec";
     previousViperCoin = currentViperCoin;
 }
@@ -1012,6 +1027,8 @@ function highEfficiencyAutoGather() {
     resources += totalGain;
     totalResGain += totalGain;
     document.getElementById("resourceCounter").innerHTML =
+        formatNumber(resources) + " Resources🔗";
+    document.getElementById("resourceCounter-2").innerHTML =
         formatNumber(resources) + " Resources🔗";
     setButtonColors();
 }
@@ -1345,6 +1362,7 @@ function startStageTimer() {
 function updateStageTimer() {
     stageTimeInSec++;
     stageTimer.innerHTML = `${formatTime(stageTimeInSec)}`;
+    stageTimer2.innerHTML = `${formatTime(stageTimeInSec)}`;
 }
 function increaseClickCount() {
     clickCount++;
@@ -1485,17 +1503,24 @@ function issueEndStage1Alert() {
         confirmButtonText: "Continue",
         confirmButtonColor: "#0000cc",
         allowOutsideClick: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            initializeStage2();
+        }
     });
 
-    stage1.classList.remove("active");
-    stage2.classList.add("active");
     pauseMusic();
     backgroundMusic.src = "sounds/applause-cheer.mp3";
     playMusic();
 }
 /******************************************************/
 
-
+function initializeStage2() {
+    stage1.classList.remove("active");
+    stage2.classList.add("active");
+    document.getElementById("globalAiNetwork-real").style.display = "block";
+    initializeZoomAndPan();
+}
 
 function startGame() {
     // Initialize level displays
@@ -1565,6 +1590,8 @@ function startGame() {
             resources += value;
             document.getElementById("resourceCounter").innerHTML =
                 formatNumber(resources) + " Resources🔗";
+            document.getElementById("resourceCounter-2").innerHTML =
+                formatNumber(resources) + " Resources🔗";
             this.disabled = true;
         });
 
@@ -1573,9 +1600,9 @@ function startGame() {
         .addEventListener("click", function () {
             var value = 9999999999999;
             processingPower += value;
-            document.getElementById(
-                "processingPowerCounter"
-            ).innerHTML =
+            document.getElementById("processingPowerCounter").innerHTML =
+                formatNumber(processingPower) + " Processing Power⚙️";
+            document.getElementById("processingPowerCounter-2").innerHTML =
                 formatNumber(processingPower) + " Processing Power⚙️";
             this.disabled = true;
         });
@@ -1587,11 +1614,10 @@ function startGame() {
             viperCoin += value;
             document.getElementById("viperCoinCounter").innerHTML =
                 formatNumber(viperCoin) + " ViperCoin";
+            document.getElementById("viperCoinCounter-2").innerHTML =
+                formatNumber(viperCoin) + " ViperCoin";
             this.disabled = true;
         });
-
-    // Initialize Zoom and Pan functionality
-    initializeZoomAndPan();
 
     document.addEventListener("DOMContentLoaded", () => {
         const countries = document.querySelectorAll(".country");

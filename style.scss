@@ -117,6 +117,47 @@ h2.stage-1-title {
     }
 }
 
+h2.stage-2-title {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 2.5em;
+    color: $pink-red;
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+    background: #fff067;
+    background-size: 150% 150%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+
+    &:before {
+        content: "Stage 2: Conquer the World";
+        position: absolute;
+        top: 22%;
+        left: 2%;
+        width: 100%;
+        height: 100%;
+        color: $glow-color;
+        z-index: -1;
+        filter: blur(5px);
+        opacity: 0.6;
+    }
+
+    // Responsive Design
+    @media (max-width: 768px) {
+        font-size: 1.5rem;
+        padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+        font-size: 1rem;
+        padding: 5px;
+    }
+}
+
 h1.ai-overlord-title {
     margin-top: -8px;
     margin-bottom: -23px;
@@ -192,49 +233,65 @@ h1.ai-overlord-title {
     margin: 0 auto;
 }
 
-#resourceBar {
+#resourceBar,
+#resourceBar-2 {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
 }
 
-#resourceCounter {
+#resourceCounter,
+#resourceCounter-2 {
     font-size: 1.5em;
 }
 
-#resPerSec {
+#resPerSec,
+#resPerSec-2 {
     font-size: 1.5em;
     margin-left: auto;
 }
 
-#processingPowerBar {
+#processingPowerBar,
+#processingPowerBar-2 {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
 }
 
-#processingPowerCounter {
+#processingPowerCounter,
+#processingPowerCounter-2 {
     font-size: 1.5em;
 }
 
-#processingPowerPerSec {
+#processingPowerPerSec,
+#processingPowerPerSec-2 {
     font-size: 1.5em;
     margin-left: auto;
 }
 
-#viperCoinBar {
+#viperCoinBar,
+#viperCoinBar-2 {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
 }
 
-#viperCoinCounter {
+#viperCoinCounter,
+#viperCoinCounter-2 {
     font-size: 1.5em;
 }
 
-#viperCoinPerSec {
+#viperCoinPerSec,
+#viperCoinPerSec-2 {
     font-size: 1.5em;
     margin-left: auto;
+}
+
+#viper-coin-counter-icon-row,
+#viper-coin-counter-icon-row-2 {
+    justify-content: center;
+    align-items: center;
+    margin-top: 2px;
 }
 
 #toggle-tooltips-row {
@@ -247,12 +304,6 @@ h1.ai-overlord-title {
     transform: scale(0.85);
     min-width: 420px;
     max-width: 420px;
-}
-
-#viper-coin-counter-icon-row {
-    justify-content: center;
-    align-items: center;
-    margin-top: 2px;
 }
 
 #title-row {
@@ -280,14 +331,16 @@ h1.ai-overlord-title {
     width: 99.9%; // so that everything fits behind the sticky header
 }
 
-#stageBar {
+#stageBar,
+#stageBar-2 {
     margin-top: -20px;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
 }
 
-#stage-timer {
+#stage-timer,
+#stage-timer-2 {
     font-size: 3em;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
@@ -382,7 +435,8 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
     margin-bottom: 10px;
 }
 
-#globalAiNetwork {
+#globalAiNetwork,
+#globalAiNetwork-real {
     margin-top: 20px;
     margin-bottom: 20px;
     padding: 10px;
@@ -396,7 +450,8 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 }
 
 // Styles for Global AI Network Header
-#globalAiNetwork {
+#globalAiNetwork,
+#globalAiNetwork-real {
     h3 {
         margin-top: 0;
         color: #fff;
@@ -417,9 +472,10 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
     }
 }
 
-#globalAiNetwork .button-upgrades {
-    width: 80%;
-    margin-bottom: 10px;
+#globalAiNetwork .button-upgrades,
+#globalAiNetwork-real .button-upgrades {
+        width: 80%;
+        margin-bottom: 10px;
 }
 
 /* Map Controls Styling */
@@ -450,10 +506,11 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
     }
 }
 
-.global-ai-network-map {
+.global-ai-network-map,
+.global-ai-network-map-fake {
     position: relative;
     width: 100%;
-    max-width: 1070px;
+    max-width: fit-content;
     height: 535px;
     background-color: #a3a3a3;
     border: 2px solid #333;
@@ -496,6 +553,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
         box-shadow: 0 0 10px $globalAiNetwork-primary;
         transition: opacity 0.3s;
         z-index: 10;
+        pointer-events: auto;
 
         &.hidden {
             opacity: 0;
@@ -635,6 +693,10 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
         transform: scale(1.05);
         box-shadow: #000 4px 4px 0 0;
     }
+}
+
+.button-gather-res {
+    margin-left: 0px;
 }
 
 .button-upgrades {
@@ -1281,7 +1343,7 @@ $crt-overscan-width: 2.66667em;
     position: relative;
     margin: $crt-margin;
     min-height: 250px;
-    max-width: 700px;
+    max-width: 1100px;
     min-width: 700px;
     box-shadow: inset 0 0 1px 0.66667em #000;
     border-radius: $crt-border-radius;
