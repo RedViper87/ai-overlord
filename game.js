@@ -58,6 +58,7 @@ let musicShuffled = false;
 
 // Stats variables
 let stageTimer = document.getElementById("stage-timer");
+let stageTimer2 = document.getElementById("stage-timer-2");
 let stageTimeInSec = 0;
 let clickCount = 0;
 let totalResGain = 0;
@@ -1345,6 +1346,7 @@ function startStageTimer() {
 function updateStageTimer() {
     stageTimeInSec++;
     stageTimer.innerHTML = `${formatTime(stageTimeInSec)}`;
+    stageTimer2.innerHTML = `${formatTime(stageTimeInSec)}`;
 }
 function increaseClickCount() {
     clickCount++;
@@ -1485,17 +1487,27 @@ function issueEndStage1Alert() {
         confirmButtonText: "Continue",
         confirmButtonColor: "#0000cc",
         allowOutsideClick: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            initializeStage2();
+        }
     });
 
-    stage1.classList.remove("active");
-    stage2.classList.add("active");
     pauseMusic();
     backgroundMusic.src = "sounds/applause-cheer.mp3";
     playMusic();
 }
 /******************************************************/
 
+function initializeStage2() {
+    stage1.classList.remove("active");
+    stage2.classList.add("active");
+    document.getElementById("globalAiNetwork-real").style.display = "block";
+    initializeZoomAndPan();
 
+    let stageTimer2 = document.getElementById("stage-timer-2");
+    stageTimer2 = stageTimer;
+}
 
 function startGame() {
     // Initialize level displays
@@ -1589,9 +1601,6 @@ function startGame() {
                 formatNumber(viperCoin) + " ViperCoin";
             this.disabled = true;
         });
-
-    // Initialize Zoom and Pan functionality
-    initializeZoomAndPan();
 
     document.addEventListener("DOMContentLoaded", () => {
         const countries = document.querySelectorAll(".country");

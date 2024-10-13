@@ -102,6 +102,47 @@ h2.stage-1-title:before {
   }
 }
 
+h2.stage-2-title {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 2.5em;
+  color: #ff85c1;
+  position: relative;
+  display: inline-block;
+  padding: 10px;
+  background: #fff067;
+  background-size: 150% 150%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+h2.stage-2-title:before {
+  content: "Stage 2: Conquer the World";
+  position: absolute;
+  top: 22%;
+  left: 2%;
+  width: 100%;
+  height: 100%;
+  color: #ff85c1;
+  z-index: -1;
+  filter: blur(5px);
+  opacity: 0.6;
+}
+@media (max-width: 768px) {
+  h2.stage-2-title {
+    font-size: 1.5rem;
+    padding: 8px;
+  }
+}
+@media (max-width: 480px) {
+  h2.stage-2-title {
+    font-size: 1rem;
+    padding: 5px;
+  }
+}
+
 h1.ai-overlord-title {
   margin-top: -8px;
   margin-bottom: -23px;
@@ -171,49 +212,65 @@ h1.ai-overlord-title:before {
   margin: 0 auto;
 }
 
-#resourceBar {
+#resourceBar,
+#resourceBar-2 {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
 }
 
-#resourceCounter {
+#resourceCounter,
+#resourceCounter-2 {
   font-size: 1.5em;
 }
 
-#resPerSec {
+#resPerSec,
+#resPerSec-2 {
   font-size: 1.5em;
   margin-left: auto;
 }
 
-#processingPowerBar {
+#processingPowerBar,
+#processingPowerBar-2 {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
 }
 
-#processingPowerCounter {
+#processingPowerCounter,
+#processingPowerCounter-2 {
   font-size: 1.5em;
 }
 
-#processingPowerPerSec {
+#processingPowerPerSec,
+#processingPowerPerSec-2 {
   font-size: 1.5em;
   margin-left: auto;
 }
 
-#viperCoinBar {
+#viperCoinBar,
+#viperCoinBar-2 {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
 }
 
-#viperCoinCounter {
+#viperCoinCounter,
+#viperCoinCounter-2 {
   font-size: 1.5em;
 }
 
-#viperCoinPerSec {
+#viperCoinPerSec,
+#viperCoinPerSec-2 {
   font-size: 1.5em;
   margin-left: auto;
+}
+
+#viper-coin-counter-icon-row,
+#viper-coin-counter-icon-row-2 {
+  justify-content: center;
+  align-items: center;
+  margin-top: 2px;
 }
 
 #toggle-tooltips-row {
@@ -226,12 +283,6 @@ h1.ai-overlord-title:before {
   transform: scale(0.85);
   min-width: 420px;
   max-width: 420px;
-}
-
-#viper-coin-counter-icon-row {
-  justify-content: center;
-  align-items: center;
-  margin-top: 2px;
 }
 
 #title-row {
@@ -259,14 +310,16 @@ h1.ai-overlord-title:before {
   width: 99.9%;
 }
 
-#stageBar {
+#stageBar,
+#stageBar-2 {
   margin-top: -20px;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
 }
 
-#stage-timer {
+#stage-timer,
+#stage-timer-2 {
   font-size: 3em;
   font-family: "Courier New", Courier, monospace;
   font-weight: bold;
@@ -344,7 +397,8 @@ h1.ai-overlord-title:before {
   margin-bottom: 10px;
 }
 
-#globalAiNetwork {
+#globalAiNetwork,
+#globalAiNetwork-real {
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 10px;
@@ -357,7 +411,8 @@ h1.ai-overlord-title:before {
   justify-content: center;
 }
 
-#globalAiNetwork h3 {
+#globalAiNetwork h3,
+#globalAiNetwork-real h3 {
   margin-top: 0;
   color: #fff;
   background: linear-gradient(45deg, #007bff, #ffa500);
@@ -370,12 +425,14 @@ h1.ai-overlord-title:before {
   box-shadow: 0 4px 8px rgba(255, 255, 255, 0.5);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-#globalAiNetwork h3:hover {
+#globalAiNetwork h3:hover,
+#globalAiNetwork-real h3:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px white;
 }
 
-#globalAiNetwork .button-upgrades {
+#globalAiNetwork .button-upgrades,
+#globalAiNetwork-real .button-upgrades {
   width: 80%;
   margin-bottom: 10px;
 }
@@ -405,7 +462,8 @@ h1.ai-overlord-title:before {
   transform: scale(0.95);
 }
 
-.global-ai-network-map {
+.global-ai-network-map,
+.global-ai-network-map-fake {
   position: relative;
   width: 100%;
   max-width: 1070px;
@@ -415,26 +473,32 @@ h1.ai-overlord-title:before {
   border-radius: 10px;
   overflow: hidden;
 }
-.global-ai-network-map #world-map {
+.global-ai-network-map #world-map,
+.global-ai-network-map-fake #world-map {
   width: 100%;
   height: 100%;
   transform-origin: top left;
   cursor: grab;
 }
-.global-ai-network-map #world-map .country {
+.global-ai-network-map #world-map .country,
+.global-ai-network-map-fake #world-map .country {
   fill: #86c440;
   stroke: #18062c;
   stroke-width: 0.25;
   transition: fill 0.3s, transform 0.3s;
 }
-.global-ai-network-map #world-map .country:hover, .global-ai-network-map #world-map .country.active {
+.global-ai-network-map #world-map .country:hover, .global-ai-network-map #world-map .country.active,
+.global-ai-network-map-fake #world-map .country:hover,
+.global-ai-network-map-fake #world-map .country.active {
   fill: #ff7300;
   cursor: pointer;
 }
-.global-ai-network-map #world-map:active {
+.global-ai-network-map #world-map:active,
+.global-ai-network-map-fake #world-map:active {
   cursor: grabbing;
 }
-.global-ai-network-map .info-box {
+.global-ai-network-map .info-box,
+.global-ai-network-map-fake .info-box {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -447,15 +511,18 @@ h1.ai-overlord-title:before {
   transition: opacity 0.3s;
   z-index: 10;
 }
-.global-ai-network-map .info-box.hidden {
+.global-ai-network-map .info-box.hidden,
+.global-ai-network-map-fake .info-box.hidden {
   opacity: 0;
   pointer-events: none;
 }
-.global-ai-network-map .info-box h2 {
+.global-ai-network-map .info-box h2,
+.global-ai-network-map-fake .info-box h2 {
   margin: 0 0 10px 0;
   color: #00ffff;
 }
-.global-ai-network-map .info-box p {
+.global-ai-network-map .info-box p,
+.global-ai-network-map-fake .info-box p {
   margin: 0;
 }
 
@@ -578,6 +645,10 @@ h1.ai-overlord-title:before {
 #next-track-button:hover {
   transform: scale(1.05);
   box-shadow: #000 4px 4px 0 0;
+}
+
+.button-gather-res {
+  margin-left: 0px;
 }
 
 .button-upgrades {
