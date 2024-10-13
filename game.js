@@ -1516,8 +1516,9 @@ function issueEndStage1Alert() {
 /******************************************************/
 
 function initializeStage2() {
-    stage1.classList.remove("active");
+    // stage1.classList.remove("active");
     stage2.classList.add("active");
+    document.getElementById("globalAiNetwork").style.display = "none";
     document.getElementById("globalAiNetwork-real").style.display = "block";
     initializeZoomAndPan();
 }

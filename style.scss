@@ -126,7 +126,7 @@ h2.stage-2-title {
     position: relative;
     display: inline-block;
     padding: 10px;
-    background: #fff067;
+    background: #ffea28;
     background-size: 150% 150%;
     background-clip: text;
     -webkit-background-clip: text;
@@ -452,6 +452,7 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 // Styles for Global AI Network Header
 #globalAiNetwork,
 #globalAiNetwork-real {
+    justify-content: center;
     h3 {
         margin-top: 0;
         color: #fff;
@@ -509,8 +510,6 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 .global-ai-network-map,
 .global-ai-network-map-fake {
     position: relative;
-    width: 100%;
-    max-width: fit-content;
     height: 535px;
     background-color: #a3a3a3;
     border: 2px solid #333;
@@ -525,8 +524,8 @@ $globalAiNetwork-gradient: linear-gradient(45deg, #007bff, #ffa500);
 
         .country {
             fill: #86c440;
-            stroke: #18062c;
-            stroke-width: 0.25;
+            stroke: #3c1469;
+            stroke-width: 0.5;
             transition: fill 0.3s, transform 0.3s;
 
             &:hover,

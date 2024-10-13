@@ -111,7 +111,7 @@ h2.stage-2-title {
   position: relative;
   display: inline-block;
   padding: 10px;
-  background: #fff067;
+  background: #ffea28;
   background-size: 150% 150%;
   background-clip: text;
   -webkit-background-clip: text;
@@ -411,6 +411,10 @@ h1.ai-overlord-title:before {
   justify-content: center;
 }
 
+#globalAiNetwork,
+#globalAiNetwork-real {
+  justify-content: center;
+}
 #globalAiNetwork h3,
 #globalAiNetwork-real h3 {
   margin-top: 0;
@@ -465,9 +469,6 @@ h1.ai-overlord-title:before {
 .global-ai-network-map,
 .global-ai-network-map-fake {
   position: relative;
-  width: 100%;
-  max-width: -moz-fit-content;
-  max-width: fit-content;
   height: 535px;
   background-color: #a3a3a3;
   border: 2px solid #333;
@@ -484,8 +485,8 @@ h1.ai-overlord-title:before {
 .global-ai-network-map #world-map .country,
 .global-ai-network-map-fake #world-map .country {
   fill: #86c440;
-  stroke: #18062c;
-  stroke-width: 0.25;
+  stroke: #3c1469;
+  stroke-width: 0.5;
   transition: fill 0.3s, transform 0.3s;
 }
 .global-ai-network-map #world-map .country:hover, .global-ai-network-map #world-map .country.active,
