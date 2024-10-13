@@ -466,7 +466,8 @@ h1.ai-overlord-title:before {
 .global-ai-network-map-fake {
   position: relative;
   width: 100%;
-  max-width: 1070px;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
   height: 535px;
   background-color: #a3a3a3;
   border: 2px solid #333;
@@ -510,6 +511,7 @@ h1.ai-overlord-title:before {
   box-shadow: 0 0 10px #00ffff;
   transition: opacity 0.3s;
   z-index: 10;
+  pointer-events: auto;
 }
 .global-ai-network-map .info-box.hidden,
 .global-ai-network-map-fake .info-box.hidden {
@@ -1226,7 +1228,7 @@ input:checked + .small-slider:before {
   position: relative;
   margin: 1em;
   min-height: 250px;
-  max-width: 700px;
+  max-width: 1100px;
   min-width: 700px;
   box-shadow: inset 0 0 1px 0.66667em #000;
   border-radius: 1.33333em;
