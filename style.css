@@ -949,11 +949,6 @@ h1.ai-overlord-title:before {
   transition: 0.5s;
 }
 
-.overlay-content span {
-  font-size: 34px;
-  padding-right: 10px;
-}
-
 /* Position the close button (top right corner) */
 .overlay .closebtn {
   position: absolute;

@@ -1625,10 +1625,11 @@ function startGame() {
         const infoBox = document.getElementById("info-box");
         const countryName = document.getElementById("country-name");
         const countryPop = document.getElementById("country-pop");
-        const audio = document.getElementById('background-music');
-        const currentTimeEl = document.getElementById('current-time');
-        const totalTimeEl = document.getElementById('total-time');
-        const progressFill = document.querySelector('.music-progress-fill');
+        const audio = document.getElementById("background-music");
+        const currentTimeEl = document.getElementById("current-time");
+        const totalTimeEl = document.getElementById("total-time");
+        const progressBar = document.getElementById("progress-bar");
+        const progressFill = document.querySelector(".music-progress-fill");
         const overlay = document.getElementById("myNav");
 
         countries.forEach((country) => {
@@ -1660,6 +1661,14 @@ function startGame() {
             currentTimeEl.textContent = formatTime(audio.currentTime);
             const progressPercent = (audio.currentTime / audio.duration) * 100;
             progressFill.style.width = `${progressPercent}%`;
+        });
+
+        progressBar.addEventListener('click', (e) => {
+            const offsetX = e.offsetX;
+            const totalWidth = progressBar.offsetWidth;
+            const clickPercentage = offsetX / totalWidth;
+
+            audio.currentTime = clickPercentage * audio.duration;
         });
 
         overlay.addEventListener("click", function (event) {

@@ -41,7 +41,7 @@
                         <div class="progress-container">
                             <span id="current-time">0:00</span>
                             <div class="spacer"></div>
-                            <div class="progress-bar">
+                            <div class="progress-bar" id="progress-bar">
                                 <div class="music-progress-fill"></div>
                             </div>
                             <div class="spacer"></div>
@@ -73,23 +73,25 @@
                         <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.1">
                     </div>
                 </div>
-                <div id="toggle-tooltips-row" class="centered-row">
-                    <!-- Toggle Tooltips Option -->
-                    <label class="switch">
-                        <input type="checkbox" checked onclick="toggleTooltips()" />
-                        <span class="slider round"></span>
-                    </label>
-                    <div class="spacer"></div>
-                    <span class="toggle-title">Toggle Tooltips</span>
-                </div>
-                <div id="toggle-glitch-row" class="centered-row">
-                    <!-- Toggle Glitch Effect Option -->
-                    <label class="switch">
-                        <input type="checkbox" id="toggle-glitch" checked onclick="toggleGlitchEffect()" />
-                        <span class="slider round"></span>
-                    </label>
-                    <div class="spacer"></div>
-                    <span class="toggle-title">Toggle Glitch Effect</span>
+                <div id="toggle-options" class="centered-row">
+                    <div id="toggle-tooltips-row" class="centered-row">
+                        <!-- Toggle Tooltips Option -->
+                        <label class="switch">
+                            <input type="checkbox" checked onclick="toggleTooltips()" />
+                            <span class="slider round"></span>
+                        </label>
+                        <div class="spacer"></div>
+                        <span class="toggle-title">Toggle Tooltips</span>
+                    </div>
+                    <div id="toggle-glitch-row" class="centered-row">
+                        <!-- Toggle Glitch Effect Option -->
+                        <label class="switch">
+                            <input type="checkbox" id="toggle-glitch" checked onclick="toggleGlitchEffect()" />
+                            <span class="slider round"></span>
+                        </label>
+                        <div class="spacer"></div>
+                        <span class="toggle-title">Toggle Glitch Effect</span>
+                    </div>
                 </div>
             </div>
         </div>
